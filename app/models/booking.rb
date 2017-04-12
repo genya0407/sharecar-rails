@@ -1,0 +1,5 @@
+class Booking < ApplicationRecord
+  belongs_to :car
+  has_many :user_bookings
+  has_many :users, through: :user_bookings
+end
