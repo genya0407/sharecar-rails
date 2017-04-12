@@ -1,6 +1,6 @@
 class CreateBookingForm
   include Virtus.model
-  include ActiveModel::Validations
+  include ActiveModel::Model
 
   attribute :start_at, DateTime
   attribute :end_at, DateTime
@@ -39,7 +39,7 @@ class CreateBookingForm
       )
 
       unless booking.valid?
-        booking.each do |key, message|
+        @booking.errors.each do |key, message|
           errors.add(key, message)
         end
       end
