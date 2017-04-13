@@ -1,6 +1,6 @@
 class DrivesController < ApplicationController
   def new
-    @form = DriveForm::Create.new(driver_ids: [current_user.id])
+    @form = DriveForm::Create.new(driver_ids: [current_user.id], car_id: params[:car_id])
   end
 
   def create

@@ -10,7 +10,7 @@
   </div>
 <% end %>
 
-<%= form_for @form, url: drives_path, :method => :post do |f| %>
+<%= form_for @form, url: car_drives_path, :method => :post do |f| %>
   <div class="field">
     <%= f.label :car_id %><br />
     <%= f.collection_select :car_id, Car.all, :id, :name %>

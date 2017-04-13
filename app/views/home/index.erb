@@ -1,1 +1,5 @@
-<h1>Hi! user!</h1>
+<ul>
+<% @cars.each do |car| %>
+	<li><a href="<%= car_path car %>"><%= car.name %></li>
+<% end %>
+</ul>
