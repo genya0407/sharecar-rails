@@ -1,5 +1,22 @@
-<ul>
+<div class="row">
 <% @cars.each do |car| %>
-	<li><a href="<%= car_path car %>"><%= car.name %></li>
+  <div class="col s12">
+    <div class="card">
+      <div class="card-image">
+        <img src="https://source.unsplash.com/category/objects/400x200">
+        <a href="<%= new_car_drife_path car.id %>" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">directions_car</i></a>
+      </div>
+      <div class="card-content">
+        <p>
+          <%= car.name %>
+          <% if car.occupied? %>
+            <span class="badge red white-text">使用中</span>
+          <% else %>
+            <span class="badge green white-text">使用可</span>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </div>
 <% end %>
-</ul>
+</div>
