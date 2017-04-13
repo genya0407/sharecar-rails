@@ -1,0 +1,16 @@
+@import "materialize/components/color";
+$primary-color-dark:   #303F9F;
+$primary-color:        #3F51B5;
+$primary-color-light:  #C5CAE9;
+$primary-color-text:   #FFFFFF;
+$accent-color:         #8BC34A;
+$primary-text-color:   #212121;
+$secondary-text-color: #757575;
+$divider-color:        #BDBDBD;
+@import "materialize";
+
+div.content {
+	width: 95%;
+	margin-left: auto;
+	margin-right: auto;
+}

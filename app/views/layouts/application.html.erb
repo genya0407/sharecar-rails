@@ -1,27 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>SharecarRails</title>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<head>
+  <title>SharecarRails</title>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
 
-  <body>
-	  <div id="nav">
-	    <% if current_user %>
-	      <%= link_to "Edit Profile", edit_user_path(current_user.id) %>
-	      <%= link_to "Logout", :logout, method: :post %>
-	    <% else %>
-	      <%= link_to "Register", new_user_path %> |
-	      <%= link_to "Login", :login %>
-	    <% end %>
-	  </div>
-	  <div>
-	    <p id="notice"><%= flash[:notice] %></p>
-	    <p id="alert"><%= flash[:alert] %></p>
-	  </div>
-	  <%= yield %>
+<body>
+	<nav>
+    <div class="nav-wrapper">
+      <a href="#" data-activates="side-nav" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="side-nav" id="side-nav">
+        <li>
+          <div class="userView">
+            <div class="background">
+              <img src="https://source.unsplash.com/category/objects/400x300">
+            </div>
+            <a href="#!user"><img class="circle" src=""></a>
+            <br />
+            <a href="#!name"><span class="white-text name"><%= current_user.name %></span></a>
+            <a href="#!email"><span class="white-text email"><%= current_user.email %></span></a>
+          </div>
+        </li>
+        <li><a class="subheader"><i class="material-icons">settings</i>Settings</a></li>
+        <% if current_user %>
+        <li><%= link_to "Edit Profile", edit_user_path(current_user.id) %></li>
+        <li><%= link_to "Logout", :logout, method: :post %></li>
+        <% else %>
+        <li><%= link_to "Register", new_user_path %></li>
+        <li><%= link_to "Login", :login %></li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
 
-  </body>
+<!--
+  <p id="notice"><%= flash[:notice] %></p>
+  <p id="alert"><%= flash[:alert] %></p>
+-->
+
+  <div class="content">
+    <%= yield %>
+  </div>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</body>
 </html>
