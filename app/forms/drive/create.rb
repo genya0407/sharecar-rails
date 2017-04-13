@@ -3,13 +3,18 @@ class DriveForm
     attribute :car_id, Integer
     attribute :start_at, DateTime, default: Time.zone.now
     attribute :end_at, DateTime, default: Time.zone.now
-    attribute :start_meter, Integer, default: Drive.maximum(:end_meter)
+    attribute :start_meter, Integer
     attribute :end_meter, Integer
     attribute :driver_ids, Array[Integer]
 
     attr_reader :drive, :user_drives
 
     validate :drive_valid?, :drivers_exist?
+
+    def initialize(*args)
+      super(*args)
+      self.start_meter = Drive.where(car_id: car_id).maximum(:end_meter) if car_id.present?
+    end
 
     private
       def persist!
