@@ -1,34 +1,38 @@
-class BookingForm
+class DriveForm
   class Create < ApplicationForm
+    attribute :car_id, Integer
     attribute :start_at, DateTime, default: Time.zone.now
     attribute :end_at, DateTime, default: Time.zone.now
-    attribute :car_id, Integer
+    attribute :start_meter, Integer, default: Drive.maximum(:end_meter)
+    attribute :end_meter, Integer
     attribute :driver_ids, Array[Integer]
 
-    attr_reader :booking, :user_bookings
+    attr_reader :drive, :user_drives
 
-    validate :booking_valid?, :drivers_exist?
+    validate :drive_valid?, :drivers_exist?
 
     private
       def persist!
         ActiveRecord::Base.transaction do
-          @booking.save!
-          @user_bookings.each do |user_booking|
-            user_booking.booking_id = @booking.id
-            user_booking.save!
+          @drive.save!
+          @user_drives.each do |user_drive|
+            user_drive.drive_id = @drive.id
+            user_drive.save!
           end
         end
       end
 
-      def booking_valid?
-        @booking = Booking.new(
+      def drive_valid?
+        @drive = Drive.new(
           start_at: start_at,
           end_at: end_at,
+          start_meter: start_meter,
+          end_meter: end_meter,
           car_id: car_id
         )
 
-        unless booking.valid?
-          @booking.errors.each do |key, message|
+        unless drive.valid?
+          drive.errors.each do |key, message|
             errors.add(key, message)
           end
         end
@@ -40,8 +44,8 @@ class BookingForm
         end
 
         if nil_user_ids.empty?
-          @user_bookings = driver_ids.map do |driver_id|
-            UserBooking.new(user_id: driver_id)
+          @user_drives = driver_ids.map do |driver_id|
+            UserDrive.new(user_id: driver_id)
           end
         else
           errors.add(:driver_ids, "User #{nil_user_ids.join(',')} does not exist.")
