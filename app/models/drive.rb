@@ -9,6 +9,6 @@ class Drive < ApplicationRecord
   validates :user_id, presence: true
 
   def self.last_meter(car_id)
-    where(car_id: car_id).maximum(:end_meter)
+    (where(car_id: car_id).maximum(:end_meter) || 0)
   end
 end
