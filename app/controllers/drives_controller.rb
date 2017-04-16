@@ -1,21 +1,49 @@
 class DrivesController < ApplicationController
   def new
-    @form = DriveForm::Create.new(driver_ids: [current_user.id], car_id: params[:car_id])
+    start_meter = Drive.last_meter(params[:car_id])
+    @form = DriveForm::Create.new(start_meter: start_meter)
   end
 
   def create
-    @form = DriveForm::Create.new(drive_params.to_h)
+    @form = DriveForm::Create.new(drive_start_params)
 
-    if @form.save
+    if @form.valid?
+      drive = Drive.new(
+        @form.attributes_for_drive
+             .merge(user_id: current_user.id, car_id: params[:car_id])
+      )
+      drive.save!
       redirect_to :root
     else
       render :new
     end
   end
 
+  def edit
+    drive = current_user.drives.find(params[:id])
+    @form = DriveForm::Update.new(drive)
+  end
+
+  def update
+    drive = current_user.drives.find(params[:id])
+    @form = DriveForm::Update.new(drive, drive_end_params)
+
+    if @form.valid?
+      drive.update!(end_meter: @form.end_meter)
+      redirect_to :root
+    else
+      render :edit
+    end
+  end
+
   private
-    def drive_params
+    def drive_start_params
       params.require(:drive_form_create)
-            .permit(:car_id, :start_at, :end_at, :start_meter, :end_meter, driver_ids: [])
+            .permit(:start_meter, :using_hours).to_h
+    end
+
+    def drive_end_params
+      params.require(:drive_form_update)
+            .permit(:end_meter).to_h
     end
 end
