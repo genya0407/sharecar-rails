@@ -1,9 +1,9 @@
 class Booking < ApplicationRecord
   belongs_to :car
-  has_many :user_bookings
-  has_many :users, through: :user_bookings
+  belongs_to :user
 
   validates :start_at, presence: true
   validates :end_at, presence: true
   validates :car_id, presence: true
+  validates :user_id, presence: true
 end
