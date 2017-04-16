@@ -1,12 +1,12 @@
 class BookingsController < ApplicationController
   def new
-    @form = BookingForm::Create.new(driver_ids: [current_user.id])
+    @booking = Booking.new
   end
 
   def create
-    @form = BookingForm::Create.new(booking_params.to_h)
+    @booking = Booking.new(booking_params)
 
-    if @form.save
+    if @booking.save
       redirect_to :root
     else
       render :new
@@ -15,7 +15,8 @@ class BookingsController < ApplicationController
 
   private
     def booking_params
-      params.require(:form_booking_create)
-            .permit(:start_at, :end_at, :car_id, driver_ids: [])
+      params.require(:booking)
+            .permit(:start_at, :end_at).to_h
+            .merge(user_id: current_user.id, car_id: params[:car_id])
     end
 end
