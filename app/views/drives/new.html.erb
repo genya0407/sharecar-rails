@@ -14,16 +14,14 @@
   <%= form_for @form, url: car_drives_path, :method => :post, html: { class: 'col s12' } do |f| %>
     <div class="row">
       <div class="input-field col s12">
-        <%= f.label :using_hours %>
-        <%= f.number_field :using_hours %>
-      </div>
-      <div class="input-field col s12">
         <%= f.label :start_meter %>
         <%= f.number_field :start_meter %>
       </div>
-      <div class="actions btn">
-        <%= f.submit "Create" %>
+      <div class="input-field col s12">
+        <%= f.label :using_hours %>
+        <%= f.number_field :using_hours %>
       </div>
+      <%= f.submit "開始", class: "actions btn" %>
     </div>
   <% end %>
 </div>
