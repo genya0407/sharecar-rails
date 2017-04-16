@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: [:new, :create]
+  before_action :should_be_admin, except: [:show, :index]
 
   def index
     @users = User.all
@@ -12,9 +13,6 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def edit
-  end
-
   def create
     @user = User.new(user_params)
 
@@ -23,12 +21,6 @@ class UsersController < ApplicationController
     else
       render action: :new
     end
-  end
-
-  def update
-  end
-
-  def destroy
   end
 
   private
