@@ -54,4 +54,9 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.autoload_paths += ["#{Rails.root}/app/form"]
+
+  # email
+  config.action_mailer.default_url_options = { :host => 'localhost:3000', :protocol => 'http'}
 end
+
+ActionMailer::Base.raise_delivery_errors = true
