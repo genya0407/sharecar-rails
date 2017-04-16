@@ -3,7 +3,6 @@ class Car < ApplicationRecord
   has_many :drives, class_name: 'Drive'
 
   def occupied?
-    now = Time.zone.now
-    drives.where("start_at < ? AND ? <= end_at", now, now).exists?
+    drives.where(end_meter: nil).exists?
   end
 end
