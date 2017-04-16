@@ -6,6 +6,10 @@ class Car < ApplicationRecord
     drives.where(end_meter: nil).exists?
   end
 
+  def current_driver
+    drives.find_by(end_meter: nil)&.user
+  end
+
   def using_drive(user_id)
     @using_drive ||= drives.find_by(end_meter: nil, user_id: user_id)
   end
