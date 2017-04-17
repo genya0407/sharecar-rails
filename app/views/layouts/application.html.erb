@@ -25,12 +25,12 @@
             <a href="#!email"><span class="white-text email"><%= current_user&.email %></span></a>
           </div>
         </li>
-        <li><a class="subheader"><i class="material-icons">settings</i>Settings</a></li>
-        <% if current_user&.admin? %>
-        <li><%= link_to 'Create New User', new_user_path %></li>
-        <% end %>
         <% if current_user %>
-        <li><%= link_to "Logout", :logout, method: :post %></li>
+          <li><a class="subheader"><i class="material-icons">settings</i></a></li>
+          <% if current_user.admin? %>
+            <li><%= link_to 'Create New User', new_user_path %></li>
+          <% end %>
+          <li><%= link_to "Logout", :logout, method: :post %></li>
         <% end %>
       </ul>
     </div>

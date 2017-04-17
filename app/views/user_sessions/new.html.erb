@@ -1,9 +1,13 @@
-<h1>UserSessions#new</h1>
-<h1>Login</h1>
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">Login</span>
+    <%= render 'form' %>
+  </div>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', user_sessions_path %>
-
-<h1>Forgot Password?</h1>
-<%= render 'forgot_password_form' %>
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">Reset Password</span>
+    <%= render 'forgot_password_form' %>
+  </div>
+</div>
