@@ -15,7 +15,7 @@ class DriveForm
     private
       def end_meter_gt_start_meter
         unless end_meter > drive.start_meter
-          errors.add(:end_meter, 'end_meter should be greater than start_meter.')
+          errors.add(:end_meter, '降車時のメーターは、乗車時のメーター以上の値でなければいけません')
         end
       end
   end

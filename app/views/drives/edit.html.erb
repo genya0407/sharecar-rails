@@ -1,6 +1,6 @@
 <% if @form.errors.any? %>
   <div id="error_explanation">
-    <h2><%= @form.errors.count %>件のエラーがあります。</h2>
+    <h3><%= @form.errors.count %>件のエラーがあります。</h3>
  
     <ul>
     <% @form.errors.full_messages.each do |msg| %>
