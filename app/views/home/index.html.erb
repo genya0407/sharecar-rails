@@ -18,8 +18,8 @@
         </p>
       </div>
       <div class="card-action right-align">
-        <a href="<%= new_car_booking_path car_id: car.id %>" class="btn-floating btn-large waves-effect green"><i class="material-icons">bookmark</i></a>
         <a href="" class="btn-floating btn-large waves-effect green"><i class="material-icons">local_gas_station</i></a>
+        <a href="<%= new_car_booking_path car_id: car.id %>" class="btn-floating btn-large waves-effect green"><i class="material-icons">bookmark</i></a>
         <% if car.using?(current_user.id) %>
           <a href="<%= edit_car_drive_path car_id: car.id, id: car.using_drive(current_user.id).id %>" class="btn-floating btn-large waves-effect red"><i class="material-icons">done</i></a>
         <% else %>
