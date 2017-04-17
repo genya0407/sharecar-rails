@@ -10,17 +10,18 @@
   </div>
 <% end %>
 
-<div class="row">
-  <%= form_for @form, url: car_drive_path(id: @form.drive.id, car_id: @form.drive.car_id), :method => :put, html: { class: 'col s12' } do |f| %>
-    <div class="row">
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">乗車記録</span>
+    <%= form_for @form, url: car_drive_path(id: @form.drive.id, car_id: @form.drive.car_id), :method => :put, html: { class: 'col s12' } do |f| %>
       <div class="input-field col s12">
-        開始時メーター： <%= @form.drive.start_meter %><br />
+        乗車時のメーター： <%= @form.drive.start_meter %><br />
       </div>
       <div class="input-field col s12">
-        <%= f.label :end_meter %>
+        <%= f.label :end_meter, '降車時のメーター' %>
         <%= f.number_field :end_meter %>
       </div>
       <%= f.submit "終了", class: "actions btn" %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
