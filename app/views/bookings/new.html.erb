@@ -1,5 +1,3 @@
-<h3>使用予約</h3>
-
 <% if @booking.errors.any? %>
   <div id="error_explanation">
     <h2><%= @booking.errors.count %>件のエラーがあります。</h2>
@@ -12,14 +10,19 @@
   </div>
 <% end %>
 
-<%= form_for @booking, url: car_bookings_path, :method => :post do |f| %>
-  <div class="field">
-    <%= f.label :start_at %><br />
-    <%= f.datetime_field :start_at %>
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">使用予約</span>
+    <%= form_for @booking, url: car_bookings_path, :method => :post do |f| %>
+      <div class="field">
+        <%= f.label :start_at, '開始日時' %><br />
+        <%= f.datetime_field :start_at, class: 'datetimepicker' %>
+      </div>
+      <div class="field">
+        <%= f.label :end_at, '終了日時' %><br />
+        <%= f.datetime_field :end_at, class: 'datetimepicker' %>
+      </div>
+      <%= f.submit "予約", class: "actions btn" %>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :end_at %><br />
-    <%= f.datetime_field :end_at %>
-  </div>
-  <%= f.submit "予約", class: "actions btn" %>
-<% end %>
+</div>
