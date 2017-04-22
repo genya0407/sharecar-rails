@@ -6,6 +6,6 @@ default: &default
 
 development:
   <<: *default
-  host: db
+  host: 127.0.0.1
   username: sharecar
   password: sharecar
