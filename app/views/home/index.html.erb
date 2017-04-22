@@ -11,7 +11,8 @@
       <div class="card-content">
         <p>
           <% if car.occupied? %>
-            <span class="badge red white-text"><%= car.current_driver.name %>が使用中</span>
+            <span class="badge red white-text">〜<%= simple_datetime car.current_drive.end_at %></span>
+            <span class="badge red white-text"><%= car.current_driver.name %></span>
           <% else %>
             <span class="badge green white-text">使用可</span>
           <% end %>
