@@ -1,5 +1,6 @@
 require 'test_helper'
 
+=begin
 class UserSessionsControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
     get user_sessions_new_url
@@ -16,4 +17,4 @@ class UserSessionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-end
+=end

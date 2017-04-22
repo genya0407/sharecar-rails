@@ -1,5 +1,6 @@
 require 'test_helper'
 
+=begin
 class PasswordResetsControllerTest < ActionDispatch::IntegrationTest
   test "should get create" do
     get password_resets_create_url
@@ -16,4 +17,4 @@ class PasswordResetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-end
+=end

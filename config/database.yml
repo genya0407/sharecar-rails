@@ -9,3 +9,10 @@ development:
   host: 127.0.0.1
   username: sharecar
   password: sharecar
+
+test:
+  <<: *default
+  host: 127.0.0.1
+  database: sharecar-test
+  username: sharecar
+  password: sharecar
