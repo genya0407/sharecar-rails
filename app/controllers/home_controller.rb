@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @cars = Car.joins(:drives).all
+    @cars = Car.all
   end
 end
