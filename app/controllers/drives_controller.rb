@@ -3,6 +3,7 @@ class DrivesController < ApplicationController
     start_meter = Drive.last_meter(params[:car_id])
     drive = Drive.new(car_id: params[:car_id], user_id: current_user.id)
     @form = DriveForm::Create.new(drive, start_meter: start_meter)
+    @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
   end
 
   def create

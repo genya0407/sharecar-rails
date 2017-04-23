@@ -1,6 +1,9 @@
 require 'controllers/base'
+require 'helpers/booking'
 
 class DrivesControllerTest < BaseControllerTest
+  include BookingHelper
+
   setup do
     login
     @car = create(:car)
@@ -11,6 +14,15 @@ class DrivesControllerTest < BaseControllerTest
     get new_car_drive_path(car_id: @car.id)
 
     assert_select 'input#drive_form_create_start_meter', { value: @drive.end_meter }
+  end
+
+  test '#new in_effectな予約が表示されること' do
+    create_in_effect(@car)
+
+    get new_car_drive_path(car_id: @car.id)
+
+    assert_select 'div#bookings > div.card > div.card-content > div.collection > div.collection-item',
+                  @car.bookings.in_effect.count
   end
 
   test '#create driveが作成できること' do

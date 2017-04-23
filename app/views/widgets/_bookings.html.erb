@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">使用予約</span>
+    <% if object.empty? %>
+      予約はありません
+    <% else %>
+      <div class='collection z-depth-2'>
+        <% object.each do |booking| %>
+          <div class='collection-item'>
+            <%= booking.user.name %>：<%= simple_datetime booking.start_at %> 〜 <%= simple_datetime booking.end_at %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

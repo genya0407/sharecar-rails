@@ -10,19 +10,25 @@
   </div>
 <% end %>
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">乗車記録</span>
-    <%= form_for @form, url: car_drives_path, :method => :post, html: { class: 'col s12' } do |f| %>
-      <div class="input-field col s12">
-        <%= f.label :start_meter, '乗車時のメーター' %>
-        <%= f.number_field :start_meter %>
-      </div>
-      <div class="input-field col s12">
-        <%= f.label :using_hours, '何時間使う予定なのか' %>
-        <%= f.number_field :using_hours %>
-      </div>
-      <%= f.submit "開始", class: "actions btn" %>
-    <% end %>
+<div id='create-drive'>
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">乗車記録</span>
+      <%= form_for @form, url: car_drives_path, :method => :post, html: { class: 'col s12' } do |f| %>
+        <div class="input-field col s12">
+          <%= f.label :start_meter, '乗車時のメーター' %>
+          <%= f.number_field :start_meter %>
+        </div>
+        <div class="input-field col s12">
+          <%= f.label :using_hours, '何時間使う予定なのか' %>
+          <%= f.number_field :using_hours %>
+        </div>
+        <%= f.submit "開始", class: "actions btn" %>
+      <% end %>
+    </div>
   </div>
+</div>
+
+<div id='bookings'>
+  <%= render 'widgets/bookings', object: @bookings_in_effect %>
 </div>
