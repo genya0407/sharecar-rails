@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   def new
-    @booking = Booking.new
+    @booking = Booking.new(start_at: Time.zone.now, end_at: Time.zone.now)
   end
 
   def create
