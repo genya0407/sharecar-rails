@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
   def new
     @booking = Booking.new(start_at: Time.zone.now, end_at: Time.zone.now)
+    @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
   end
 
   def create
@@ -9,6 +10,7 @@ class BookingsController < ApplicationController
     if @booking.save
       redirect_to :root
     else
+      @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
       render :new
     end
   end

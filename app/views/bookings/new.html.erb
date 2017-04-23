@@ -10,19 +10,25 @@
   </div>
 <% end %>
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">使用予約</span>
-    <%= form_for @booking, url: car_bookings_path, :method => :post do |f| %>
-      <div class="field">
-        <%= f.label :start_at, '開始日時' %><br />
-        <%= f.datetime_field :start_at, class: 'datetimepicker' %>
-      </div>
-      <div class="field">
-        <%= f.label :end_at, '終了日時' %><br />
-        <%= f.datetime_field :end_at, class: 'datetimepicker' %>
-      </div>
-      <%= f.submit "予約", class: "actions btn" %>
-    <% end %>
+<div id='create-booking'>
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">予約登録</span>
+      <%= form_for @booking, url: car_bookings_path, :method => :post do |f| %>
+        <div class="field">
+          <%= f.label :start_at, '開始日時' %><br />
+          <%= f.datetime_field :start_at, class: 'datetimepicker' %>
+        </div>
+        <div class="field">
+          <%= f.label :end_at, '終了日時' %><br />
+          <%= f.datetime_field :end_at, class: 'datetimepicker' %>
+        </div>
+        <%= f.submit "予約", class: "actions btn" %>
+      <% end %>
+    </div>
   </div>
+</div>
+
+<div id='bookings'>
+<%= render 'widgets/bookings', object: @bookings_in_effect %>
 </div>
