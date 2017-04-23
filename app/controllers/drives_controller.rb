@@ -14,6 +14,7 @@ class DrivesController < ApplicationController
       @form.drive.save!
       redirect_to :root
     else
+      @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
       render :new
     end
   end
