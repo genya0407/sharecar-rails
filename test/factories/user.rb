@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user do
     transient do
-      pass { Faker::Internet.password }
+      pass 'password'
     end
 
     name { Faker::Name.name }
