@@ -44,6 +44,9 @@ gem 'virtus'
 # Materialize css framework
 gem 'materialize-sass'
 
+# Using ES2015
+gem 'sprockets-commoner'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
