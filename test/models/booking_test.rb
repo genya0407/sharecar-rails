@@ -21,7 +21,7 @@ class BookingTest < ActiveSupport::TestCase
     assert booking.conflicted_bookings.empty?
 
     # 期間が重複する４パターンを試す
-    with_conflicted_bookings booking do |conflict|
+    with_conflicted_bookings booking do
       assert booking.conflicted_bookings.exists?
     end
   end
