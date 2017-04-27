@@ -3,6 +3,7 @@ $primary-color-dark:   #303F9F;
 $primary-color:        #3F51B5;
 $primary-color-light:  #C5CAE9;
 $primary-color-text:   #FFFFFF;
+$secondary-color:      #26C6DA;
 $accent-color:         #8BC34A;
 $primary-text-color:   #212121;
 $secondary-text-color: #757575;
@@ -14,4 +15,8 @@ div.content {
 	margin-top: 30px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+div.notice {
+	background-color: $secondary-color;
 }

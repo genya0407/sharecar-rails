@@ -36,10 +36,22 @@
     </div>
   </nav>
 
-<!--
-  <p id="notice"><%= flash[:notice] %></p>
-  <p id="alert"><%= flash[:alert] %></p>
--->
+  <div class="row">
+    <% if flash[:notice] %>
+    <div class="col s12">
+      <div class="card-panel notice">
+        <span class="white-text"><%= flash[:notice] %></span>
+      </div>
+    </div>
+    <% end %>
+    <% if flash[:alert] %>
+    <div class="col s12">
+      <div class="card-panel red">
+        <span class="white-text"><%= flash[:alert] %></span>
+      </div>
+    </div>
+    <% end %>
+  </div>
 
   <div class="content">
     <%= yield %>
