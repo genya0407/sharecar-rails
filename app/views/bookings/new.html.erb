@@ -1,13 +1,15 @@
 <% if @form.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= @form.errors.count %>件のエラーがあります。</h2>
- 
-    <ul>
-    <% @form.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+<div class="row">
+  <% @form.errors.messages.each do |key, msgs| %>
+    <% msgs.each do |msg| %>
+    <div class="col s12">
+      <div class="card-panel red">
+        <span class="white-text"><%= msg %></span>
+      </div>
+    </div>
     <% end %>
-    </ul>
-  </div>
+  <% end %>
+</div>
 <% end %>
 
 <div id='create-booking'>
