@@ -9,4 +9,12 @@ class DriveTest < ActiveSupport::TestCase
 
     assert_equal Drive.last_meter(car), drive.end_meter
   end
+
+  test '期間が重複する予約がある時、作成できない' do
+    drive = build(:drive)
+
+    with_conflicted_bookings drive do
+      assert_not drive.valid?
+    end
+  end
 end
