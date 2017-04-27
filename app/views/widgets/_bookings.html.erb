@@ -4,10 +4,11 @@
     <% if object.empty? %>
       予約はありません
     <% else %>
-      <div class='collection z-depth-2'>
+      <div class='collection'>
         <% object.each do |booking| %>
-          <div class='collection-item'>
-            <%= booking.user.name %>：<%= simple_datetime booking.start_at %> 〜 <%= simple_datetime booking.end_at %>
+          <div class='collection-item z-depth-1'>
+            <span class='title'><%= booking.user.name %></span>
+            <p><%= simple_datetime booking.start_at %> 〜 <%= simple_datetime booking.end_at %></p>
           </div>
         <% end %>
       </div>
