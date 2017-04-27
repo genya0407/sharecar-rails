@@ -1,27 +1,27 @@
 <% if @form.errors.any? %>
-  <div id="error_explanation">
-    <h3><%= @form.errors.count %>件のエラーがあります。</h3>
- 
-    <ul>
-    <% @form.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
+  <%= render 'widgets/errors', object: @form %>
 <% end %>
 
 <div id='create-drive'>
   <div class="card">
     <div class="card-content">
       <span class="card-title">乗車記録</span>
-      <%= form_for @form, url: car_drives_path, :method => :post, html: { class: 'col s12' } do |f| %>
-        <div class="input-field col s12">
-          <%= f.label :start_meter, '乗車時のメーター' %>
-          <%= f.number_field :start_meter %>
+      <%= form_for @form, url: car_drives_path do |f| %>
+        <div class='row'>
+          <div class="input-field col s12">
+            <%= f.label :start_meter, '乗車時のメーター' %>
+            <%= f.number_field :start_meter %>
+          </div>
         </div>
-        <div class="input-field col s12">
-          <%= f.label :using_hours, '何時間使う予定なのか' %>
-          <%= f.number_field :using_hours %>
+        <div class='row'>
+          <div class='input-field col s6'>
+            <%= f.label '終了予定日' %>
+            <%= f.date_field :end_at_date, class: 'datepicker' %>
+          </div>
+          <div class="input-field col s6">
+            <%= f.label '終了予定時刻' %>
+            <%= f.number_field :end_at_hour, in: 0..23 %>
+          </div>
         </div>
         <%= f.submit "開始", class: "actions btn" %>
       <% end %>

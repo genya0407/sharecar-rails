@@ -1,0 +1,11 @@
+<div class="row">
+  <% object.errors.messages.each do |key, msgs| %>
+    <% msgs.each do |msg| %>
+    <div class="col s12">
+      <div class="card-panel red">
+        <span class="white-text"><%= msg %></span>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+</div>

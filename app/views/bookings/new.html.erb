@@ -1,15 +1,5 @@
 <% if @form.errors.any? %>
-<div class="row">
-  <% @form.errors.messages.each do |key, msgs| %>
-    <% msgs.each do |msg| %>
-    <div class="col s12">
-      <div class="card-panel red">
-        <span class="white-text"><%= msg %></span>
-      </div>
-    </div>
-    <% end %>
-  <% end %>
-</div>
+  <%= render 'widgets/errors', object: @form %>
 <% end %>
 
 <div id='create-booking'>

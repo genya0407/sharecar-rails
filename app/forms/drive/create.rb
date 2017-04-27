@@ -1,40 +1,34 @@
 class DriveForm
   class Create < ApplicationForm
     attribute :start_meter, Integer
-    attribute :using_hours, Integer
+    attribute :end_at_date, Date
+    attribute :end_at_hour, Integer
 
     validates :start_meter, presence: true
-    validates :using_hours, presence: true
+    validates :end_at_date, presence: true
+    validates :end_at_hour, presence: true
 
-    validate :biggest_meter
+    validates :end_at_hour, inclusion: { in: 0..23 }
+    validate :end_should_be_greater_than_start
 
-    attr_reader :drive
-
-    def initialize(drive, args)
-      super(args)
-      @drive = drive
-    end
-
-    def valid?
-      if super
-        @drive.attributes = attributes_for_drive
-      end
-    end
-
-    def attributes_for_drive
-      start_at = Time.zone.now
-      end_at = start_at + using_hours.hours
-
+    def attrs
       { start_at: start_at, end_at: end_at, start_meter: start_meter }
     end
 
     private
-      def biggest_meter
-        return true if drive.car_id.nil?
+    def end_at
+      end_at_date.at_beginning_of_day
+                 .change(hour: end_at_hour)
+    end
 
-        unless start_meter >= Drive.last_meter(drive.car_id)
-          errors.add(:start_meter, '乗車時のメーターが、過去のメーターよりも小さいです')
-        end
+    def start_at
+      Time.zone.now
+    end
+
+    def end_should_be_greater_than_start
+      unless end_at > start_at
+        errors.add(:end_at, '終了時刻を現在時刻よりも後にしてください')
       end
+    end
   end
 end
