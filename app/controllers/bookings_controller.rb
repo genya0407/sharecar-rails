@@ -1,4 +1,6 @@
 class BookingsController < ApplicationController
+  before_action :set_bookings_in_effect, only: [:new, :create]
+
   def new
     @form = BookingForm::Create.new(
       start_at_date: Time.zone.now.to_date,
@@ -6,7 +8,6 @@ class BookingsController < ApplicationController
       end_at_date: Time.zone.now.to_date,
       end_at_hour: Time.zone.now.hour
     )
-    @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
   end
 
   def create
@@ -19,11 +20,15 @@ class BookingsController < ApplicationController
           car_id: params[:car_id]
         )
       )
-      booking.save!
 
-      redirect_to action: :new
+      if booking.save
+        redirect_to action: :new
+      else
+        booking.errors.each { |k, v| @form.errors.add(k, v) }
+
+        render :new
+      end
     else
-      @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
       render :new
     end
   end
@@ -32,5 +37,9 @@ class BookingsController < ApplicationController
     def booking_form_params
       params.require(:booking_form_create)
             .permit(:start_at_date, :start_at_hour, :end_at_date, :end_at_hour).to_h
+    end
+
+    def set_bookings_in_effect
+      @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
     end
 end
