@@ -26,11 +26,14 @@ class DrivesControllerTest < BaseControllerTest
   end
 
   test '#create driveが作成できること' do
+    end_at = Time.zone.now + rand(2..5).hour
+
     assert_difference "Drive.where(car_id: #{@car.id}).count", 1 do
       post car_drives_path(car_id: @car.id), params: {
         drive_form_create: {
           start_meter: @drive.end_meter,
-          using_hours: rand(2..10) 
+          end_at_date: end_at.to_date,
+          end_at_hour: end_at.hour
         }
       }
     end
