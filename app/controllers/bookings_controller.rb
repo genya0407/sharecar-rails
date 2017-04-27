@@ -1,14 +1,27 @@
 class BookingsController < ApplicationController
   def new
-    @booking = Booking.new(start_at: Time.zone.now, end_at: Time.zone.now)
+    @form = BookingForm::Create.new(
+      start_at_date: Time.zone.now.to_date,
+      start_at_hour: Time.zone.now.hour,
+      end_at_date: Time.zone.now.to_date,
+      end_at_hour: Time.zone.now.hour
+    )
     @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
   end
 
   def create
-    @booking = Booking.new(booking_params)
+    @form = BookingForm::Create.new(booking_form_params)
 
-    if @booking.save
-      redirect_to :root
+    if @form.valid?
+      booking = Booking.new(
+        @form.attrs.merge(
+          user_id: current_user.id,
+          car_id: params[:car_id]
+        )
+      )
+      booking.save!
+
+      redirect_to action: :new
     else
       @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
       render :new
@@ -16,9 +29,8 @@ class BookingsController < ApplicationController
   end
 
   private
-    def booking_params
-      params.require(:booking)
-            .permit(:start_at, :end_at).to_h
-            .merge(user_id: current_user.id, car_id: params[:car_id])
+    def booking_form_params
+      params.require(:booking_form_create)
+            .permit(:start_at_date, :start_at_hour, :end_at_date, :end_at_hour).to_h
     end
 end

@@ -23,9 +23,5 @@ $('.datepicker').pickadate({
     today: '今日',
     close: 'OK',
     clear: 'キャンセル',
-    format: 'yyyy年mm月dd日'
-});
-
-$(document).ready(function() {
-	$('select').material_select();
+    format: 'yyyy-mm-dd'
 });
