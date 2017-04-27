@@ -8,27 +8,22 @@
       <span class="card-title">予約登録</span>
       <%= form_for @form, url: car_bookings_path, :method => :post do |f| %>
         <div class='row'>
-          <div class='input-field col s6 offset-s1'>
-            <%= f.label '日付' %>
+          <div class='input-field col s6'>
+            <%= f.label '開始日' %>
             <%= f.date_field :start_at_date, class: 'datepicker' %>
           </div>
-          <div class="input-field col s3">
-            <%= f.label '時刻' %>
+          <div class="input-field col s6">
+            <%= f.label '開始時刻' %>
             <%= f.number_field :start_at_hour, in: 0..23 %>
           </div>
         </div>
-        <div class='row' style='margin-bottom: 0px; height: 30px;'>
-          <div class='col s2 offset-s5'>
-            <i class="material-icons">arrow_downward</i>
-          </div>
-        </div>
         <div class='row'>
-          <div class='input-field col s6 offset-s1'>
-            <%= f.label '日付' %>
+          <div class='input-field col s6'>
+            <%= f.label '終了日' %>
             <%= f.date_field :end_at_date, class: 'datepicker' %>
           </div>
-          <div class="input-field col s3">
-            <%= f.label '時刻' %>
+          <div class="input-field col s6">
+            <%= f.label '終了時刻' %>
             <%= f.number_field :end_at_hour, in: 0..23 %>
           </div>
         </div>
