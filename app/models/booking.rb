@@ -14,8 +14,12 @@ class Booking < ApplicationRecord
     where('end_at > ?', Time.zone.now).order('start_at')
   end
 
+  def self.between(start_at, end_at)
+    where.not('end_at <= ? OR ? <= start_at', start_at, end_at)
+  end
+
   def conflicted_bookings
-    self.car.bookings.where.not('end_at <= ? OR ? <= start_at', start_at, end_at)
+    self.car.bookings.between(start_at, end_at)
   end
 
   private
