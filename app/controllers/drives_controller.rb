@@ -1,11 +1,12 @@
 class DrivesController < ApplicationController
+  before_action :set_bookings_in_effect, only: [:new, :create]
+
   def new
     @form = DriveForm::Create.new(
       start_meter: Drive.last_meter(params[:car_id]),
       end_at_date: Time.zone.now.to_date,
       end_at_hour: Time.zone.now.hour
     )
-    @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
   end
 
   def create
@@ -13,11 +14,14 @@ class DrivesController < ApplicationController
 
     if @form.valid?
       drive = Drive.new(@form.attrs.merge(car_id: params[:car_id], user_id: current_user.id))
-      drive.save!
+      if drive.save
+        redirect_to :root
+      else
+        drive.errors.each { |k, v| @form.errors.add(k, v) }
 
-      redirect_to :root
+        render :new
+      end
     else
-      @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
       render :new
     end
   end
@@ -48,5 +52,9 @@ class DrivesController < ApplicationController
     def drive_end_params
       params.require(:drive_form_update)
             .permit(:end_meter).to_h
+    end
+
+    def set_bookings_in_effect
+      @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
     end
 end
