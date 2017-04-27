@@ -21,20 +21,8 @@ class BookingTest < ActiveSupport::TestCase
     assert booking.conflicted_bookings.empty?
 
     # 期間が重複する４パターンを試す
-    conflict = create_end_in_range(booking)
-    assert booking.conflicted_bookings.exists?
-    conflict.destroy!
-
-    conflict = create_start_in_range(booking)
-    assert booking.conflicted_bookings.exists?
-    conflict.destroy!
-
-    conflict = create_cover_range(booking)
-    assert booking.conflicted_bookings.exists?
-    conflict.destroy!
-
-    conflict = create_in_range(booking)
-    assert booking.conflicted_bookings.exists?
-    conflict.destroy!
+    with_conflicted_bookings booking do |conflict|
+      assert booking.conflicted_bookings.exists?
+    end
   end
 end

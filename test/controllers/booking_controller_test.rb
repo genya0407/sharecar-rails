@@ -37,7 +37,7 @@ class BookingControllerTest < BaseControllerTest
 
   test '#create 重複する予約がある時、予約は作成されず、エラーを表示すること' do
     booking = build(:booking)
-    create_end_in_range(booking)
+    create_booking_end_in_range(booking)
 
     assert_difference "Booking.where(car_id: #{@car.id}).count", 0 do
       post car_bookings_path(car_id: booking.car.id), params: {
