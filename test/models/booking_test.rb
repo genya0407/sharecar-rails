@@ -25,4 +25,13 @@ class BookingTest < ActiveSupport::TestCase
       assert booking.conflicted_bookings.exists?
     end
   end
+
+  test '重複する予約がある時作成できない' do
+    booking = build(:booking)
+
+    with_conflicted_bookings booking do
+      assert_not booking.valid?
+      assert booking.errors.present?
+    end
+  end
 end
