@@ -39,6 +39,41 @@ class DrivesControllerTest < BaseControllerTest
     end
   end
 
+  test '#create 他人の重複するbookingがあるとき作成できず、エラーが表示される' do
+    car = create(:car)
+    drive = build(:drive, car: car)
+
+    with_conflicted_bookings drive do
+      assert_difference "Drive.where(car_id: #{car.id}).count", 0 do
+        post car_drives_path(car_id: car.id), params: {
+          drive_form_create: {
+            start_meter: drive.start_meter,
+            end_at_date: drive.end_at.to_date,
+            end_at_hour: drive.end_at.hour
+          }
+        }
+      end
+      assert_select '#errors'
+    end
+  end
+
+  test '#create 自分の重複するbookingがあるとき作成できる' do
+    car = create(:car)
+    drive = build(:drive, car: car, user: @user)
+
+    with_conflicted_bookings drive, is_mine: true do
+      assert_difference "Drive.where(car_id: #{car.id}).count", 1 do
+        post car_drives_path(car_id: car.id), params: {
+          drive_form_create: {
+            start_meter: drive.start_meter,
+            end_at_date: drive.end_at.to_date,
+            end_at_hour: drive.end_at.hour
+          }
+        }
+      end
+    end
+  end
+
   test '#edit driveが終了できること' do
     drive = create(:drive_not_end, car: @car, user: @user)
     end_meter = drive.start_meter + rand(5..100)
