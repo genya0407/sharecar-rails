@@ -7,8 +7,8 @@ class Booking < ApplicationRecord
   validates :car_id, presence: true
   validates :user_id, presence: true
 
-  validate :end_should_be_greater_than_start
-  validate :conflict_should_not_exist
+  validate :end_should_be_greater_than_start, if: 'start_at.present? && end_at.present?'
+  validate :conflict_should_not_exist, if: 'car.present? && start_at.present? && end_at.present?'
 
   def self.in_effect
     where('end_at > ?', Time.zone.now).order('start_at')

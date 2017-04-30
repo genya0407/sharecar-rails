@@ -8,7 +8,8 @@ class Drive < ApplicationRecord
   validates :car_id, presence: true
   validates :user_id, presence: true
 
-  validate :conflicted_bookings_should_not_exist
+  validate :conflicted_bookings_should_not_exist,
+           if: 'car.present? && user.present? && start_at.present? && end_at.present?'
 
   def self.last_meter(car_id)
     (where(car_id: car_id).maximum(:end_meter) || 0)
