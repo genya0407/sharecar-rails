@@ -25,7 +25,7 @@ class Drive < ApplicationRecord
 
   private
   def conflicted_bookings_should_not_exist
-    if self.car.bookings.between(start_at, end_at).exists?
+    if self.car.bookings.where.not(user: self.user).between(start_at, end_at).exists?
       errors.add(:end_at, "その期間、#{self.car.name}は予約されています")
     end
   end

@@ -42,49 +42,64 @@ module BookingHelper
   end
 
   # has_range: start_atとend_atと*car*を持つオブジェクト
-  def with_conflicted_bookings(has_range)
-    conflict = create_booking_end_in_range(has_range)
+  # my: trueの時、作成するbookingのuserはhas_rangeのuserになる
+  def with_conflicted_bookings(has_range, is_mine: false)
+    conflict = create_booking_end_in_range(has_range, is_mine)
     yield conflict
     conflict.destroy!
 
-    conflict = create_booking_start_in_range(has_range)
+    conflict = create_booking_start_in_range(has_range, is_mine)
     yield conflict
     conflict.destroy!
 
-    conflict = create_booking_cover_range(has_range)
+    conflict = create_booking_cover_range(has_range, is_mine)
     yield conflict
     conflict.destroy!
 
-    conflict = create_booking_in_range(has_range)
+    conflict = create_booking_in_range(has_range, is_mine)
     yield conflict
     conflict.destroy!
   end
 
   private
-  def create_booking_end_in_range(has_range)
+  def create_booking_end_in_range(has_range, is_mine)
     end_at = Faker::Time.between(has_range.start_at, has_range.end_at)
-    create(:booking, car: has_range.car, start_at: has_range.start_at - rand(2..5).hour, end_at: end_at)
-  end
-
-  def create_booking_start_in_range(has_range)
-    start_at = Faker::Time.between(has_range.start_at, has_range.end_at)
-    create(:booking, car: has_range.car, start_at: start_at, end_at: has_range.end_at + rand(2..5).hour)
-  end
-
-  def create_booking_cover_range(has_range)
     create(:booking,
-           car: has_range.car,
-           start_at: has_range.start_at - rand(2..5).hour,
-           end_at: has_range.end_at + rand(2..5).hour)
+      user: is_mine ? has_range.user : create(:user),
+      car: has_range.car,
+      start_at: has_range.start_at - rand(2..5).hour,
+      end_at: end_at
+    )
   end
 
-  def create_booking_in_range(has_range)
+  def create_booking_start_in_range(has_range, is_mine)
+    start_at = Faker::Time.between(has_range.start_at, has_range.end_at)
+    create(:booking,
+      user: is_mine ? has_range.user : create(:user),
+      car: has_range.car,
+      start_at: start_at,
+      end_at: has_range.end_at + rand(2..5).hour
+    )
+  end
+
+  def create_booking_cover_range(has_range, is_mine)
+    create(:booking,
+      user: is_mine ? has_range.user : create(:user),
+      car: has_range.car,
+      start_at: has_range.start_at - rand(2..5).hour,
+      end_at: has_range.end_at + rand(2..5).hour
+    )
+  end
+
+  def create_booking_in_range(has_range, is_mine)
     middle = Faker::Time.between(has_range.start_at, has_range.end_at)
     start_at = Faker::Time.between(has_range.start_at, middle)
     end_at = Faker::Time.between(middle, has_range.end_at)
     create(:booking,
-            car: has_range.car,
-            start_at: start_at,
-            end_at: end_at)
+      user: is_mine ? has_range.user : create(:user),
+      car: has_range.car,
+      start_at: start_at,
+      end_at: end_at
+    )
   end
 end
