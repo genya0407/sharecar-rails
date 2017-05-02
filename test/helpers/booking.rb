@@ -7,17 +7,16 @@ module BookingHelper
   # returns number of bookings in effect
   def create_in_effect(car)
     # current: start_at < now < end_at
-    current_count = 1
     current_start_at = Time.zone.now - rand(2..5).hours
     current_end_at = Time.zone.now + rand(2..5).hours
-    create(:booking, car: car, start_at: current_start_at, end_at: current_end_at)
+    current = create(:booking, car: car, start_at: current_start_at, end_at: current_end_at)
 
     # future: now < start_at < end_at
     # 期間が重ならないように、前に作ったbookingのend_atを覚えておいて、
     # それよりも後ろに次のbookingを作るようにしている
     future_count = rand(2..5)
     end_at = current_end_at
-    future_count.times do
+    futures = future_count.times.map do
       start_at = end_at + rand(2..5).hours
       end_at = start_at + rand(2..5).hours
       create(:booking, car: car, start_at: start_at, end_at: end_at)
@@ -36,7 +35,7 @@ module BookingHelper
     # another car
     create(:booking)
 
-    current_count + future_count
+    return (futures + [current])
   end
 
   # has_range: start_atとend_atと*car*を持つオブジェクト
