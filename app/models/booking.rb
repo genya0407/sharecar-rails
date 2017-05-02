@@ -7,8 +7,11 @@ class Booking < ApplicationRecord
   validates :car_id, presence: true
   validates :user_id, presence: true
 
-  validate :end_should_be_greater_than_start, if: 'start_at.present? && end_at.present?'
-  validate :conflict_should_not_exist, if: 'car.present? && start_at.present? && end_at.present?'
+  with_options if: 'car.present? && start_at.present? && end_at.present?' do |basically_valid|
+    basically_valid.validate :end_should_be_greater_than_start
+    basically_valid.validate :conflicted_bookings_should_not_exist
+    basically_valid.validate :conflicted_drives_should_not_exist 
+  end
 
   def self.in_effect
     where('end_at > ?', Time.zone.now).order('start_at')
@@ -22,6 +25,10 @@ class Booking < ApplicationRecord
     self.car.bookings.between(start_at, end_at)
   end
 
+  def conflicted_drives
+    self.car.drives.between(start_at, end_at)
+  end
+
   private
   def end_should_be_greater_than_start
     unless start_at < end_at
@@ -29,9 +36,15 @@ class Booking < ApplicationRecord
     end
   end
 
-  def conflict_should_not_exist
+  def conflicted_bookings_should_not_exist
     if conflicted_bookings.exists?
-      errors.add(:start_at, '期間が重なる予約があります')
+      errors.add(:start_at, "その期間は#{conflicted_bookings.first.user.name}が車を予約しています")
+    end
+  end
+
+  def conflicted_drives_should_not_exist
+    if conflicted_drives.exists?
+      errors.add(:start_at, "その期間は#{conflicted_drives.first.user.name}が車を使用しています")
     end
   end
 end

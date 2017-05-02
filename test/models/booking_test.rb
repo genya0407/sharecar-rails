@@ -1,8 +1,10 @@
 require 'test_helper'
 require 'helpers/booking'
+require 'helpers/drive'
 
 class BookingTest < ActiveSupport::TestCase
   include BookingHelper
+  include DriveHelper
 
   setup do
     Booking.delete_all
@@ -30,6 +32,15 @@ class BookingTest < ActiveSupport::TestCase
     booking = build(:booking)
 
     with_conflicted_bookings booking do
+      assert_not booking.valid?
+      assert booking.errors.present?
+    end
+  end
+
+  test '重複するdriveがある時作成できない' do
+    booking = build(:booking)
+
+    with_conflicted_drives booking do
       assert_not booking.valid?
       assert booking.errors.present?
     end
