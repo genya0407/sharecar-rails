@@ -2,14 +2,14 @@
 <% @cars.each do |car| %>
   <div class="col s12">
     <div class="card">
+      <!--
       <div class="card-image">
         <img src="https://source.unsplash.com/category/objects/400x200">
+      </div>
+      -->
+      <div class="card-content">
         <p class="card-title">
           <%= car.name %>
-        </p>
-      </div>
-      <div class="card-content">
-        <p>
           <% if car.occupied? %>
             <span class="badge red white-text">〜<%= simple_datetime car.current_drive.end_at %></span>
             <span class="badge red white-text"><%= car.current_driver.name %></span>
