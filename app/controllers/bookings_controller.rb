@@ -33,6 +33,13 @@ class BookingsController < ApplicationController
     end
   end
 
+  def destroy
+    booking = current_user.bookings.find(params[:id])
+    booking.destroy!
+
+    redirect_to request.referrer
+  end
+
   private
     def booking_form_params
       params.require(:booking_form_create)

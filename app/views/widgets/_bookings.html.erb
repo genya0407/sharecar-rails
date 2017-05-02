@@ -1,17 +1,22 @@
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">予約一覧</span>
-    <% if object.empty? %>
-      予約はありません
-    <% else %>
-      <div class='collection'>
-        <% object.each do |booking| %>
-          <div class='collection-item z-depth-1'>
-            <span class='title'><%= booking.user.name %></span>
-            <p><%= simple_datetime booking.start_at %> 〜 <%= simple_datetime booking.end_at %></p>
-          </div>
+<% if object.present? %>
+  <% object.each do |booking| %>
+    <div class='card'>
+      <div class='card-content'>
+        <p>
+          <span class='card-title'><%= booking.user.name %></span>
+          <%= simple_datetime booking.start_at %> 〜 <%= simple_datetime booking.end_at %>
+        </p>
+      </div>
+      <% if booking.user.id == current_user.id %>
+      <div class='card-action right-align'>
+        <%= link_to car_booking_path(id: booking),
+                    { method: :delete,
+                      data: { confirm: "#{booking.start_at.to_date}の予約を取り消しますか？" },
+                      class: 'btn-floating btn-large waves-effect waves-light red' } do %>
+          <i class="material-icons">delete</i>
         <% end %>
       </div>
-    <% end %>
-  </div>
-</div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
