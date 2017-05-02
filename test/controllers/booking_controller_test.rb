@@ -1,8 +1,10 @@
 require 'controllers/base'
 require 'helpers/booking'
+require 'helpers/drive'
 
 class BookingControllerTest < BaseControllerTest
   include BookingHelper
+  include DriveHelper
 
   setup do
     login
@@ -40,6 +42,25 @@ class BookingControllerTest < BaseControllerTest
     booking = build(:booking, car: car)
 
     with_conflicted_bookings booking do
+      assert_difference "Booking.where(car_id: #{@car.id}).count", 0 do
+        post car_bookings_path(car_id: booking.car.id), params: {
+          booking_form_create: {
+            start_at_date: booking.start_at.to_date,
+            start_at_hour: booking.start_at.hour,
+            end_at_date: booking.end_at.to_date,
+            end_at_hour: booking.end_at.hour
+          }
+        }
+      end
+      assert_select '#errors'
+    end
+  end
+
+  test '#create 重複するdriveがある時、予約は作成されず、エラーを表示すること' do
+    car = create(:car)
+    booking = build(:booking, car: car)
+
+    with_conflicted_drives booking do
       assert_difference "Booking.where(car_id: #{@car.id}).count", 0 do
         post car_bookings_path(car_id: booking.car.id), params: {
           booking_form_create: {
