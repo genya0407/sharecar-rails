@@ -9,24 +9,25 @@ class BookingControllerTest < BaseControllerTest
   setup do
     login
     Booking.delete_all
-    @car = create(:car)
   end
 
   test '#new 完遂されていない予約の一覧が表示されること' do
-    create_in_effect(@car)
+    car = create(:car)
+    create_in_effect(car)
 
-    get new_car_booking_path(car_id: @car.id)
+    get new_car_booking_path(car_id: car.id)
 
     assert_select '#bookings > .card > .card-content > .collection > .collection-item',
-                  @car.bookings.in_effect.count
+                  car.bookings.in_effect.count
   end
 
   test '#create 予約が作成できること' do
+    car = create(:car)
     start_at = Time.zone.now
     end_at = start_at + rand(2..5).hours
 
-    assert_difference "Booking.where(car_id: #{@car.id}).count", 1 do
-      post car_bookings_path(car_id: @car.id), params: {
+    assert_difference "Booking.where(car_id: #{car.id}).count", 1 do
+      post car_bookings_path(car_id: car.id), params: {
         booking_form_create: {
           start_at_date: start_at.to_date,
           start_at_hour: start_at.hour,
@@ -42,7 +43,7 @@ class BookingControllerTest < BaseControllerTest
     booking = build(:booking, car: car)
 
     with_conflicted_bookings booking do
-      assert_difference "Booking.where(car_id: #{@car.id}).count", 0 do
+      assert_difference "Booking.where(car_id: #{car.id}).count", 0 do
         post car_bookings_path(car_id: booking.car.id), params: {
           booking_form_create: {
             start_at_date: booking.start_at.to_date,
@@ -61,8 +62,8 @@ class BookingControllerTest < BaseControllerTest
     booking = build(:booking, car: car)
 
     with_conflicted_drives booking do
-      assert_difference "Booking.where(car_id: #{@car.id}).count", 0 do
-        post car_bookings_path(car_id: booking.car.id), params: {
+      assert_difference "Booking.where(car_id: #{car.id}).count", 0 do
+        post car_bookings_path(car_id: car.id), params: {
           booking_form_create: {
             start_at_date: booking.start_at.to_date,
             start_at_hour: booking.start_at.hour,
