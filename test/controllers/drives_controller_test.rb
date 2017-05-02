@@ -25,8 +25,7 @@ class DrivesControllerTest < BaseControllerTest
 
     get new_car_drive_path(car_id: car.id)
 
-    assert_select 'div#bookings > div.card > div.card-content > div.collection > div.collection-item',
-                  car.bookings.in_effect.count
+    assert_select '.booking', car.bookings.in_effect.count
   end
 
   test '#create driveが作成できること' do

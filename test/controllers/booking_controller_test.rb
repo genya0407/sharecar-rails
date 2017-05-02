@@ -17,8 +17,9 @@ class BookingControllerTest < BaseControllerTest
 
     get new_car_booking_path(car_id: car.id)
 
-    assert_select '#bookings > .card > .card-content > .collection > .collection-item',
-                  car.bookings.in_effect.count
+    assert_select '.booking', car.bookings.in_effect.count
+  end
+
   end
 
   test '#create 予約が作成できること' do
