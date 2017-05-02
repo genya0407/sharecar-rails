@@ -20,6 +20,18 @@ class BookingControllerTest < BaseControllerTest
     assert_select '.booking', car.bookings.in_effect.count
   end
 
+  test '#new 自分の作成した予約の数だけ削除ボタンが表示されること' do
+    car = create(:car)
+    effectives = create_in_effect(car)
+
+    my_bookings_count = rand(1..(effectives.count))
+    effectives.sample(my_bookings_count).each do |booking|
+      booking.user = @user
+      booking.save!
+    end
+
+    get new_car_booking_path(car_id: car.id)
+    assert_select '.booking > .card-action', my_bookings_count
   end
 
   test '#create 予約が作成できること' do
