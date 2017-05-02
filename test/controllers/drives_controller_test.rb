@@ -45,7 +45,8 @@ class DrivesControllerTest < BaseControllerTest
 
   test '#create 他人の重複するbookingがあるとき作成できず、エラーが表示される' do
     car = create(:car)
-    drive = build(:drive, car: car)
+    user = create(:user)
+    drive = build(:drive, car: car, user: user)
 
     with_conflicted_bookings drive do
       assert_difference "Drive.where(car_id: #{car.id}).count", 0 do
