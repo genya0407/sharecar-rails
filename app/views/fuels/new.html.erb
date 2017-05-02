@@ -1,0 +1,39 @@
+<% if @fuel.errors.any? %>
+  <%= render 'widgets/errors', object: @fuel %>
+<% end %>
+
+<div id='create-fuel'>
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">給油</span>
+      <%= form_for @fuel, url: car_fuels_path do |f| %>
+        <div class='row'>
+          <div class="input-field col s12">
+            <%= f.label :amount, 'ガソリン代' %>
+            <%= f.number_field :amount %>
+          </div>
+        </div>
+        <%= f.submit "記録", class: "actions btn" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">給油履歴</span>
+    <% if @fuels.empty? %>
+      給油された記録がありません
+    <% else %>
+      <div class='collection'>
+        <% @fuels.each do |fuel| %>
+          <div class='collection-item z-depth-1'>
+            <span class='title'><%= fuel.user.name %></span>
+            <p><%= simple_datetime fuel.created_at %></p>
+            <p><%= fuel.amount %>円</p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

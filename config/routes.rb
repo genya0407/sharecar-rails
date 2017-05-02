@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   resources :cars do
     resources :bookings
     resources :drives
+    resources :fuels
   end
 end
