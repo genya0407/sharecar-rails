@@ -4,8 +4,8 @@ FactoryGirl.define do
       start_meter_transient { rand(100...100000) }
     end
 
-    start_at { Time.zone.now - 1.hour }
-    end_at { Time.zone.now + 2.hour }
+    start_at { Time.zone.now }
+    end_at { (Time.zone.now + 3.hour).change(minute: 0, second: 0) }
     start_meter { start_meter_transient }
     end_meter { start_meter_transient + rand(10..100) }
     association :user, factory: :user
