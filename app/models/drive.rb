@@ -24,7 +24,7 @@ class Drive < ApplicationRecord
   end
 
   def conflicted_drives
-    self.car.drives.not_end.between(start_at, end_at)
+    self.car.drives.where.not(id: id).not_end.between(start_at, end_at)
   end
 
   private

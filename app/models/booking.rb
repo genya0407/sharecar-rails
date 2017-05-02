@@ -22,7 +22,7 @@ class Booking < ApplicationRecord
   end
 
   def conflicted_bookings
-    self.car.bookings.between(start_at, end_at)
+    self.car.bookings.where.not(id: id).between(start_at, end_at)
   end
 
   def conflicted_drives
