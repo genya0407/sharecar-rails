@@ -19,6 +19,7 @@ module DriveHelper
       start_at: start_at,
       end_at: end_at,
       car: has_range.car,
+      end_meter: nil,
       user: is_mine ? has_range.user : create(:user)
     }
   end

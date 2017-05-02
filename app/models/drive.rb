@@ -19,8 +19,12 @@ class Drive < ApplicationRecord
     where.not('end_at <= ? OR ? <= start_at', start_at, end_at)
   end
 
+  def self.not_end
+    where(end_meter: nil)
+  end
+
   def conflicted_drives
-    self.car.drives.between(start_at, end_at)
+    self.car.drives.not_end.between(start_at, end_at)
   end
 
   private

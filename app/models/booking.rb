@@ -26,7 +26,7 @@ class Booking < ApplicationRecord
   end
 
   def conflicted_drives
-    self.car.drives.between(start_at, end_at)
+    self.car.drives.not_end.between(start_at, end_at)
   end
 
   private
