@@ -9,31 +9,33 @@ class DrivesControllerTest < BaseControllerTest
     login
     Drive.delete_all
     Booking.delete_all
-    @car = create(:car)
   end
 
   test '#new 前の人の終了メーターが表示されること' do
-    drive = create(:drive, car: @car)
-    get new_car_drive_path(car_id: @car.id)
+    car = create(:car)
+    drive = create(:drive, car: car)
+    get new_car_drive_path(car_id: car.id)
 
     assert_select 'input#drive_form_create_start_meter', { value: drive.end_meter }
   end
 
   test '#new in_effectな予約が表示されること' do
-    create_in_effect(@car)
+    car = create(:car)
+    create_in_effect(car)
 
-    get new_car_drive_path(car_id: @car.id)
+    get new_car_drive_path(car_id: car.id)
 
     assert_select 'div#bookings > div.card > div.card-content > div.collection > div.collection-item',
-                  @car.bookings.in_effect.count
+                  car.bookings.in_effect.count
   end
 
   test '#create driveが作成できること' do
-    drive = create(:drive, car: @car)
+    car = create(:car)
+    drive = create(:drive, car: car)
     end_at = Time.zone.now + rand(2..5).hour
 
-    assert_difference "Drive.where(car_id: #{@car.id}).count", 1 do
-      post car_drives_path(car_id: @car.id), params: {
+    assert_difference "Drive.where(car_id: #{car.id}).count", 1 do
+      post car_drives_path(car_id: car.id), params: {
         drive_form_create: {
           start_meter: drive.end_meter,
           end_at_date: end_at.to_date,
@@ -81,7 +83,8 @@ class DrivesControllerTest < BaseControllerTest
   end
 
   test '#edit driveが終了できること' do
-    drive = create(:drive_not_end, car: @car, user: @user)
+    car = create(:car)
+    drive = create(:drive_not_end, car: car, user: @user)
     end_meter = drive.start_meter + rand(5..100)
 
     assert Drive.find(drive.id).end_meter.nil?
