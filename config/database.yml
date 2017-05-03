@@ -2,7 +2,7 @@ default: &default
   adapter: postgresql
   encoding: utf8
   database: sharecar
-  pool: 5
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
@@ -12,7 +12,4 @@ development:
 
 test:
   <<: *default
-  host: 127.0.0.1
-  database: sharecar-test
-  username: sharecar
-  password: sharecar
+  url: <%= ENV['DATABASE_URL'] %>
