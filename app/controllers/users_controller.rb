@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   def confirm
-    @token = params[:token]
+    @token = params[:id]
     if @user = User.load_from_activation_token(@token)
       if @user.update_attributes(user_confirm_params)
         @user.activate!

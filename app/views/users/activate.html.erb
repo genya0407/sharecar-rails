@@ -6,7 +6,7 @@
   <div class="card">
     <div class="card-content">
       <span class="card-title">Registration</span>
-      <%= form_for @user, url: confirm_user_path(@user, token: @token), method: :put do |f| %>
+      <%= form_for @user, url: confirm_user_path(id: @token), method: :put do |f| %>
         <div class='row'>
           <div class="input-field col s12">
             <%= f.label :email, 'Email' %>
