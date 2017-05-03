@@ -14,7 +14,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_invite_params)
     if @user.save
-      redirect_to action: :new, notice: "Sent invitation to #{@user.email}."
+      flash[:notice] = "Sent invitation to #{@user.email}."
+      redirect_to action: :new
     else
       @users = User.all
       render action: :new
