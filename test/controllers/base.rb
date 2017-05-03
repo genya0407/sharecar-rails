@@ -20,5 +20,6 @@ class BaseControllerTest < ActionDispatch::IntegrationTest
 
   def logout
     post logout_path
+    @user = nil
   end
 end
