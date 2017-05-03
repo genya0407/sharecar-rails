@@ -1,7 +1,13 @@
 <% object.each do |user| %>
 <div class='card horizontal user'>
   <div class="card-content">
-    <i class="material-icons medium <% if user.activation_state == 'pending' %>red-text<% else %>green-text<% end %>">account_circle</i>
+    <i class="material-icons medium <% if user.activation_state == 'pending' %>red-text<% else %>green-text<% end %>">
+      <% if user.admin? %>
+        supervisor_account
+      <% else %>
+        account_circle
+      <% end %>
+    </i>
   </div>
   <div class='card-content'>
     <p>
