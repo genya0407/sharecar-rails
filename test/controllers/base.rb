@@ -11,9 +11,11 @@ class BaseControllerTest < ActionDispatch::IntegrationTest
   end
 
   def login(user: nil)
-    user = create(:user) if user.nil?
+    password = Faker::Internet.password
+    user = create(:user, password_trans: password) if user.nil?
+    post user_sessions_path, params: { email: user.email, password: password }
+
     @user = user
-    post user_sessions_path, params: { email: user.email, password: 'password' }
   end
 
   def logout

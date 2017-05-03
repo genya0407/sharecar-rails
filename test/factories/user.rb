@@ -1,13 +1,13 @@
 FactoryGirl.define do
   factory :user do
     transient do
-      pass 'password'
+      password_trans { Faker::Internet.password(10, 20) }
     end
 
     name { Faker::Name.name }
     email { Faker::Internet.email }
-    password { pass }
-    password_confirmation { pass }
+    password { password_trans }
+    password_confirmation { password_trans }
 
     after(:create) do |user|
       user.activate!
