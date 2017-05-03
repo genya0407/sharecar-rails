@@ -21,5 +21,8 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+# Ignore assets
+/public/assets/
+
 # Other
 /node_modules
