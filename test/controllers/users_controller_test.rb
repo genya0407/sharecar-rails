@@ -22,7 +22,8 @@ class UsersControllerTest < BaseControllerTest
       user: {
         password: password,
         password_confirmation: password,
-        name: Faker::Name.name
+        name: Faker::Name.name,
+        phone_number: Faker::PhoneNumber.phone_number
       }
     }
     assert User.find_by(email: email).activation_state == 'active'
@@ -51,9 +52,10 @@ class UsersControllerTest < BaseControllerTest
     token = User.find_by(email: email).activation_token
     put confirm_user_path(id: token), params: {
       user: {
-        password: Faker::Internet.email,
-        password_confirmation: Faker::Internet.email,
-        name: Faker::Name.name
+        password: Faker::Internet.password,
+        password_confirmation: Faker::Internet.password,
+        name: Faker::Name.name,
+        phone_number: Faker::PhoneNumber.phone_number
       }
     }
     assert_response :unprocessable_entity
