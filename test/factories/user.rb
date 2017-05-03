@@ -12,12 +12,9 @@ FactoryGirl.define do
     after(:create) do |user|
       user.activate!
     end
+  end
 
-    factory :user_not_activated do
-      after(:create) do |user|
-        user.setup_activation
-        user.save!
-      end
-    end
+  factory :user_not_activated, class: User do
+    email { Faker::Internet.email }
   end
 end
