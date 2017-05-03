@@ -40,7 +40,7 @@ class UsersController < ApplicationController
         auto_login @user
         redirect_to :root
       else
-        render :activate
+        render :activate, status: :unprocessable_entity
       end
     else
       not_authenticated
