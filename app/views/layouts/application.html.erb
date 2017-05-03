@@ -21,7 +21,7 @@
         <% if current_user %>
           <% if current_user.admin? %>
             <li>
-              <%= link_to url: new_user_path do %>
+              <%= link_to new_user_path do %>
                 <i class="material-icons">supervisor_account</i> Invite New User
               <% end %>
             </li>
