@@ -1,0 +1,32 @@
+<% if @user.errors.any? %>
+  <%= render 'widgets/errors', object: @user %>
+<% end %>
+
+<div id='activate-user'>
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">Registration</span>
+      <%= form_for @user, url: confirm_user_path(@user, token: @token), method: :put do |f| %>
+        <div class='row'>
+          <div class="input-field col s12">
+            <%= f.label :email, 'Email' %>
+            <%= f.email_field :email, disabled: :disabled %>
+          </div>
+          <div class="input-field col s12">
+            <%= f.label :name, 'Name' %>
+            <%= f.text_field :name %>
+          </div>
+          <div class="input-field col s12">
+            <%= f.label :password, 'Password' %>
+            <%= f.password_field :password %>
+          </div>
+          <div class="input-field col s12">
+            <%= f.label :password_confirmation, 'Password Confirmation' %>
+            <%= f.password_field :password_confirmation %>
+          </div>
+        </div>
+        <%= f.submit "Register", class: "actions btn" %>
+      <% end %>
+    </div>
+  </div>
+</div>
