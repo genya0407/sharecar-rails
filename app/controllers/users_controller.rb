@@ -14,9 +14,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_invite_params)
     if @user.save
-      render action: :new, notice: "Sent invitation to #{@user.email}."
+      redirect_to action: :new, notice: "Sent invitation to #{@user.email}."
     else
-      redirect_to action: :new
+      @users = User.all
+      render action: :new
     end
   end
 
