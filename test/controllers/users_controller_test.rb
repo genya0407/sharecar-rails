@@ -63,8 +63,7 @@ class UsersControllerTest < BaseControllerTest
   end
 
   def invite_user(invite_email)
-    @user.permission = :admin
-    @user.save!(validate: false)
+    @user.admin!
     post users_path, params: {
       user: { email: invite_email }
     }
