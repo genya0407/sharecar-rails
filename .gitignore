@@ -21,8 +21,5 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-# Make secret things secret
-/config/secrets.yml
-
 # Other
 /node_modules
