@@ -218,5 +218,8 @@ DEPENDENCIES
   virtus
   web-console (>= 3.3.0)
 
+RUBY VERSION
+   ruby 2.3.2p217
+
 BUNDLED WITH
    1.14.6
