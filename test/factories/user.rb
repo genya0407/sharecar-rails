@@ -12,5 +12,12 @@ FactoryGirl.define do
     after(:create) do |user|
       user.activate!
     end
+
+    factory :user_not_activated do
+      after(:create) do |user|
+        user.setup_activation
+        user.save!
+      end
+    end
   end
 end

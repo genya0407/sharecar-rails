@@ -1,20 +1,10 @@
 require 'test_helper'
 
-=begin
 class UserSessionsControllerTest < ActionDispatch::IntegrationTest
-  test "should get new" do
-    get user_sessions_new_url
-    assert_response :success
+  test 'activateされていないユーザーでログインできないこと' do
+    password = Faker::Internet.password(10, 20)
+    user = create(:user_not_activated, password_trans: password)
+    post user_sessions_path, params: { email: user.email, password: password }
+    assert_response :forbidden
   end
-
-  test "should get create" do
-    get user_sessions_create_url
-    assert_response :success
-  end
-
-  test "should get destroy" do
-    get user_sessions_destroy_url
-    assert_response :success
-  end
-
-=end
+end

@@ -1,49 +1,25 @@
 require 'test_helper'
 
-=begin
-class UsersControllerTest < ActionDispatch::IntegrationTest
+class UsersControllerTest < BaseControllerTest
   setup do
-    @user = users(:one)
+    login
+    @user.admin!
   end
 
-  test "should get index" do
-    get users_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_user_url
-    assert_response :success
-  end
-
-  test "should create user" do
-    assert_difference('User.count') do
-      post users_url, params: { user: {  } }
+  test "ユーザー登録ができること" do
+    assert_difference 'User.count', 1 do
+      post users_path, params: {
+        user: attributes_for(:user)
+      }
     end
-
-    assert_redirected_to user_url(User.last)
   end
 
-  test "should show user" do
-    get user_url(@user)
-    assert_response :success
-  end
+  test 'activationできること' do
+    logout
 
-  test "should get edit" do
-    get edit_user_url(@user)
-    assert_response :success
+    user = create(:user_not_activated)
+    assert User.find(user.id).activation_state == 'pending'
+    get activate_user_path(id: user.activation_token)
+    assert User.find(user.id).activation_state == 'active'
   end
-
-  test "should update user" do
-    patch user_url(@user), params: { user: {  } }
-    assert_redirected_to user_url(@user)
-  end
-
-  test "should destroy user" do
-    assert_difference('User.count', -1) do
-      delete user_url(@user)
-    end
-
-    assert_redirected_to users_url
-  end
-=end
+end
