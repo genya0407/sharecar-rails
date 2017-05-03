@@ -1,0 +1,18 @@
+language: ruby
+
+rvm: 
+ - 2.3.2
+
+services:
+  - postgresql
+
+bundler_args: "--without development --deployment"
+
+cache: bundler
+
+before_script:
+  - cp config/database.travis.yml config/database.yml
+  - bundle exec rake db:setup
+
+script:
+  - bundle exec rake test
