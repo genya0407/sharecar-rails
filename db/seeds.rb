@@ -13,6 +13,7 @@ user = User.new(
   password_confirmation: 'password'
 )
 user.save!
+user.activate!
 
 Car.create!((1..5).map { { name: Faker::Cat.name } })
 car = Car.first

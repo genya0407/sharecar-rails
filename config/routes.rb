@@ -6,7 +6,12 @@ Rails.application.routes.draw do
   post 'logout' => 'user_sessions#destroy', :as => :logout
   resources :password_resets
 
-  resources :users
+  resources :users do
+    member do
+      get :activate
+    end
+  end
+
   resources :cars do
     resources :bookings
     resources :drives

@@ -5,6 +5,7 @@ require 'factory_girl'
 require 'faker'
 
 FactoryGirl.find_definitions
+User.sorcery_config.activation_mailer_disabled = true
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods

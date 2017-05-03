@@ -1,12 +1,21 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: [:new, :create]
-  before_action :should_be_admin, except: [:show, :index]
+  skip_before_action :require_login, only: [:activate]
+  before_action :should_be_admin, except: [:show, :index, :activate]
 
   def index
     @users = User.all
   end
 
   def show
+  end
+
+  def activate
+    if (@user = User.load_from_activation_token(params[:id]))
+      @user.activate!
+      redirect_to(login_path, :notice => 'User was successfully activated.')
+    else
+      not_authenticated
+    end
   end
 
   def new
