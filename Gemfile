@@ -46,9 +46,6 @@ gem 'virtus'
 # Materialize css framework
 gem 'materialize-sass'
 
-# Using ES2015
-gem 'sprockets-commoner'
-
 # experimental
 # gem 'cztop'
 # gem 'iruby', github: 'SciRuby/iruby'
