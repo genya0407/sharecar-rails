@@ -10,9 +10,9 @@ class BaseControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_path
   end
 
-  def login(user: nil)
+  def login
     password = Faker::Internet.password
-    user = create(:user, password_trans: password) if user.nil?
+    user = create(:user, password_trans: password)
     post user_sessions_path, params: { email: user.email, password: password }
 
     @user = user
