@@ -10,7 +10,8 @@ user = User.new(
   name: 'Super User',
   email: 'example@example.com',
   password: 'password',
-  password_confirmation: 'password'
+  password_confirmation: 'password',
+  phone_number: Faker::PhoneNumber.phone_number
 )
 user.save!
 user.activate!
