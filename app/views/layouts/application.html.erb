@@ -14,22 +14,23 @@
       <a href="#" data-activates="side-nav" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="side-nav" id="side-nav">
         <li>
-          <div class="userView">
-            <div class="background">
-              <img src="https://source.unsplash.com/category/objects/400x300">
-            </div>
-            <a href="#!user"><img class="circle" src=""></a>
-            <br />
-            <a href="#!name"><span class="white-text name"><%= current_user&.name %></span></a>
-            <a href="#!email"><span class="white-text email"><%= current_user&.email %></span></a>
-          </div>
+          <%= link_to :root do %>
+            <i class='material-icons'>home</i> Top
+          <% end %>
         </li>
         <% if current_user %>
-          <li><a class="subheader"><i class="material-icons">settings</i></a></li>
           <% if current_user.admin? %>
-            <li><%= link_to 'Create New User', new_user_path %></li>
+            <li>
+              <%= link_to url: new_user_path do %>
+                <i class="material-icons">supervisor_account</i> Invite New User
+              <% end %>
+            </li>
           <% end %>
-          <li><%= link_to "Logout", :logout, method: :post %></li>
+          <li>
+            <%= link_to :logout, method: :post do %>
+              <i class="material-icons">exit_to_app</i> Logout
+            <% end %>  
+          </li>
         <% end %>
       </ul>
     </div>
