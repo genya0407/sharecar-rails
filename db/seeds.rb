@@ -7,13 +7,14 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 user = User.new(
-  name: 'Test User',
+  name: 'Super User',
   email: 'example@example.com',
   password: 'password',
   password_confirmation: 'password'
 )
 user.save!
 user.activate!
+user.admin!
 
 Car.create!((1..5).map { { name: Faker::Cat.name } })
 car = Car.first
