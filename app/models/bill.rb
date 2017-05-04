@@ -2,9 +2,10 @@ class Bill < ApplicationRecord
   belongs_to :term
   belongs_to :user
 
-  validation :term, presence: true
-  validation :user, presence: true
-  validation :amount, presence: true
+  validates :term, presence: true
+  validates :user, presence: true
+  validates :amount, presence: true
+  validates :user, uniqueness: { scope: [:term] }
 
   def paid!
     update!(paid_at: Time.zone.now)
