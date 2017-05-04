@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :fuels
 
   authenticates_with_sorcery!
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness: true
   with_options on: :create do |on_create|
     on_create.validates :password, presence: true, confirmation: true, if: :password_changed?
   end
