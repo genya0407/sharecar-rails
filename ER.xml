@@ -135,25 +135,6 @@
 <part>id</part>
 </key>
 </table>
-<table x="446" y="12" name="consumption">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="car_id" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="car" row="id" />
-</row>
-<row name="term_id" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="term" row="id" />
-</row>
-<row name="yen_per_km" null="1" autoincrement="0">
-<datatype>FLOAT</datatype>
-<default>NULL</default></row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
 <table x="838" y="216" name="booking">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
@@ -171,4 +152,3 @@
 </key>
 </table>
 </sql>
-
