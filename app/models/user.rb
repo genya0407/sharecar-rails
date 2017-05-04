@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :drives
   has_many :bookings
+  has_many :bills
+  has_many :fuels
 
   authenticates_with_sorcery!
   validates :email, presence: true
