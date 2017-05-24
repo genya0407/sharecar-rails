@@ -3,6 +3,8 @@ require 'test_helper'
 class BaseControllerTest < ActionDispatch::IntegrationTest
   include Sorcery::TestHelpers::Rails::Integration
   include Sorcery::TestHelpers::Rails::Controller
+  include EmailSpec::Helpers
+  include EmailSpec::Matchers
 
   def assert_require_login(method, path)
     send(method, path)

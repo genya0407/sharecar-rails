@@ -43,6 +43,16 @@ class UsersControllerTest < BaseControllerTest
     assert_response :redirect
   end
 
+  test '招待メールをもう一度送信すること' do
+    login
+    @user.admin!
+    target_user = create(:user_not_activated)
+
+    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+      post resend_invitation_user_path(target_user)
+    end
+  end
+
   test 'password_confirmationが間違っていた場合に弾くように' do
     login
     email = Faker::Internet.email

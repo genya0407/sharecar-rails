@@ -1,13 +1,12 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: [:activate, :confirm]
+  skip_before_action :require_login, only: [:activate, :confirm, :resend_invitation]
   before_action :should_be_admin, except: [:show, :index, :activate, :confirm]
+  before_action :set_users, only: [:index, :new, :create, :resend_invitation]
 
   def index
-    @users = User.all
   end
 
   def new
-    @users = User.all
     @user = User.new
   end
 
@@ -17,8 +16,18 @@ class UsersController < ApplicationController
       flash[:notice] = "Sent invitation to #{@user.email}."
       redirect_to action: :new
     else
-      @users = User.all
       render action: :new
+    end
+  end
+
+  def resend_invitation
+    @user = User.find_by(id: params[:id])
+
+    if @user.present?
+      UserMailer.activation_needed_email(@user).deliver
+      render action: :new
+    else
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -55,5 +64,9 @@ class UsersController < ApplicationController
 
     def user_confirm_params
       params.require(:user).permit(:name, :phone_number, :password, :password_confirmation)
+    end
+
+    def set_users
+      @users = User.all
     end
 end

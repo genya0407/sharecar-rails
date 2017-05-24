@@ -16,5 +16,10 @@
       <%= user.phone_number %>
     </p>
   </div>
+  <% if user.activation_state == 'pending' %>
+  <div class="card-action">
+    <%= link_to "Reinvite", resend_invitation_user_path(user), method: :post %>
+  </div>
+  <% end %>
 </div>
 <% end %>
