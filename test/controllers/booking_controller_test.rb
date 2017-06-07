@@ -34,6 +34,22 @@ class BookingControllerTest < BaseControllerTest
     assert_select '.booking > .card-action', my_bookings_count
   end
 
+  test '#destroy 自分の予約が削除できること' do
+    booking = create(:booking, user: @user)
+
+    assert_difference 'Booking.count', -1 do
+      delete car_booking_path(car_id: booking.car.id, id: booking.id)
+    end
+  end
+
+  test '#destroy 他人の予約が削除できないこと' do
+    booking = create(:booking)
+
+    assert_difference 'Booking.count', 0 do
+      delete car_booking_path(car_id: booking.car.id, id: booking.id)
+    end
+  end
+
   test '#create 予約が作成できること' do
     car = create(:car)
     start_at = Time.zone.now

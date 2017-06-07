@@ -34,10 +34,16 @@ class BookingsController < ApplicationController
   end
 
   def destroy
-    booking = current_user.bookings.find(params[:id])
-    booking.destroy!
+    booking = current_user.bookings.find_by(id: params[:id])
+    if booking.present?
+      booking.destroy!
+    end
 
-    redirect_to request.referrer
+    if request.referrer.present?
+      redirect_to request.referrer.present?
+    else
+      redirect_to :root
+    end
   end
 
   private
