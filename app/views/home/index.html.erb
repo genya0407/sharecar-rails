@@ -7,7 +7,7 @@
           <%= car.name %>
         </p>
         <% if car.occupied? %>
-          <p>
+          <p class='right-align'>
               <%= car.current_driver.name %>が<%= simple_datetime car.current_drive.end_at %>まで使用
           </p>
         <% end %>
