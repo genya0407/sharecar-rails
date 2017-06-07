@@ -19,21 +19,24 @@
   </div>
 </div>
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">給油履歴</span>
-    <% if @fuels.empty? %>
-      給油された記録がありません
-    <% else %>
-      <div class='collection'>
-        <% @fuels.each do |fuel| %>
-          <div class='collection-item z-depth-1'>
-            <span class='title'><%= fuel.user.name %></span>
-            <p><%= simple_datetime fuel.created_at %></p>
-            <p><%= fuel.amount %>円</p>
-          </div>
-        <% end %>
-      </div>
+<% @fuels.each do |fuel| %>
+  <div class='card fuel'>
+    <div class='card-content'>
+      <p>
+        <span class='card-title'><%= fuel.user.name %></span>
+        <p><%= simple_datetime fuel.created_at %></p>
+        <p><%= fuel.amount %>円</p>
+      </p>
+    </div>
+    <% if fuel.user.id == current_user.id %>
+    <div class='card-action right-align'>
+      <%= link_to car_fuel_path(id: fuel),
+                  { method: :delete,
+                    data: { confirm: "#{fuel.amount}円の給油履歴を取り消しますか？" },
+                    class: 'btn-floating btn-large waves-effect waves-light red' } do %>
+        <i class="material-icons">delete</i>
+      <% end %>
+    </div>
     <% end %>
   </div>
-</div>
+<% end %>

@@ -13,6 +13,14 @@ class FuelsController < ApplicationController
     end
   end
 
+  def destroy
+    fuel = current_user.fuels.find_by(id: params[:id])
+    if fuel.present?
+      fuel.destroy!
+    end
+    redirect_to action: :new
+  end
+
   private
   def fuel_params
     params.require(:fuel).permit(:amount).to_h
