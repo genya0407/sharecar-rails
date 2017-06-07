@@ -16,7 +16,7 @@ class FuelsControllerTest < BaseControllerTest
 
     get new_car_fuel_path(car_id: car.id)
 
-    assert_select '.fuel > .card-action', my_fuel_count
+    assert_select '.delete-fuel', my_fuel_count
     assert_select '.fuel', (others_fuel_count + my_fuel_count)
   end
 

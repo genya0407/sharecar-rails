@@ -31,7 +31,7 @@ class BookingControllerTest < BaseControllerTest
     end
 
     get new_car_booking_path(car_id: car.id)
-    assert_select '.booking > .card-action', my_bookings_count
+    assert_select '.delete-booking', my_bookings_count
   end
 
   test '#destroy 自分の予約が削除できること' do
