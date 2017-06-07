@@ -1,5 +1,3 @@
-<%= mail_to object.email,
-            { confirm: "#{object.name}にメールを送りますか？",
-              class: 'btn-floating btn-large waves-effect waves-light green' } do %>
+<%= mail_to object.email, class: 'btn-floating btn-large waves-effect waves-light green' do %>
   <i class="material-icons">email</i>
 <% end %>

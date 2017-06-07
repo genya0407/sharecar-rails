@@ -1,5 +1,3 @@
-<%= link_to normalize_tel(object.phone_number),
-            { confirm: "#{object.name}に電話を掛けますか？",
-              class: 'btn-floating btn-large waves-effect waves-light green' } do %>
+<%= link_to normalize_tel(object.phone_number), class: 'btn-floating btn-large waves-effect waves-light green' do %>
   <i class="material-icons">phone</i>
 <% end %>
