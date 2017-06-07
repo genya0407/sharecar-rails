@@ -7,16 +7,17 @@
           <%= simple_datetime booking.start_at %> 〜 <%= simple_datetime booking.end_at %>
         </p>
       </div>
-      <% if booking.user.id == current_user.id %>
       <div class='card-action right-align'>
-        <%= link_to car_booking_path(id: booking),
-                    { method: :delete,
-                      data: { confirm: "#{booking.start_at.to_date}の予約を取り消しますか？" },
-                      class: 'btn-floating btn-large waves-effect waves-light red' } do %>
-          <i class="material-icons">delete</i>
+        <% if booking.user.id == current_user.id %>
+          <%= link_to car_booking_path(id: booking),
+                      { method: :delete,
+                        data: { confirm: "#{booking.start_at.to_date}の予約を取り消しますか？" },
+                        class: 'btn-floating btn-large waves-effect waves-light red' } do %>
+            <i class="material-icons">delete</i>
+          <% end %>
         <% end %>
+        <%= render 'widgets/tel', object: booking.user %>
       </div>
-      <% end %>
     </div>
   <% end %>
 <% end %>
