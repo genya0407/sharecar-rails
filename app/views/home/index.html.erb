@@ -5,13 +5,12 @@
       <div class="card-content">
         <p class="card-title">
           <%= car.name %>
-          <% if car.occupied? %>
-            <span class="badge red white-text">〜<%= simple_datetime car.current_drive.end_at %></span>
-            <span class="badge red white-text"><%= car.current_driver.name %></span>
-          <% else %>
-            <span class="badge green white-text">使用可</span>
-          <% end %>
         </p>
+        <% if car.occupied? %>
+          <p>
+              <%= car.current_driver.name %>が<%= simple_datetime car.current_drive.end_at %>まで使用
+          </p>
+        <% end %>
       </div>
       <div class="card-action right-align">
         <a href="<%= new_car_fuel_path car_id: car.id %>" class="btn-floating btn-large waves-effect green"><i class="material-icons">local_gas_station</i></a>
