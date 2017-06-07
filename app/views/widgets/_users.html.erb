@@ -10,6 +10,7 @@
       <%= link_to "Reinvite", resend_invitation_user_path(user), method: :post %>
     <% end %>
     <%= render 'widgets/tel', object: user %>
+    <%= render 'widgets/email', object: user %>
   </div>
 </div>
 <% end %>
