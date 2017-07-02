@@ -66,6 +66,11 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'iruby-rails', path: '/Users/sangenya/dev/iruby-rails'
+  gem 'daru'
+  gem 'daru-plotly'
+  gem 'pry'
+  gem 'gmail', path: '/Users/sangenya/dev/gmail'
 end
 
 group :test do

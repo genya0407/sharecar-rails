@@ -26,3 +26,5 @@
 
 # Other
 /node_modules
+
+*.ipynb
