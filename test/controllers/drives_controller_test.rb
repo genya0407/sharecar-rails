@@ -39,7 +39,7 @@ class DrivesControllerTest < BaseControllerTest
     end
 
     get new_car_drive_path(car_id: car.id)
-    assert_select '.booking > .card-action', my_bookings_count
+    assert_select '.booking-delete', my_bookings_count
   end
 
   test '#create driveが作成できること' do

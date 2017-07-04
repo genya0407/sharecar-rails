@@ -27,6 +27,6 @@ class HomeControllerTest < BaseControllerTest
   end
 
   test '使用中のdriveの数だけ終了時刻と使用者が表示されること' do
-    assert_select 'div.card-content > p > span.red', Drive.where(end_meter: nil).count * 2
+    assert_select 'p.current-drive', Drive.where(end_meter: nil).count
   end
 end
