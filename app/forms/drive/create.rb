@@ -22,7 +22,7 @@ class DriveForm
       params = drive.attributes.symbolize_keys.slice(:start_meter, :car_id, :user_id)
       params.merge!(end_at_date: drive.end_at.to_date, end_at_hour: drive.end_at.hour)
 
-      DriveForm::Create.new(params)
+      self.new(params)
     end
 
     def save!
