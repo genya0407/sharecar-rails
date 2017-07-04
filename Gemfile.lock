@@ -1,18 +1,3 @@
-PATH
-  remote: /Users/sangenya/dev/gmail
-  specs:
-    gmail (0.6.0)
-      gmail_xoauth (>= 0.3.0)
-      mail (>= 2.2.1)
-
-PATH
-  remote: /Users/sangenya/dev/iruby-rails
-  specs:
-    iruby-rails (1.0.0)
-      ffi-rzmq (~> 2.0.4)
-      iruby (~> 0.2.9)
-      rails
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -60,10 +45,8 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    backports (3.8.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
-    bond (0.5.1)
     builder (3.2.3)
     byebug (9.0.6)
     coderay (1.1.1)
@@ -77,12 +60,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
-    daru (0.1.5)
-      backports
-    daru-plotly (0.2.0)
-      daru
-      rbplotly
-    data_uri (0.1.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     email_spec (2.1.1)
@@ -99,22 +76,11 @@ GEM
     faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
-    ffi-rzmq (2.0.5)
-      ffi-rzmq-core (>= 1.0.6)
-    ffi-rzmq-core (1.0.6)
-      ffi
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    gmail_xoauth (0.4.2)
-      oauth (>= 0.3.6)
     htmlentities (4.3.4)
     i18n (0.8.1)
     ice_nine (0.11.2)
-    iruby (0.2.9)
-      bond (~> 0.5)
-      data_uri (~> 0.1)
-      mimemagic (~> 0.3)
-      multi_json (~> 1.11)
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
       multi_json (~> 1.2)
@@ -138,7 +104,6 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mimemagic (0.3.2)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)
@@ -191,10 +156,6 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
-    rbplotly (0.1.2)
-      faraday (~> 0.9)
-      launchy (~> 2.4)
-      uuidtools (~> 2.1)
     sass (3.4.23)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -229,7 +190,6 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
-    uuidtools (2.1.5)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -250,13 +210,9 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
-  daru
-  daru-plotly
   email_spec
   factory_girl
   faker
-  gmail!
-  iruby-rails!
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
