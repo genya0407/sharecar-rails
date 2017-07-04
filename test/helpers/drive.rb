@@ -12,13 +12,13 @@ module DriveHelper
     end
   end
 
-  def create_continuous_drives(car, users: nil)
+  def create_continuous_drives(car, users: nil, n: 30)
     users ||= rand(3..5).times.map { create(:user) }
     start_meter = 0
     end_meter = rand(10..100)
     start_at = Time.zone.now
     end_at = start_at + rand(2..10).hours
-    drive_params = 100.times.map do
+    drive_params = n.times.map do
       params = {
         user: users.sample,
         car: car,

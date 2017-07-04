@@ -1,0 +1,29 @@
+<% @card_elements.each do |elem| %>
+  <% if elem.is_a? Drive %>
+    <div class='card drive'>
+      <div class='card-content'>
+        <p>
+          <span class='card-title'><%= elem.user.name %></span>
+          <%= simple_datetime elem.start_at %> 〜 <%= simple_datetime elem.end_at %>
+        </p>
+      </div>
+      <div class='card-action right-align'>
+        <%= render 'widgets/tel', object: elem.user %>
+        <%= render 'widgets/email', object: elem.user %>
+      </div>
+    </div>
+  <% elsif elem.is_a? DriveForm::CreateAdmin %>
+    <div class='card drive-form-create-admin yellow'>
+      <div class='card-content'>
+        <p>
+          <span class='card-title'>????</span>
+        </p>
+      </div>
+      <div class='card-action right-align'>
+        <%= link_to new_admin_car_drive_path(elem.attributes['car_id'], elem.attributes), class: 'btn-floating btn-large waves-effect waves-light green' do %>
+          <i class="material-icons">create</i>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

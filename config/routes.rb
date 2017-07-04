@@ -19,4 +19,10 @@ Rails.application.routes.draw do
     resources :drives
     resources :fuels
   end
+
+  namespace :admin do
+    resources :cars, only: [] do
+      resources :drives
+    end
+  end
 end
