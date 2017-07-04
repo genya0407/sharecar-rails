@@ -5,22 +5,24 @@ class DrivesController < ApplicationController
     @form = DriveForm::Create.new(
       start_meter: Drive.last_meter(params[:car_id]),
       end_at_date: Time.zone.now.to_date,
-      end_at_hour: Time.zone.now.hour
+      end_at_hour: Time.zone.now.hour,
+      car_id: params[:car_id],
+      user_id: current_user.id
     )
   end
 
   def create
-    @form = DriveForm::Create.new(drive_start_params)
+    @form = DriveForm::Create.new(
+      drive_start_params.merge(
+        car_id: params[:car_id],
+        user_id: current_user.id
+      )
+    )
 
     if @form.valid?
-      drive = Drive.new(@form.attrs.merge(car_id: params[:car_id], user_id: current_user.id))
-      if drive.save
-        redirect_to :root
-      else
-        drive.errors.each { |k, v| @form.errors.add(k, v) }
+      @form.save!
 
-        render :new
-      end
+      redirect_to :root
     else
       render :new
     end

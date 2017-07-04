@@ -19,20 +19,4 @@ class DriveTest < ActiveSupport::TestCase
                   car: last_drive.car)
     assert drive.valid?
   end
-
-  test '期間が重複する他人の予約がある時、作成できない' do
-    drive = build(:drive)
-
-    with_conflicted_bookings drive do
-      assert_not drive.valid?
-    end
-  end
-
-  test '期間が重複する自分の予約がある時、作成できる' do
-    drive = build(:drive)
-
-    with_conflicted_bookings drive, is_mine: true do
-      assert drive.valid?
-    end
-  end
 end
