@@ -54,7 +54,7 @@ class Admin::DrivesController < ApplicationController
   end
 
   def destroy
-    Drive.find(params[:id]).destroy
+    Car.find(params[:car_id]).drives.find(params[:id]).destroy
 
     redirect_to action: :index
   end
