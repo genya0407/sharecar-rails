@@ -4,7 +4,7 @@ class Admin::DrivesController < ApplicationController
   def index
     drives = Drive.where(car_id: params[:car_id]).order(:start_meter)
     @card_elements = drives.zip(drives.drop(1)).map do |current_drive, next_drive|
-      if next_drive.nil? || current_drive.end_at.nil? || current_drive.end_meter == next_drive.start_meter
+      if next_drive.nil? || current_drive.end_meter.nil? || current_drive.end_meter == next_drive.start_meter
         current_drive
       else
         form = DriveForm::Admin.new(
