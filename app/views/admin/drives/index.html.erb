@@ -4,7 +4,8 @@
       <div class='card-content'>
         <p>
           <span class='card-title'><%= elem.user.name %></span>
-          <%= simple_datetime elem.start_at %> 〜 <%= simple_datetime elem.end_at %>
+          <p><%= simple_datetime elem.start_at %> 〜 <%= simple_datetime elem.end_at %></p>
+          <p><%= elem.start_meter %>km 〜 <%= elem.end_meter %>km</p>
         </p>
       </div>
       <div class='card-action right-align'>
