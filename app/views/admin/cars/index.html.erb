@@ -1,0 +1,18 @@
+<div class="row">
+<% @cars.each do |car| %>
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content">
+        <p class="card-title">
+          <%= car.name %>
+        </p>
+      </div>
+      <div class="card-action right-align">
+        <%= link_to admin_car_drives_path(car.id), class: 'btn-floating btn-large waves-effect waves-light red' do %>
+          <i class='material-icons'>create</i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
