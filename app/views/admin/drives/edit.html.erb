@@ -1,0 +1,25 @@
+<div id='edit-drive'>
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">乗車記録</span>
+      <%= form_for @form, url: admin_car_drive_path(car_id: @form.car_id, id: @drive.id), method: :put do |f| %>
+        <div class='row'>
+          <div class="input-field col s12">
+            <%= f.collection_select :user_id, User.all, :id, :name %>
+          </div>
+        </div>
+        <div class='row'>
+          <div class="input-field col s6">
+            <%= f.label :start_meter, '乗車時のメーター' %>
+            <%= f.number_field :start_meter %>
+          </div>
+          <div class="input-field col s6">
+            <%= f.label :end_meter, '降車時のメーター' %>
+            <%= f.number_field :end_meter %>
+          </div>
+        </div>
+        <%= f.submit "作成", class: "actions btn" %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -11,9 +11,15 @@
       <div class='card-action right-align'>
         <%= render 'widgets/tel', object: elem.user %>
         <%= render 'widgets/email', object: elem.user %>
+        <%= link_to admin_car_drive_path(elem.car.id, elem.id), class: 'btn-floating btn-large waves-effect waves-light red', method: :delete do %>
+          <i class='material-icons'>delete</i>
+        <% end %>
+        <%= link_to edit_admin_car_drive_path(elem.car.id, elem.id), class: 'btn-floating btn-large waves-effect waves-light red' do %>
+          <i class='material-icons'>create</i>
+        <% end %>
       </div>
     </div>
-  <% elsif elem.is_a? DriveForm::CreateAdmin %>
+  <% elsif elem.is_a? DriveForm::Admin %>
     <div class='card drive-form-create-admin yellow'>
       <div class='card-content'>
         <p>
@@ -26,5 +32,7 @@
         <% end %>
       </div>
     </div>
+  <% else %>
+    <% raise RuntimeError %>
   <% end %>
 <% end %>
