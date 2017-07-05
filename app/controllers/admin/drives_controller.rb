@@ -7,7 +7,7 @@ class Admin::DrivesController < ApplicationController
       if next_drive.nil? || current_drive.end_at.nil? || current_drive.end_meter == next_drive.start_meter
         current_drive
       else
-        form = DriveForm::CreateAdmin.new(
+        form = DriveForm::Admin.new(
           car_id: params[:car_id],
           start_meter: current_drive.end_meter,
           end_meter: next_drive.start_meter

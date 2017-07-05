@@ -7,7 +7,7 @@ class DriveFormCreateTest < ActiveSupport::TestCase
 
   test 'start_atとend_atが無くても作成できること' do
     start_meter = rand(100..10000)
-    form = DriveForm::CreateAdmin.new(
+    form = DriveForm::Admin.new(
       start_meter: start_meter,
       end_meter: start_meter + rand(10..100),
       user_id: create(:user).id,

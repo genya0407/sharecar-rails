@@ -1,5 +1,5 @@
 class DriveForm
-  class CreateAdmin < ApplicationForm
+  class Admin < ApplicationForm
     attribute :start_meter, Integer
     attribute :end_meter, Integer
     attribute :car_id, Integer
