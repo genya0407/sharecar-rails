@@ -19,6 +19,13 @@ class Drive < ApplicationRecord
     where(end_meter: nil)
   end
 
+  def self.lack_exist?
+    target_drive = order(:start_meter)
+    target_drive.zip(target_drive.drop(1))
+                .reverse.drop(1).reverse
+                .any? { |drive1, drive2| drive1.end_meter != drive2.start_meter }
+  end
+
   def conflicted_drives
     self.car.drives.where.not(id: id).not_end.between(start_at, end_at)
   end
