@@ -1,0 +1,8 @@
+.FAB {
+	@extend .btn-floating;
+	@extend .waves-effect;
+	@extend .waves-light;
+}
+
+@import 'widgets/card';
+@import 'widgets/form';

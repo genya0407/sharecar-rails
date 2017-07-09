@@ -98,6 +98,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    material_icons (2.2.1)
+      railties (>= 3.2)
     materialize-sass (0.98.1)
       sass (~> 3.3)
     method_source (0.8.2)
@@ -216,6 +218,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
+  material_icons
   materialize-sass
   pg
   pry

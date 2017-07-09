@@ -1,33 +1,29 @@
-<div class="row">
 <% @cars.each do |car| %>
-  <div class="col s12">
-    <div class="card">
-      <div class="card-content">
-        <p class="card-title">
-          <%= car.name %>
-        </p>
-        <% if car.occupied? %>
-          <p class='right-align current-drive'>
-              <%= car.current_driver.name %>が<%= simple_datetime car.current_drive.end_at %>まで使用
-          </p>
-        <% end %>
-      </div>
-      <% if car.occupied? %>
-        <div class="card-action right-align">
-            <%= render 'widgets/tel', object: car.current_driver %>
-            <%= render 'widgets/email', object: car.current_driver %>
-        </div>
-      <% end %>
-      <div class="card-action right-align">
-        <a href="<%= new_car_fuel_path car_id: car.id %>" class="btn-floating btn-large waves-effect green"><i class="material-icons">local_gas_station</i></a>
-        <a href="<%= new_car_booking_path car_id: car.id %>" class="btn-floating btn-large waves-effect green"><i class="material-icons">bookmark</i></a>
-        <% if car.using?(current_user.id) %>
-          <a href="<%= edit_car_drive_path car_id: car.id, id: car.using_drive(current_user.id).id %>" class="btn-floating btn-large waves-effect red"><i class="material-icons">done</i></a>
-        <% else %>
-          <a href="<%= new_car_drive_path car.id %>" class="btn-floating btn-large waves-effect green"><i class="material-icons">send</i></a>
-        <% end %>
-      </div>
-    </div>
+<div class="Card">
+  <div class="Card--Content">
+    <p class="Card--Content--Title">
+      <%= car.name %>
+    </p>
+    <% if car.occupied? %>
+      <p class='right-align current-drive'>
+          <%= car.current_driver.name %>が<%= simple_datetime car.current_drive.end_at %>まで使用
+      </p>
+    <% end %>
   </div>
-<% end %>
+  <% if car.occupied? %>
+  <div class="Card--Action">
+      <%= render 'widgets/tel', object: car.current_driver %>
+      <%= render 'widgets/email', object: car.current_driver %>
+  </div>
+  <% end %>
+  <div class="Card--Action">
+    <a href="<%= new_car_fuel_path car_id: car.id %>" class="Card--Action--FAB green"><i class="Card--Action--FAB--Icon">local_gas_station</i></a>
+    <a href="<%= new_car_booking_path car_id: car.id %>" class="Card--Action--FAB green"><i class="Card--Action--FAB--Icon">bookmark</i></a>
+    <% if car.using?(current_user.id) %>
+      <a href="<%= edit_car_drive_path car_id: car.id, id: car.using_drive(current_user.id).id %>" class="Card--Action--FAB red"><i class="Card--Action--FAB--Icon">done</i></a>
+    <% else %>
+      <a href="<%= new_car_drive_path car.id %>" class="Card--Action--FAB green"><i class="Card--Action--FAB--Icon">send</i></a>
+    <% end %>
+  </div>
 </div>
+<% end %>

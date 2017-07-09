@@ -16,11 +16,11 @@ class HomeControllerTest < BaseControllerTest
   end
 
   test 'carの数だけcardが表示されること' do
-    assert_select '.card', Car.count
+    assert_select '.Card', Car.count
   end
 
   test '自分が使用中のdriveの数だけ乗車終了ボタンが表示されること' do
-    assert_select 'i.material-icons', { 
+    assert_select '.Card--Action--FAB--Icon', { 
       count: Drive.where(end_meter: nil, user: @user).count,
       text: 'done'
     }

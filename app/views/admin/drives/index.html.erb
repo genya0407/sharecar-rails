@@ -1,34 +1,34 @@
 <% @card_elements.each do |elem| %>
   <% if elem.is_a? Drive %>
-    <div class='card drive'>
-      <div class='card-content'>
+    <div class='Card drive'>
+      <div class='Card--Content'>
         <p>
-          <span class='card-title'><%= elem.user.name %></span>
+          <span class='Card--Content--Title'><%= elem.user.name %></span>
           <p><%= simple_datetime elem.start_at %> 〜 <%= simple_datetime elem.end_at %></p>
           <p><%= elem.start_meter %>km 〜 <%= elem.end_meter %>km</p>
         </p>
       </div>
-      <div class='card-action right-align'>
+      <div class='Card--Action'>
         <%= render 'widgets/tel', object: elem.user %>
         <%= render 'widgets/email', object: elem.user %>
-        <%= link_to admin_car_drive_path(elem.car.id, elem.id), class: 'btn-floating btn-large waves-effect waves-light red', method: :delete do %>
-          <i class='material-icons'>delete</i>
+        <%= link_to admin_car_drive_path(elem.car.id, elem.id), class: 'Card--Action--FAB red', method: :delete do %>
+          <i class='Card--Action--FAB--Icon'>delete</i>
         <% end %>
-        <%= link_to edit_admin_car_drive_path(elem.car.id, elem.id), class: 'btn-floating btn-large waves-effect waves-light red' do %>
-          <i class='material-icons'>create</i>
+        <%= link_to edit_admin_car_drive_path(elem.car.id, elem.id), class: 'Card--Action--FAB red' do %>
+          <i class='Card--Action--FAB--Icon'>create</i>
         <% end %>
       </div>
     </div>
   <% elsif elem.is_a? DriveForm::Admin %>
-    <div class='card drive-form-create-admin yellow'>
-      <div class='card-content'>
+    <div class='Card yellow drive-form-create-admin'>
+      <div class='Card--Content'>
         <p>
-          <span class='card-title'>????</span>
+          <span class='Card--Content--Title'>????</span>
         </p>
       </div>
-      <div class='card-action right-align'>
-        <%= link_to new_admin_car_drive_path(elem.attributes['car_id'], elem.attributes), class: 'btn-floating btn-large waves-effect waves-light green' do %>
-          <i class="material-icons">create</i>
+      <div class='Card--Action'>
+        <%= link_to new_admin_car_drive_path(elem.attributes['car_id'], elem.attributes), class: 'Card--Action--FAB green' do %>
+          <i class="Card--Action--FAB--Icon">create</i>
         <% end %>
       </div>
     </div>

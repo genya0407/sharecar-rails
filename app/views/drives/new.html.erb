@@ -3,27 +3,27 @@
 <% end %>
 
 <div id='create-drive'>
-  <div class="card">
-    <div class="card-content">
-      <span class="card-title">乗車記録</span>
-      <%= form_for @form, url: car_drives_path do |f| %>
-        <div class='row'>
-          <div class="input-field col s12">
+  <div class="Card">
+    <div class="Card--Content">
+      <span class="Card--Content--Title">乗車記録</span>
+      <%= form_for @form, url: car_drives_path, html: { class: 'Form' } do |f| %>
+        <div class='Form--InputSet'>
+          <div class="Form--InputSet--Field s12">
             <%= f.label :start_meter, '乗車時のメーター' %>
             <%= f.number_field :start_meter %>
           </div>
         </div>
-        <div class='row'>
-          <div class='input-field col s6'>
+        <div class='Form--InputSet'>
+          <div class='Form--InputSet--Field s6'>
             <%= f.label '終了予定日' %>
             <%= f.date_field :end_at_date, class: 'datepicker' %>
           </div>
-          <div class="input-field col s6">
+          <div class="Form--InputSet--Field s6">
             <%= f.label '終了予定時刻' %>
             <%= f.number_field :end_at_hour, in: 0..23 %>
           </div>
         </div>
-        <%= f.submit "開始", class: "actions btn" %>
+        <%= f.submit "開始", class: "Form--SubmitBtn" %>
       <% end %>
     </div>
   </div>
