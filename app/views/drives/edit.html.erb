@@ -22,10 +22,17 @@
       <div class='Form--InputSet'>
         <div class="Form--InputSet--Field s12">
           <%= f.label :end_meter, '降車時のメーター' %>
-          <%= f.number_field :end_meter, { value: @form.drive.start_meter } %>
+          <%= f.number_field :end_meter, { value: @form.drive.start_meter, id: 'drive-end-meter' } %>
         </div>
       </div>
+      <p>走行距離：<span id='drive-distance'>0</span> km</p>
       <%= f.submit "終了", class: "Form--SubmitBtn" %>
     <% end %>
   </div>
 </div>
+
+<script type='text/javascript'>
+  window.onload = function(){
+    window.init_distance_syncer(<%= @form.drive.start_meter %>);
+  };
+</script>
