@@ -22,7 +22,7 @@
       <div class='Form--InputSet'>
         <div class="Form--InputSet--Field s12">
           <%= f.label :end_meter, '降車時のメーター' %>
-          <%= f.number_field :end_meter %>
+          <%= f.number_field :end_meter, { value: @form.drive.start_meter } %>
         </div>
       </div>
       <%= f.submit "終了", class: "Form--SubmitBtn" %>
