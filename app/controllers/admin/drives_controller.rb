@@ -15,7 +15,7 @@ class Admin::DrivesController < ApplicationController
 
         [current_drive, form]
       end
-    end.flatten
+    end.flatten.reverse
   end
 
   def new
