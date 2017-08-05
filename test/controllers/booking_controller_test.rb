@@ -40,6 +40,8 @@ class BookingControllerTest < BaseControllerTest
     assert_difference 'Booking.count', -1 do
       delete car_booking_path(car_id: booking.car.id, id: booking.id)
     end
+
+    assert_response :redirect
   end
 
   test '#destroy 他人の予約が削除できないこと' do
