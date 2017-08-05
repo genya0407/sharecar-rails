@@ -2,12 +2,7 @@ class BookingsController < ApplicationController
   before_action :set_bookings_in_effect, only: [:new, :create]
 
   def new
-    @form = BookingForm::Create.new(
-      start_at_date: Time.zone.now.to_date,
-      start_at_hour: Time.zone.now.hour,
-      end_at_date: Time.zone.now.to_date,
-      end_at_hour: Time.zone.now.hour
-    )
+    @form = BookingForm::Create.initial
   end
 
   def create

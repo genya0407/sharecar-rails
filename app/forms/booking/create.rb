@@ -14,6 +14,15 @@ class BookingForm
 
     validate :end_should_be_greater_than_begin
 
+    def self.initial
+      new(
+        start_at_date: Time.zone.now.to_date,
+        start_at_hour: Time.zone.now.hour,
+        end_at_date: Time.zone.now.to_date,
+        end_at_hour: Time.zone.now.hour
+      )
+    end
+
     def attrs
       {
         start_at: start_at,
