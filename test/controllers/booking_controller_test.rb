@@ -50,6 +50,8 @@ class BookingControllerTest < BaseControllerTest
     assert_difference 'Booking.count', 0 do
       delete car_booking_path(car_id: booking.car.id, id: booking.id)
     end
+
+    assert_response :unprocessable_entity
   end
 
   test '#create 予約が作成できること' do

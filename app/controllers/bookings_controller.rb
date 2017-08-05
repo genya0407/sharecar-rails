@@ -32,12 +32,10 @@ class BookingsController < ApplicationController
     booking = current_user.bookings.find_by(id: params[:id])
     if booking.present?
       booking.destroy!
-    end
-
-    if request.referrer.present?
-      redirect_to request.referrer.present?
+      redirect_to new_car_booking_path(car_id: booking.car.id)
     else
-      redirect_to :root
+      @form = BookingForm::Create.initial
+      render :new, status: :unprocessable_entity
     end
   end
 
