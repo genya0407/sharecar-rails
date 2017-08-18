@@ -1,24 +1,16 @@
-# README
+# sharecar-rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setup
 
-Things you may want to cover:
+Please install docker first.
 
-* Ruby version
+```shell-session
+$ ./launch_db.sh
+$ bundle install --path vendor/bin
+$ bundle exec rake db:setup
+$ bundle exec rails s
+```
 
-* System dependencies
+Go to [http://localhost:3000](http://localhost:3000).
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This webapp is for smartphone's web browser.
