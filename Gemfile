@@ -52,6 +52,7 @@ gem 'material_icons'
 # gem 'iruby', github: 'SciRuby/iruby'
 # gem 'daru'
 # gem 'daru_plotly', github: 'genya0407/daru_plotly'
+gem 'rbplotly'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

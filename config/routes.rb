@@ -25,4 +25,8 @@ Rails.application.routes.draw do
       resources :drives
     end
   end
+
+  namespace :metrics do
+    resources :drives, only: [:index]
+  end
 end

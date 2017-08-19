@@ -1,0 +1,11 @@
+
+<div class="Card">
+  <div class='Card--Content'>
+    <p class='Card--Content--Title'>今期の走行距離</p>
+    <ul>
+    <% Car.all.each do |car| %>
+      <li><%= car.name %>： <%= Drive.total_unpaid_distance(car.id, current_user.id) %> km</li>
+    <% end %>
+    </ul>
+  </div>
+</div>
