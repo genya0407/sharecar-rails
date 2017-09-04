@@ -6,4 +6,6 @@ class Fuel < ApplicationRecord
   validates :amount, presence: true
   validates :user, presence: true
   validates :car, presence: true
+
+  include OnlyChecked
 end

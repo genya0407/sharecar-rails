@@ -7,6 +7,8 @@ class Drive < ApplicationRecord
   validates :car_id, presence: true
   validates :user_id, presence: true
 
+  include OnlyChecked
+
   LATEST_COUNT = 10
 
   def self.last_meter(car_id)
