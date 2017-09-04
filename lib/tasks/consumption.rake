@@ -11,6 +11,6 @@ task cc: :environment do # calculate consumption
   end
 
   car_and_consumptions.each do |car, consumption|
-    puts "#{car.name}：#{consumption.to_i} (yen/km)"
+    puts "#{car.name}：#{consumption} (yen/km)"
   end  
 end
