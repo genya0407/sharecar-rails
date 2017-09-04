@@ -31,7 +31,7 @@ class Drive < ApplicationRecord
   end
 
   def self.latests
-    order(start_at: :desc).limit(LATEST_COUNT)
+    order(start_meter: :desc).limit(LATEST_COUNT)
   end
 
   def conflicted_drives
