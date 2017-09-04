@@ -17,8 +17,7 @@
   </div>
   <% end %>
   <div class="Card--Action">
-    <a href="<%= car_drives_path car_id: car.id %>" class="Card--Action--FAB green"><i class="Card--Action--FAB--Icon">history</i></a>
-
+    <a href="<%= car_drives_path car_id: car.id %>" class="Card--Action--FAB <%= car.drives.only_checked.lack_exist? ? 'red' : 'green' %>"><i class="Card--Action--FAB--Icon">history</i></a>
     <a href="<%= new_car_fuel_path car_id: car.id %>" class="Card--Action--FAB green"><i class="Card--Action--FAB--Icon">local_gas_station</i></a>
     <a href="<%= new_car_booking_path car_id: car.id %>" class="Card--Action--FAB green"><i class="Card--Action--FAB--Icon">bookmark</i></a>
     <% if car.using?(current_user.id) %>
