@@ -11,6 +11,14 @@ class DrivesControllerTest < BaseControllerTest
     Booking.delete_all
   end
 
+  test '#index 直近10件のdriveが表示されること' do
+    car = create(:car)
+    drives = create_list(:drive, 20, car: car)
+    get car_drives_path(car_id: car.id)
+
+    assert_select '.drive', 10
+  end
+
   test '#new 前の人の終了メーターが表示されること' do
     car = create(:car)
     drive = create(:drive, car: car)

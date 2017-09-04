@@ -7,6 +7,8 @@ class Drive < ApplicationRecord
   validates :car_id, presence: true
   validates :user_id, presence: true
 
+  LATEST_COUNT = 10
+
   def self.last_meter(car_id)
     (where(car_id: car_id).maximum(:end_meter) || 0)
   end
@@ -24,6 +26,10 @@ class Drive < ApplicationRecord
     target_drive.zip(target_drive.drop(1))
                 .reverse.drop(1).reverse
                 .any? { |drive1, drive2| drive1.end_meter != drive2.start_meter }
+  end
+
+  def self.latests
+    order(start_at: :desc).limit(LATEST_COUNT)
   end
 
   def conflicted_drives

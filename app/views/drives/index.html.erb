@@ -1,0 +1,22 @@
+<div id='drive_history'>
+  <div class='Card'>
+    <div class='Card--Content'>
+      <span class='Card--Content--Title'><%= @car.name %>の乗車履歴</span>
+    </div>
+  </div>
+  <% @latest_drives.each do |drive| %>
+    <div class='Card drive'>
+      <div class='Card--Content'>
+        <p>
+          <span class='Card--Content--Title'><%= drive.user.name %></span>
+          <p><%= simple_datetime drive.start_at %> 〜 <%= simple_datetime drive.end_at %></p>
+          <p><%= drive.start_meter %>km 〜 <%= drive.end_meter %>km</p>
+        </p>
+      </div>
+      <div class='Card--Action'>
+        <%= render 'widgets/tel', object: drive.user %>
+        <%= render 'widgets/email', object: drive.user %>
+      </div>
+    </div>
+  <% end %>
+</div>

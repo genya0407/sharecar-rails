@@ -1,6 +1,11 @@
 class DrivesController < ApplicationController
   before_action :set_bookings_in_effect, only: [:new, :create]
 
+  def index
+    @car = Car.find(params[:car_id])
+    @latest_drives = @car.drives.latests
+  end
+
   def new
     @form = DriveForm::Create.new(
       start_meter: Drive.last_meter(params[:car_id]),
