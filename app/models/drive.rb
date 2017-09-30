@@ -1,7 +1,6 @@
 class Drive < ApplicationRecord
   belongs_to :car
   belongs_to :user
-  belongs_to :term
 
   validates :start_meter, presence: true
   validates :car_id, presence: true

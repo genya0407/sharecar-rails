@@ -10,21 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170704100002) do
+ActiveRecord::Schema.define(version: 20170930045838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "bills", force: :cascade do |t|
-    t.integer  "term_id",    null: false
-    t.integer  "user_id",    null: false
-    t.integer  "amount",     null: false
-    t.datetime "paid_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["term_id"], name: "index_bills_on_term_id", using: :btree
-    t.index ["user_id"], name: "index_bills_on_user_id", using: :btree
-  end
 
   create_table "bookings", force: :cascade do |t|
     t.datetime "start_at",   null: false
@@ -52,9 +41,7 @@ ActiveRecord::Schema.define(version: 20170704100002) do
     t.datetime "updated_at",  null: false
     t.integer  "car_id",      null: false
     t.integer  "user_id",     null: false
-    t.integer  "term_id"
     t.index ["car_id"], name: "index_drives_on_car_id", using: :btree
-    t.index ["term_id"], name: "index_drives_on_term_id", using: :btree
     t.index ["user_id"], name: "index_drives_on_user_id", using: :btree
   end
 
@@ -64,16 +51,8 @@ ActiveRecord::Schema.define(version: 20170704100002) do
     t.integer  "amount",     null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "term_id"
     t.index ["car_id"], name: "index_fuels_on_car_id", using: :btree
-    t.index ["term_id"], name: "index_fuels_on_term_id", using: :btree
     t.index ["user_id"], name: "index_fuels_on_user_id", using: :btree
-  end
-
-  create_table "terms", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
