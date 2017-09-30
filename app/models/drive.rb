@@ -33,6 +33,14 @@ class Drive < ApplicationRecord
     order(start_meter: :desc).limit(LATEST_COUNT)
   end
 
+  def distance
+    if start_meter.present? && end_meter.present?
+      end_meter - start_meter
+    else
+      nil
+    end
+  end
+
   def conflicted_drives
     self.car.drives.where.not(id: id).not_end.between(start_at, end_at)
   end

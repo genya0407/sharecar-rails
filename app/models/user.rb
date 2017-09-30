@@ -20,6 +20,12 @@ class User < ApplicationRecord
 
   enum permission: { admin: 0, member: 5 }
 
+  def should_pay
+    total_fee = Consumption.all.sum { |cons| cons.calc_fee_of(user) }
+    total_payment = user.payments.sum(&:amount)
+    total_fee - total_payment
+  end
+
   private
   def should_check_password_on_update?
     password_changed? || crypted_password.nil?
