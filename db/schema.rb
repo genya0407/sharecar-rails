@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170930045838) do
+ActiveRecord::Schema.define(version: 20170930051706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20170930045838) do
     t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "consumptions", force: :cascade do |t|
+    t.integer  "cars_id"
+    t.float    "price"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cars_id"], name: "index_consumptions_on_cars_id", using: :btree
   end
 
   create_table "drives", force: :cascade do |t|
@@ -53,6 +63,14 @@ ActiveRecord::Schema.define(version: 20170930045838) do
     t.datetime "updated_at", null: false
     t.index ["car_id"], name: "index_fuels_on_car_id", using: :btree
     t.index ["user_id"], name: "index_fuels_on_user_id", using: :btree
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer  "users_id",   null: false
+    t.integer  "amount",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["users_id"], name: "index_payments_on_users_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
