@@ -35,4 +35,33 @@ class ConsumptionTest < ActiveSupport::TestCase
 
     assert my_total_fee == Consumption.all.sum { |cons| cons.calc_fee_of(me) }
   end
+
+  test '.calc_consumption' do
+    FUEL_AMOUNT = 2000
+    FUEL_COUNT = 10
+
+    DRIVE_COUNT = 20
+    DRIVE_DISTANCE = 20
+    START_METER = rand(2000..3000)
+    TOTAL_DISTANCE = DRIVE_COUNT * DRIVE_DISTANCE
+
+    CONSUMPTION_START_AT = Time.zone.now - 10.days
+    CONSUMPTION_END_AT = Time.zone.now
+
+    fuels = build_list(:fuel, FUEL_COUNT, 
+      amount: FUEL_AMOUNT,
+      created_at: Faker::Time.between(CONSUMPTION_START_AT, CONSUMPTION_END_AT)
+    )
+
+    meters = (DRIVE_COUNT + 1).times.map { |i| START_METER + DRIVE_DISTANCE * i }
+    drives = meters.drop(1).zip(meters).map do |end_meter, start_meter|
+      build(:drive,
+        start_meter: start_meter,
+        end_meter: end_meter,
+        created_at: Faker::Time.between(CONSUMPTION_START_AT, CONSUMPTION_END_AT)
+      )
+    end
+
+    assert Consumption.calc_consumption(fuels, drives) == (FUEL_AMOUNT * FUEL_COUNT) / (DRIVE_DISTANCE * DRIVE_COUNT).to_f
+  end
 end

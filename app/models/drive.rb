@@ -14,6 +14,10 @@ class Drive < ApplicationRecord
     (where(car_id: car_id).maximum(:end_meter) || 0)
   end
 
+  def self.in(start_at, end_at)
+    where('? <= COALESCE(start_at, created_at) AND COALESCE(start_at, created_at) < ?', start_at, end_at)
+  end
+
   def self.between(start_at, end_at)
     where.not('end_at <= ? OR ? <= start_at', start_at, end_at)
   end

@@ -22,9 +22,12 @@ class User < ApplicationRecord
   enum permission: { admin: 0, member: 5 }
 
   def should_pay(all_consumptions: Consumption.all)
-    total_fee = all_consumptions.map { |cons| cons.calc_fee_of(self) }.sum
-    total_payment = payments.sum(&:amount)
-    total_fee - total_payment
+    total_fee = all_consumptions.map do |cons|
+      fee = cons.calc_fee_of(self)
+      fuel_amount = fuels.where(car_id: cons.car_id).in(cons.start_at, cons.end_at).sum(&:amount)
+      fee - fuel_amount
+    end.sum
+    total_fee - payments.sum(&:amount)
   end
 
   private

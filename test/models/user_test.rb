@@ -66,20 +66,30 @@ class UserTest < ActiveSupport::TestCase
     CONSUMPTIONS_COUNT = 3
     FEE = 1000
     PAYMENT_AMOUNT = 1000
+    NEW_FUEL_AMOUNT = 1000
     user = create(:user)
 
     # no payment
     consumptions = CONSUMPTIONS_COUNT.times.map { MiniTest::Mock.new.expect(:calc_fee_of, FEE, [User]) }
-    assert user.should_pay(all_consumptions: consumptions) == CONSUMPTIONS_COUNT * FEE
+    expected_fee = CONSUMPTIONS_COUNT * FEE
+    assert user.should_pay(all_consumptions: consumptions) == expected_fee
 
     # after pay
     create(:payment, user: user, amount: PAYMENT_AMOUNT)
     consumptions = CONSUMPTIONS_COUNT.times.map { MiniTest::Mock.new.expect(:calc_fee_of, FEE, [User]) }
-    assert user.reload.should_pay(all_consumptions: consumptions) == CONSUMPTIONS_COUNT * FEE - PAYMENT_AMOUNT
+    expected_fee -= PAYMENT_AMOUNT
+    assert user.reload.should_pay(all_consumptions: consumptions) == expected_fee
 
     # one more pay
     create(:payment, user: user, amount: PAYMENT_AMOUNT)
     consumptions = CONSUMPTIONS_COUNT.times.map { MiniTest::Mock.new.expect(:calc_fee_of, FEE, [User]) }
-    assert user.reload.should_pay(all_consumptions: consumptions) == CONSUMPTIONS_COUNT * FEE - PAYMENT_AMOUNT * 2
+    expected_fee -= PAYMENT_AMOUNT
+    assert user.reload.should_pay(all_consumptions: consumptions) == expected_fee
+
+    # 新しく給油したらその分feeが減ること
+    create(:fuel, user: user, amount: NEW_FUEL_AMOUNT, car: create(:car))
+    consumptions = CONSUMPTIONS_COUNT.times.map { MiniTest::Mock.new.expect(:calc_fee_of, FEE, [User]) }
+    expected_fee -= NEW_FUEL_AMOUNT
+    assert user.reload.should_pay(all_consumptions: consumptions) == expected_fee
   end
 end

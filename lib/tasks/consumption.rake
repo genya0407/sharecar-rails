@@ -1,16 +1,11 @@
-task cc: :environment do # calculate consumption
-  check_start_at = Time.zone.local(2017, 7, 1) # ちゃんと使い始めた日
+task cc: :environment do
+  Consumption.unfinished.all.each do |consumption|
+    start_at = consumption.start_at
+    end_at = consumption.end_at
+    target_fuels = consumption.car.fuels.in(start_at, end_at)
+    target_drives = consumption.car.drives.in(start_at, end_at)
 
-  car_and_consumptions = Car.all.map do |car|
-    total_gas_yen = car.fuels.only_checked.sum(:amount)
-    total_meter = car.drives.only_checked
-                            .where.not(end_meter: nil)
-                            .sum('end_meter - start_meter')
-    consumption = total_gas_yen.to_f / total_meter.to_f
-    [car, consumption]
+    cons_value = Consumption.calc_consumption(target_fuels, target_drives)
+    consumption.update(price: cons_value)
   end
-
-  car_and_consumptions.each do |car, consumption|
-    puts "#{car.name}：#{consumption.round(1)} (yen/km)"
-  end  
 end
