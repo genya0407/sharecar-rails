@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :bookings
   has_many :bills
   has_many :fuels
+  has_many :payments
 
   authenticates_with_sorcery!
   validates :email, presence: true, uniqueness: true
@@ -20,9 +21,9 @@ class User < ApplicationRecord
 
   enum permission: { admin: 0, member: 5 }
 
-  def should_pay
-    total_fee = Consumption.all.sum { |cons| cons.calc_fee_of(user) }
-    total_payment = user.payments.sum(&:amount)
+  def should_pay(all_consumptions: Consumption.all)
+    total_fee = all_consumptions.map { |cons| cons.calc_fee_of(self) }.sum
+    total_payment = payments.sum(&:amount)
     total_fee - total_payment
   end
 

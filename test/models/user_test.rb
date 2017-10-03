@@ -61,4 +61,25 @@ class UserTest < ActiveSupport::TestCase
       password_confirmation: Faker::Internet.password
     )
   end
+
+  test '#should_pay' do
+    CONSUMPTIONS_COUNT = 3
+    FEE = 1000
+    PAYMENT_AMOUNT = 1000
+    user = create(:user)
+
+    # no payment
+    consumptions = CONSUMPTIONS_COUNT.times.map { MiniTest::Mock.new.expect(:calc_fee_of, FEE, [User]) }
+    assert user.should_pay(all_consumptions: consumptions) == CONSUMPTIONS_COUNT * FEE
+
+    # after pay
+    create(:payment, user: user, amount: PAYMENT_AMOUNT)
+    consumptions = CONSUMPTIONS_COUNT.times.map { MiniTest::Mock.new.expect(:calc_fee_of, FEE, [User]) }
+    assert user.reload.should_pay(all_consumptions: consumptions) == CONSUMPTIONS_COUNT * FEE - PAYMENT_AMOUNT
+
+    # one more pay
+    create(:payment, user: user, amount: PAYMENT_AMOUNT)
+    consumptions = CONSUMPTIONS_COUNT.times.map { MiniTest::Mock.new.expect(:calc_fee_of, FEE, [User]) }
+    assert user.reload.should_pay(all_consumptions: consumptions) == CONSUMPTIONS_COUNT * FEE - PAYMENT_AMOUNT * 2
+  end
 end

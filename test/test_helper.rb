@@ -4,6 +4,8 @@ require 'rails/test_help'
 require 'factory_girl'
 require 'faker'
 require 'email_spec'
+require 'minitest/mock'
+require 'minitest/test_profile'
 
 FactoryGirl.find_definitions
 User.sorcery_config.activation_mailer_disabled = true
@@ -11,3 +13,5 @@ User.sorcery_config.activation_mailer_disabled = true
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
 end
+
+Minitest::TestProfile.use!(count: 3)

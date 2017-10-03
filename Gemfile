@@ -73,6 +73,7 @@ end
 
 group :test do
   gem 'email_spec'
+  gem 'minitest-test_profile'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
