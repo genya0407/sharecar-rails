@@ -27,7 +27,7 @@ class Drive < ApplicationRecord
   end
 
   def self.lack_exist?
-    target_drive = order(:start_meter)
+    target_drive = order(:start_meter).order(:created_at)
     target_drive.zip(target_drive.drop(1))
                 .reverse.drop(1).reverse
                 .any? { |drive1, drive2| drive1.end_meter != drive2.start_meter }
