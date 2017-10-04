@@ -1,0 +1,8 @@
+.TwoColumns {
+    display:         flex;
+    justify-content: space-between;
+}
+
+.TwoColumns--Column {
+    max-width: 48%;
+}

@@ -1,0 +1,55 @@
+<div class='Card'>
+  <div class='Card--Content'>
+    <div class='Card--Content--Title'>
+      <%= @car.name %>の給油履歴
+      <%= link_to new_admin_car_fuel_path(car_id: @car.id), class: 'Card--Action--FAB green right' do %>
+        <i class="Card--Action--FAB--Icon">add</i>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class='TwoColumns'>
+  <div class='TwoColumns--Column'>
+    <% @not_checked_fuels.each do |fuel| %>
+      <div class='Card not-checked-fuel'>
+        <div class='Card--Content'>
+          <p>
+            <span class='Card--Content--Title'><%= fuel.user.name %></span>
+            <p><%= simple_datetime fuel.created_at %></p>
+            <p><%= fuel.amount %>円</p>
+          </p>
+        </div>
+        <div class='Card--Action'>
+          <%= link_to admin_car_fuel_path(car_id: @car.id, id: fuel.id), class: 'Card--Action--FAB red', method: :delete do %>
+            <i class="Card--Action--FAB--Icon">delete</i>
+          <% end %>
+          <%= link_to admin_car_fuel_path(car_id: @car.id, id: fuel.id), class: 'Card--Action--FAB green', method: :put do %>
+            <i class="Card--Action--FAB--Icon">check</i>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class='TwoColumns--Column'>
+    <% @checked_fuels.each do |fuel| %>
+      <div class='Card not-checked-fuel'>
+        <div class='Card--Content'>
+          <p>
+            <span class='Card--Content--Title'><%= fuel.user.name %></span>
+            <p><%= simple_datetime fuel.created_at %></p>
+            <p><%= fuel.amount %>円</p>
+          </p>
+        </div>
+        <div class='Card--Action'>
+          <%= link_to admin_car_fuel_path(car_id: @car.id, id: fuel.id), class: 'Card--Action--FAB red', method: :delete do %>
+            <i class="Card--Action--FAB--Icon">delete</i>
+          <% end %>
+          <%= link_to admin_car_fuel_path(car_id: @car.id, id: fuel.id), class: 'Card--Action--FAB red', method: :put do %>
+            <i class="Card--Action--FAB--Icon">keyboard_arrow_left</i>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
