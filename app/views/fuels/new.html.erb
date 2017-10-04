@@ -6,7 +6,7 @@
   <div class="Card">
     <div class="Card--Content">
       <span class="Card--Content--Title">給油</span>
-      <%= form_for @fuel, url: car_fuels_path, html: { class: 'Form' } do |f| %>
+      <%= form_for @fuel, url: admin_car_fuels_path, html: { class: 'Form' } do |f| %>
         <div class='Form--InputSet'>
           <div class="Form--InputSet--Field s12">
             <%= f.label :amount, 'ガソリン代' %>
