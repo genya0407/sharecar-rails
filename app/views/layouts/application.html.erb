@@ -29,6 +29,11 @@
                 <i class="material-icons">supervisor_account</i> 管理者画面
               <% end %>
             </li>
+            <li>
+              <%= link_to new_admin_payment_path do %>
+                <i class="material-icons">payment</i> 支払い記録
+              <% end %>
+            </li>
           <% end %>
           <li>
             <%= link_to :logout, method: :post do %>
