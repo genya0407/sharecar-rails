@@ -8,7 +8,7 @@ class UserMailer < ApplicationMailer
 
   def activation_needed_email(user)
     @user = user
-    @url  = "https://#{Rails.application.secrets.site_domain}/users/#{user.activation_token}/activate"
+    @url  = activate_user_url(id: user.activation_token)
     mail(:to => user.email,
          :subject => "Activation")
   end

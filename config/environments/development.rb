@@ -56,7 +56,7 @@ Rails.application.configure do
   config.autoload_paths += ["#{Rails.root}/app/form"]
 
   # email
-  config.action_mailer.default_url_options = { :host => 'localhost:3000', :protocol => 'http'}
+  config.action_mailer.default_url_options = { :host => 'localhost:3000', :protocol => 'https'}
 end
 
 ActionMailer::Base.raise_delivery_errors = true
