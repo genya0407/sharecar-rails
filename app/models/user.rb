@@ -36,6 +36,12 @@ class User < ApplicationRecord
     @should_pay = total_fee - payments.sum(&:amount)
   end
 
+  def disable!
+    forget_me!
+    self.activation_state = 'pending'
+    save!
+  end
+
   private
   def should_check_password_on_update?
     password_changed? || crypted_password.nil?

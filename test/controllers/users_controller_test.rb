@@ -53,6 +53,17 @@ class UsersControllerTest < BaseControllerTest
     end
   end
 
+  test '退会させること' do
+    login
+    @user.admin!
+
+    target_user = create(:user)
+    assert target_user.activation_state == 'active'
+
+    post deactivate_user_path(id: target_user.id)
+    assert target_user.reload.activation_state == 'pending'
+  end
+
   test 'password_confirmationが間違っていた場合に弾くように' do
     login
     email = Faker::Internet.email

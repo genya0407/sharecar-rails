@@ -42,6 +42,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def deactivate
+    User.find(params[:id]).disable!
+
+    redirect_to action: :new
+  end
+
   def confirm
     @token = params[:id]
     if @user = User.load_from_activation_token(@token)
