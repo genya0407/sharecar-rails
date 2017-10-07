@@ -7,7 +7,13 @@
   </div>
   <div class="card-action right-align">
     <% if user.activation_state == 'pending' %>
-      <%= link_to "Reinvite", resend_invitation_user_path(user), method: :post %>
+      <%= link_to resend_invitation_user_path(user), method: :post, class: 'Card--Action--FAB orange' do %>
+          <i class="Card--Action--FAB--Icon">cached</i>
+      <% end %>
+    <% else %>
+      <%= link_to deactivate_user_path(user), method: :post, class: 'Card--Action--FAB red' do %>
+          <i class="Card--Action--FAB--Icon">do_not_disturb_alt</i>
+      <% end %>
     <% end %>
     <%= render 'widgets/tel', object: user %>
     <%= render 'widgets/email', object: user %>

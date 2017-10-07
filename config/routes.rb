@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     member do
       post :resend_invitation
       get :activate
+      post :deactivate
       put :confirm
     end
   end
