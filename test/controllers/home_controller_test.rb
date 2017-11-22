@@ -19,6 +19,14 @@ class HomeControllerTest < BaseControllerTest
     assert_select '.Card', Car.count
   end
 
+  test '使用不可能なcarの数だけunavailableな要素があること' do
+    unavailable_car_count = rand(1..3)
+    create_list(:car, unavailable_car_count, available: false)
+
+    get root_path
+    assert_select '.unavailable', unavailable_car_count
+  end
+
   test '自分が使用中のdriveの数だけ乗車終了ボタンが表示されること' do
     assert_select '.Card--Action--FAB--Icon', { 
       count: Drive.where(end_meter: nil, user: @user).count,

@@ -14,6 +14,7 @@ class DriveForm
 
     validates :end_at_hour, inclusion: { in: 0..23 }
     validate :end_should_be_greater_than_start
+    validate :car_should_be_available
 
     validate :conflicted_bookings_should_not_exist,
       if: 'car_id.present? && user_id.present? && end_at.present?'
@@ -53,9 +54,16 @@ class DriveForm
     end
 
     def conflicted_bookings_should_not_exist
-      car = Car.find(car_id)
-      if car.bookings.where.not(user_id: user_id).between(start_at, end_at).exists?
-        errors.add(:end_at, "その期間、#{car.name}は予約されています")
+      @car ||= Car.find(car_id)
+      if @car.bookings.where.not(user_id: user_id).between(start_at, end_at).exists?
+        errors.add(:end_at, "その期間、#{@car.name}は予約されています")
+      end
+    end
+
+    def car_should_be_available
+      @car ||= Car.find(car_id)
+      unless @car.available?
+        errors.add(:car_id, "#{@car.name}は使用禁止です")
       end
     end
   end

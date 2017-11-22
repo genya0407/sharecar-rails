@@ -10,4 +10,11 @@ class DriveFormUpdateTest < ActiveSupport::TestCase
     assert DriveForm::Update.new(drive, end_meter: drive.start_meter + rand(1..100)).valid?
     assert_not DriveForm::Update.new(drive, end_meter: drive.start_meter - rand(1..100)).valid?
   end
+
+  test '車が使用可能でないとき、end_meterを設定できない' do
+    car = create(:car, available: false)
+    drive = create(:drive_not_end, car: car)
+
+    assert_not DriveForm::Update.new(drive, end_meter: drive.start_meter + rand(1..100)).valid?
+  end
 end
