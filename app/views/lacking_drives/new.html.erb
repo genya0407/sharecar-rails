@@ -1,3 +1,9 @@
+<div class='Card'>
+  <div class='Card--Content'>
+    <span class='Card--Content--Title'><%= @car&.name %></span>
+  </div>
+</div>
+
 <% if @form.errors.any? %>
   <%= render 'widgets/errors', object: @form %>
 <% end %>

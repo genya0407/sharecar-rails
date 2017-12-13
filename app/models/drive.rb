@@ -9,7 +9,11 @@ class BetweenDTO
   end
 
   def lacking?
-    start_meter != end_meter
+    distance > 0
+  end
+
+  def distance
+    end_meter - start_meter
   end
 
   def attributes

@@ -1,5 +1,6 @@
 class LackingDrivesController < ApplicationController
   def new
+    @car = Car.find(params[:car_id])
     @form = LackingDriveForm::Create.new(new_params)
   end
 
@@ -11,6 +12,7 @@ class LackingDrivesController < ApplicationController
 
       redirect_to :root
     else
+      @car = Car.find(params[:car_id])
       render :new
     end
   end
