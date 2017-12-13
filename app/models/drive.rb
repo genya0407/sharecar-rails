@@ -52,7 +52,7 @@ class Drive < ApplicationRecord
   end
 
   def self.lackings
-    target_drive = order(:start_meter).order(:created_at)
+    target_drive = order(:start_meter).order(:end_meter).order(:created_at)
     target_drive.zip(target_drive.drop(1))
                 .reverse.drop(1).reverse
                 .map { |drive1, drive2| BetweenDTO.new(drive1.end_meter, drive2.start_meter, drive1.end_at, drive2.start_at) }
