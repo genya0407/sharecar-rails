@@ -10,9 +10,8 @@ Webアプリより確認してください。
   <li><%= car.name %>
     <ul>
       <% car.drives.only_checked.lackings.each do |dto| %>
-      <li>
+      <li>期間： <%= dto.start_at&.in_time_zone&.to_s :ja %> 〜 <%= dto.end_at&.in_time_zone&.to_s :ja %>
         <ul>
-          <li>期間： <%= dto.start_at&.in_time_zone&.to_s :ja %> 〜 <%= dto.end_at&.in_time_zone&.to_s :ja %></li>
           <li>メーター： <%= dto.start_meter %>km 〜 <%= dto.end_meter %>km</li>
           <li><a href='<%= new_car_lacking_drive_url(car.id, dto.attributes) %>'>記録を付ける</a></li>
         </ul>
