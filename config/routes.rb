@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :bookings
     resources :drives
     resources :fuels
+    resources :lacking_drives, only: [:new, :create]
   end
 
   namespace :admin do
