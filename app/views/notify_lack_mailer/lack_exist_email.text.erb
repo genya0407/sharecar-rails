@@ -4,7 +4,9 @@
 Webアプリより確認してください。
 
 <% @cars.each do |car| %>
-- <%= car.name %>
+<% car.drives.only_checked.lackings.each do |dto| %>
+- <a href='<%= car_lacking_drives_url(car.id, dto.attributes) %>'><%= car.name %></a>
+<% end %>
 <% end %>
 
 <% else %>

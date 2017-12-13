@@ -1,3 +1,22 @@
+class BetweenDTO
+  attr_reader :start_meter, :end_meter, :start_at, :end_at
+
+  def initialize(start_meter, end_meter, start_at, end_at)
+    @start_meter = start_meter
+    @end_meter = end_meter
+    @start_at = start_at
+    @end_at = end_at
+  end
+
+  def lacking?
+    start_meter != end_meter
+  end
+
+  def attributes
+    { start_meter: start_meter, end_meter: end_meter }
+  end
+end
+
 class Drive < ApplicationRecord
   belongs_to :car
   belongs_to :user
@@ -26,11 +45,16 @@ class Drive < ApplicationRecord
     where(end_meter: nil)
   end
 
-  def self.lack_exist?
+  def self.lackings
     target_drive = order(:start_meter).order(:created_at)
     target_drive.zip(target_drive.drop(1))
                 .reverse.drop(1).reverse
-                .any? { |drive1, drive2| drive1.end_meter != drive2.start_meter }
+                .map { |drive1, drive2| BetweenDTO.new(drive1.end_meter, drive2.start_meter, drive1.end_at, drive2.start_at) }
+                .select(&:lacking?)
+  end
+
+  def self.lack_exist?
+    !lackings.empty?
   end
 
   def self.latests
