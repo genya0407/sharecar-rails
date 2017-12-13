@@ -13,7 +13,7 @@ class BetweenDTO
   end
 
   def distance
-    if !end_meter.nil? && !start_meter
+    if !end_meter.nil? && !start_meter.nil?
       end_meter - start_meter
     end
   end
