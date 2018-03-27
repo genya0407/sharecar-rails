@@ -3,6 +3,8 @@ class Car < ApplicationRecord
   has_many :drives, class_name: 'Drive'
   has_many :fuels
 
+  enum status: { available: 0, repairing: 10, scrapped: 20 }
+
   def occupied?
     drives.where(end_meter: nil).exists?
   end
