@@ -26,5 +26,6 @@
 
 # Other
 /node_modules
+/analysis/*.csv
 
 *.ipynb

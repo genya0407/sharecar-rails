@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + "/config/environment")
+require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
 drives = Drive.where('start_at > ?', Time.zone.local(2017, 10, 1)).eager_load(:user)
 user_and_distance = drives.group_by(&:user).map do |user, drives|
