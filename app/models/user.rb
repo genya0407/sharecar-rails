@@ -21,11 +21,11 @@ class User < ApplicationRecord
 
   enum permission: { admin: 0, member: 5 }
 
-  def should_pay?(all_consumptions: Consumption.all)
+  def should_pay?(all_consumptions: Consumption.unfinished)
     should_pay(all_consumptions: all_consumptions).abs > 1
   end
 
-  def should_pay(all_consumptions: Consumption.all)
+  def should_pay(all_consumptions: Consumption.unfinished)
     return @should_pay unless @should_pay.nil?
 
     total_fee = all_consumptions.map do |cons|
