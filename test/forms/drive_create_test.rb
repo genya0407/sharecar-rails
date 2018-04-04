@@ -24,7 +24,7 @@ class DriveFormCreateTest < ActiveSupport::TestCase
   end
 
   test '車が使用可能でないとき、作成できない' do
-    car = create(:car, available: false)
+    car = create(:car, status: :repairing)
     drive = build(:drive, car: car)
     form = DriveForm::Create.from_drive(drive)
 

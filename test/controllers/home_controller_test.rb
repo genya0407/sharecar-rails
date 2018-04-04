@@ -21,7 +21,7 @@ class HomeControllerTest < BaseControllerTest
 
   test '使用不可能なcarの数だけunavailableな要素があること' do
     unavailable_car_count = rand(1..3)
-    create_list(:car, unavailable_car_count, available: false)
+    create_list(:car, unavailable_car_count, status: :repairing)
 
     get root_path
     assert_select '.unavailable', unavailable_car_count
