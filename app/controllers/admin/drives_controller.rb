@@ -2,20 +2,28 @@ class Admin::DrivesController < ApplicationController
   before_action :should_be_admin
 
   def index
-    drives = Drive.where(car_id: params[:car_id]).order(:start_meter)
-    @card_elements = drives.zip(drives.drop(1)).map do |current_drive, next_drive|
-      if next_drive.nil? || current_drive.end_meter.nil? || current_drive.end_meter == next_drive.start_meter
-        current_drive
-      else
-        form = DriveForm::Admin.new(
-          car_id: params[:car_id],
-          start_meter: current_drive.end_meter,
-          end_meter: next_drive.start_meter
-        )
+    respond_to do |format|
+      format.html do
+        drives = Drive.where(car_id: params[:car_id]).order(:start_meter)
+        @card_elements = drives.zip(drives.drop(1)).map do |current_drive, next_drive|
+          if next_drive.nil? || current_drive.end_meter.nil? || current_drive.end_meter == next_drive.start_meter
+            current_drive
+          else
+            form = DriveForm::Admin.new(
+              car_id: params[:car_id],
+              start_meter: current_drive.end_meter,
+              end_meter: next_drive.start_meter
+            )
 
-        [current_drive, form]
+            [current_drive, form]
+          end
+        end.flatten.reverse
       end
-    end.flatten.reverse
+
+      format.csv do
+        @drives = Drive.only_checked.eager_load(:car, :user)
+      end
+    end
   end
 
   def new

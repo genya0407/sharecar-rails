@@ -6,6 +6,6 @@ module OnlyChecked
   extend ActiveSupport::Concern
 
   included do |base|
-    scope :only_checked, -> { where('created_at >= ?', CHECK_START_AT) }
+    scope :only_checked, -> { where('drives.created_at >= ?', CHECK_START_AT) }
   end
 end
