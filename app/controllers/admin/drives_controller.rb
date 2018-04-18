@@ -21,7 +21,7 @@ class Admin::DrivesController < ApplicationController
       end
 
       format.csv do
-        @drives = Drive.only_checked.eager_load(:car, :user)
+        @drives = Drive.only_checked.eager_load(:car, :user).where(car_id: params[:car_id])
       end
     end
   end

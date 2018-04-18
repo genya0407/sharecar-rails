@@ -8,6 +8,9 @@
         </p>
       </div>
       <div class="Card--Action">
+        <%= link_to admin_car_drives_path(car_id: car.id, format: :csv), class: 'Card--Action--FAB red' do %>
+          <i class='Card--Action--FAB--Icon'>file_download</i>
+        <% end %>
         <%= link_to admin_car_fuels_path(car.id), class: 'Card--Action--FAB red' do %>
           <i class='Card--Action--FAB--Icon'>local_gas_station</i>
         <% end %>
