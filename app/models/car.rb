@@ -5,6 +5,16 @@ class Car < ApplicationRecord
 
   enum status: { available: 0, repairing: 10, scrapped: 20 }
 
+  STATUS_NAMES = {
+    available: '使用可能',
+    repairing: '使用禁止',
+    scrapped: '廃車'
+  }.freeze
+
+  def status_jp
+    STATUS_NAMES[status.to_sym]
+  end
+
   def occupied?
     drives.where(end_meter: nil).exists?
   end

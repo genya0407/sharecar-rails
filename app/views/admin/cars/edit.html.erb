@@ -1,0 +1,16 @@
+<div class="Card">
+  <div class="Card--Content">
+    <span class="Card--Content--Title">車両の状態</span>
+    <%= form_for @car,
+          url: admin_car_path(id: @car.id),
+          method: :put,
+          html: { class: 'Form' } do |f| %>
+      <div class='Form--InputSet'>
+        <div class="Form--InputSet--Field s12">
+          <%= f.select :status, [['使用可能', :available], ['使用禁止', :repairing], ['廃車', :scrapped]] %>
+        </div>
+      </div>
+      <%= f.submit "変更", class: "Form--SubmitBtn" %>
+    <% end %>
+  </div>
+</div>

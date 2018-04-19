@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :payments
-    resources :cars, only: [:index] do
+    resources :cars, only: [:index, :edit, :update] do
       resources :drives
       resources :fuels
     end

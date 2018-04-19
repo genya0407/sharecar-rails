@@ -4,4 +4,22 @@ class Admin::CarsController < ApplicationController
   def index
     @cars = Car.all
   end
+
+  def edit
+    @car = Car.find(params[:id])
+  end
+
+  def update
+    @car = Car.find(params[:id])
+    @car.update(update_params)
+
+    redirect_to action: :index
+  end
+
+  private
+  def update_params
+    params
+      .require(:car)
+      .permit(:status)
+  end
 end
