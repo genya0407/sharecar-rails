@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :booking do
     start_at { Time.zone.now - 10.hour }
     end_at { Time.zone.now + 10.hour }
