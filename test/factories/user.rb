@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     transient do
       password_trans { Faker::Internet.password(10, 20) }

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :drive do
     transient do
       start_meter_transient { rand(100...100000) }

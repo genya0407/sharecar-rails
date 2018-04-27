@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :car do
     name { Faker::Cat.name }
   end
