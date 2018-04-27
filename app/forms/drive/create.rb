@@ -17,7 +17,7 @@ class DriveForm
     validate :car_should_be_available
 
     validate :conflicted_bookings_should_not_exist,
-      if: 'car_id.present? && user_id.present? && end_at.present?'
+      if: lambda { car_id.present? && user_id.present? && end_at.present? }
 
     def self.from_drive(drive)
       params = drive.attributes.symbolize_keys.slice(:start_meter, :car_id, :user_id)

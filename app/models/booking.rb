@@ -7,7 +7,7 @@ class Booking < ApplicationRecord
   validates :car_id, presence: true
   validates :user_id, presence: true
 
-  with_options if: 'car.present? && start_at.present? && end_at.present?' do |basically_valid|
+  with_options if: lambda { car.present? && start_at.present? && end_at.present? } do |basically_valid|
     basically_valid.validate :end_should_be_greater_than_start
     basically_valid.validate :conflicted_bookings_should_not_exist
     basically_valid.validate :conflicted_drives_should_not_exist 
