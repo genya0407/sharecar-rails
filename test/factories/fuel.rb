@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :fuel do
     amount { rand(1000..5000) }
     association :user, factory: :user
