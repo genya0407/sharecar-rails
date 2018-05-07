@@ -59,6 +59,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'faker'
   gem 'factory_bot'
+  gem 'rack-mini-profiler'
+  gem 'rack-lineprof'
 end
 
 group :development do

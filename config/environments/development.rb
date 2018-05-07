@@ -57,6 +57,8 @@ Rails.application.configure do
 
   # email
   config.action_mailer.default_url_options = { :host => 'localhost:3000', :protocol => 'https'}
+
+  config.middleware.use Rack::Lineprof
 end
 
 ActionMailer::Base.raise_delivery_errors = true
