@@ -13,5 +13,6 @@ module SharecarRails
     # -- all .rb files in that directory are automatically loaded.
 
     config.time_zone = 'Tokyo'
+    config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
   end
 end
