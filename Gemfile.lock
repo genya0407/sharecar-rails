@@ -71,6 +71,7 @@ GEM
       term-ansicolor
       thor
     crass (1.0.4)
+    debugger-ruby_core_source (1.3.8)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     docile (1.3.0)
@@ -155,6 +156,12 @@ GEM
     public_suffix (3.0.2)
     puma (3.11.4)
     rack (2.0.5)
+    rack-lineprof (0.0.2)
+      rack
+      rblineprof (~> 0.3.1)
+      term-ansicolor
+    rack-mini-profiler (1.0.0)
+      rack (>= 1.2.0)
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
     rails (5.2.0)
@@ -185,6 +192,8 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    rblineprof (0.3.7)
+      debugger-ruby_core_source (~> 1.3)
     rbplotly (0.1.2)
       faraday (~> 0.9)
       launchy (~> 2.4)
@@ -274,6 +283,8 @@ DEPENDENCIES
   pg
   pry
   puma (~> 3.0)
+  rack-lineprof
+  rack-mini-profiler
   rails (~> 5.2)
   rbplotly
   sass-rails (~> 5.0)
