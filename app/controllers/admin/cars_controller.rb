@@ -20,6 +20,6 @@ class Admin::CarsController < ApplicationController
   def update_params
     params
       .require(:car)
-      .permit(:status)
+      .permit(:status, :note)
   end
 end
