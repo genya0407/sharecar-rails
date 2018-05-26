@@ -5,6 +5,11 @@
         <p class="Card--Content--Title">
           <%= car.name %>
         </p>
+        <% if car.note.present? %>
+          <p class='right-align' style='white-space: pre-wrap'>
+            <%= car.note %>
+          </p>
+        <% end %>
         <% if car.occupied? %>
           <p class='right-align current-drive'>
             <%= car.current_driver.name %>が
