@@ -8,7 +8,7 @@
             html: { class: 'Form' } do |f| %>
         <div class='Form--InputSet'>
           <div class="Form--InputSet--Field s12">
-            <%= f.collection_select :user_id, User.all, :id, :name %>
+            <%= f.collection_select :user_id, User.all.order(:activation_state), :id, :name %>
           </div>
         </div>
         <div class='Form--InputSet'>
