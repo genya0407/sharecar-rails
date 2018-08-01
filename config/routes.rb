@@ -23,6 +23,12 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :consumptions, only: [:index, :new, :create] do
+      collection do
+        post :recalculate
+        delete :destroy_multiple
+      end
+    end
     resources :payments
     resources :cars, only: [:index, :edit, :update] do
       resources :drives
