@@ -15,6 +15,8 @@ class BetweenDTO
   def distance
     if !end_meter.nil? && !start_meter.nil?
       end_meter - start_meter
+    else
+      raise "Can't calculate distance"
     end
   end
 
@@ -71,7 +73,7 @@ class Drive < ApplicationRecord
     if start_meter.present? && end_meter.present?
       end_meter - start_meter
     else
-      nil
+      raise "Can't calculate distance of the drive #{self.id}"
     end
   end
 
