@@ -1,30 +1,40 @@
 <div class="row">
-<% @cars.each do |car| %>
-  <div class="col s12">
-    <div class="Card">
-      <div class="Card--Content">
-        <p class="Card--Content--Title">
-        <%= car.name %>
-        <% if !car.available? %>
-          <small>(<%= car.status_jp %>)</small>
-        <% end %>
-        </p>
-      </div>
-      <div class="Card--Action">
-        <%= link_to edit_admin_car_path(id: car.id), class: 'Card--Action--FAB red' do %>
-          <i class='Card--Action--FAB--Icon'>settings</i>
-        <% end %>
-        <%= link_to admin_car_drives_path(car_id: car.id, format: :csv), class: 'Card--Action--FAB red' do %>
-          <i class='Card--Action--FAB--Icon'>file_download</i>
-        <% end %>
-        <%= link_to admin_car_fuels_path(car.id), class: 'Card--Action--FAB red' do %>
-          <i class='Card--Action--FAB--Icon'>local_gas_station</i>
-        <% end %>
-        <%= link_to admin_car_drives_path(car.id), class: 'Card--Action--FAB red' do %>
-          <i class='Card--Action--FAB--Icon'>create</i>
-        <% end %>
+  <%= link_to new_admin_car_path, method: :GET do %>
+    <div class="col s12">
+      <div class='card-panel blue lighten-2' style='text-align: center; font-size: large;'>
+        <span class='white-text'>
+          新規車両を登録する
+        </span>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+
+  <% @cars.each do |car| %>
+    <div class="col s12">
+      <div class="Card">
+        <div class="Card--Content">
+          <p class="Card--Content--Title">
+          <%= car.name %>
+          <% if !car.available? %>
+            <small>(<%= car.status_jp %>)</small>
+          <% end %>
+          </p>
+        </div>
+        <div class="Card--Action">
+          <%= link_to edit_admin_car_path(id: car.id), class: 'Card--Action--FAB red' do %>
+            <i class='Card--Action--FAB--Icon'>settings</i>
+          <% end %>
+          <%= link_to admin_car_drives_path(car_id: car.id, format: :csv), class: 'Card--Action--FAB red' do %>
+            <i class='Card--Action--FAB--Icon'>file_download</i>
+          <% end %>
+          <%= link_to admin_car_fuels_path(car.id), class: 'Card--Action--FAB red' do %>
+            <i class='Card--Action--FAB--Icon'>local_gas_station</i>
+          <% end %>
+          <%= link_to admin_car_drives_path(car.id), class: 'Card--Action--FAB red' do %>
+            <i class='Card--Action--FAB--Icon'>create</i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
