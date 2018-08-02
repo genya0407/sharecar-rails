@@ -30,7 +30,7 @@ Rails.application.routes.draw do
       end
     end
     resources :payments
-    resources :cars, only: [:index, :edit, :update] do
+    resources :cars, except: :destroy do
       resources :drives
       resources :fuels
     end

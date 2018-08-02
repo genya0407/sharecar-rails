@@ -1,0 +1,14 @@
+<div class="Card">
+  <div class="Card--Content">
+    <span class="Card--Content--Title">新規車両登録</span>
+    <%= form_for @car, url: admin_cars_path, html: { class: 'Form' } do |f| %>
+      <div class='Form--InputSet'>
+        <div class="Form--InputSet--Field s12">
+          <%= f.label :name, '車両名' %>
+          <%= f.text_field :name %>
+        </div>
+      </div>
+      <%= f.submit "作成", class: "Form--SubmitBtn" %>
+    <% end %>
+  </div>
+</div>
