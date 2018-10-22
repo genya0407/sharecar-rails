@@ -1,9 +1,7 @@
 require 'csv'
 
-direct_column_names = %w{start_meter end_meter}
+direct_column_names = %w{start_meter end_meter start_at end_at}
 indirect_column_names = {
-  start_at: :to_i,
-  end_at: :to_i,
   car: :name,
   user: :name
 }
