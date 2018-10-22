@@ -8,7 +8,7 @@ indirect_column_names = {
   user: :name
 }
 
-CSV.generate do |csv|
+CSV.generate('', encoding: 'SJIS') do |csv|
   csv << direct_column_names + indirect_column_names.keys
   @drives.each do |drive|
     direct_values = drive.attributes.values_at(*direct_column_names)
