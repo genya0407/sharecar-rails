@@ -24,8 +24,10 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
 
     if @user.present?
-      @user.activation_token = Sorcery::Model::TemporaryToken.generate_random_token
-      @user.save!
+      if @user.activation_token.nil?
+        @user.activation_token = Sorcery::Model::TemporaryToken.generate_random_token
+        @user.save!
+      end
       @user.send(:send_activation_needed_email!)
       render action: :new
     else

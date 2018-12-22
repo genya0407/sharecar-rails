@@ -64,6 +64,41 @@ class UsersControllerTest < BaseControllerTest
     assert target_user.reload.activation_state == 'pending'
   end
 
+  test '復帰させること' do
+    login
+    @user.admin!
+
+    # 退会させる
+    target = create(:user)
+    assert target.activation_state == 'active'
+    post deactivate_user_path(id: target.id)
+    assert target.reload.activation_state == 'pending'
+
+    # 復帰させる
+    post resend_invitation_user_path(target)
+    assert !target.reload.activation_token.nil?
+    token = target.activation_token
+    get activate_user_path(id: token)
+    assert_response :success
+
+    # confirm
+    password = Faker::Internet.password(10, 20)
+    put confirm_user_path(id: token), params: {
+      user: {
+        password: password,
+        password_confirmation: password,
+        name: target.name,
+        phone_number: target.phone_number
+      }
+    }
+    assert target.reload.activation_state == 'active'
+    logout # confirmしたとき勝手にログインするようになっているため
+
+    # login
+    post user_sessions_path, params: { email: target.reload.email, password: password }
+    assert_response :redirect
+  end
+
   test 'password_confirmationが間違っていた場合に弾くように' do
     login
     email = Faker::Internet.email
