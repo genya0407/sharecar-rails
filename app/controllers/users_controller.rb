@@ -24,7 +24,9 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
 
     if @user.present?
-      UserMailer.activation_needed_email(@user).deliver
+      @user.activation_token = Sorcery::Model::TemporaryToken.generate_random_token
+      @user.save!
+      @user.send(:send_activation_needed_email!)
       render action: :new
     else
       render action: :new, status: :unprocessable_entity
