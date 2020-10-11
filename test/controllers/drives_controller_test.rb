@@ -7,13 +7,12 @@ class DrivesControllerTest < BaseControllerTest
 
   setup do
     login
-    Drive.delete_all
-    Booking.delete_all
   end
 
   test '#index 直近10件のdriveが表示されること' do
     car = create(:car)
-    drives = create_list(:drive, 20, car: car)
+    user = create(:user)
+    drives = create_list(:drive, 11, user: user, car: car)
     get car_drives_path(car_id: car.id)
 
     assert_select '.drive', 10

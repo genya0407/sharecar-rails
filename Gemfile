@@ -60,6 +60,8 @@ group :development, :test do
   gem 'faker'
   gem 'factory_bot'
   gem 'rack-mini-profiler'
+  gem 'rblineprof'
+  gem 'rblineprof-report'
   gem 'rack-lineprof'
 end
 
@@ -76,6 +78,7 @@ end
 group :test do
   gem 'email_spec'
   gem 'minitest-test_profile'
+  gem 'database_cleaner-active_record'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

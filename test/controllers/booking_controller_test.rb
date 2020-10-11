@@ -8,7 +8,6 @@ class BookingControllerTest < BaseControllerTest
 
   setup do
     login
-    Booking.delete_all
   end
 
   test '#new 完遂されていない予約の一覧が表示されること' do

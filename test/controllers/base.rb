@@ -24,4 +24,12 @@ class BaseControllerTest < ActionDispatch::IntegrationTest
     post logout_path
     @user = nil
   end
+
+  setup do
+    DatabaseCleaner.start
+  end
+
+  teardown do
+    DatabaseCleaner.clean
+  end
 end
