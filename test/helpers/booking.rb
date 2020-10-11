@@ -5,11 +5,11 @@ module BookingHelper
 
   # creates bookings in effect and bookings not in effect
   # returns number of bookings in effect
-  def create_in_effect(car)
+  def create_in_effect(car, user: create(:user))
     # current: start_at < now < end_at
     current_start_at = Time.zone.now - rand(2..5).hours
     current_end_at = Time.zone.now + rand(2..5).hours
-    current = create(:booking, car: car, start_at: current_start_at, end_at: current_end_at)
+    current = create(:booking, car: car, user: user, start_at: current_start_at, end_at: current_end_at)
 
     # future: now < start_at < end_at
     # 期間が重ならないように、前に作ったbookingのend_atを覚えておいて、
@@ -19,7 +19,7 @@ module BookingHelper
     futures = future_count.times.map do
       start_at = end_at + rand(2..5).hours
       end_at = start_at + rand(2..5).hours
-      create(:booking, car: car, start_at: start_at, end_at: end_at)
+      create(:booking, car: car, user: user, start_at: start_at, end_at: end_at)
     end
 
     # past: start_at < end_at < now
@@ -29,11 +29,11 @@ module BookingHelper
     rand(2..5).times do
       end_at = start_at - rand(2..5).hours
       start_at = end_at - rand(2..5).hours
-      create(:booking, car: car, start_at: start_at, end_at: end_at)
+      create(:booking, car: car, user: user, start_at: start_at, end_at: end_at)
     end
 
     # another car
-    create(:booking)
+    create(:booking, user: user)
 
     return (futures + [current])
   end
@@ -41,12 +41,9 @@ module BookingHelper
   # has_range: start_atとend_atと*car*を持つオブジェクト
   # my: trueの時、作成するbookingのuserはhas_rangeのuserになる
   def with_conflicted_bookings(has_range, is_mine: false)
-    strategies = [:end_in_range, :start_in_range, :cover_range, :in_range]
-    strategies.each do |strategy_method_name|
-      conflict = create(:booking, booking_params(strategy_method_name, has_range, is_mine))
-      yield conflict
-      conflict.destroy!
-    end
+    strategy = [:end_in_range, :start_in_range, :cover_range, :in_range].sample
+    conflict = create(:booking, booking_params(strategy, has_range, is_mine))
+    yield conflict
   end
 
   private
