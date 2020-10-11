@@ -30,7 +30,7 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Cache RBENV_ROOT
-      uses: actions/cache@v1
+      uses: actions/cache@v2
       id: cache_rbenv
       with:
         path: /home/runner/.rbenv
@@ -43,11 +43,11 @@ jobs:
         rbenv install -s `cat .ruby-version`
 
     - name: Cache vendor/bundle
-      uses: actions/cache@v1
+      uses: actions/cache@v2
       id: cache_vendor_bundle
       with:
         path: vendor/bundle
-        key: ${{ runner.os }}-rbenv-${{ hashFiles('**/Gemfile.lock') }}
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           {{ runner.os }}-gems-
     - name: Build
