@@ -11,7 +11,7 @@ class Admin::DrivesControllerTest < BaseControllerTest
   end
 
   test '乗車記録の一覧の中に空白の部分があれば、作成画面へのリンクが現れること' do
-    all_drives_count = rand(10..20)
+    all_drives_count = rand(3..5)
     lacking_drive_count = rand(2...all_drives_count)
 
     car = create(:car)

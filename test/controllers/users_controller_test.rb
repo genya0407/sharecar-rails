@@ -48,7 +48,7 @@ class UsersControllerTest < BaseControllerTest
     @user.admin!
     target_user = create(:user_not_activated)
 
-    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+    assert_difference '$sent_cnt', +1 do
       post resend_invitation_user_path(target_user)
     end
   end
