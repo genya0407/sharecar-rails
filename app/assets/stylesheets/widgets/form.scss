@@ -1,14 +1,14 @@
 .Form {}
 
 .Form--InputSet {
-	@extend .row;
+	@extend .row !optional;
 }
 
 .Form--InputSet--Field {
-	@extend .input-field;
-	@extend .col;
+	@extend .input-field !optional;
+	@extend .col !optional;
 }
 
 .Form--SubmitBtn {
-	@extend .btn;
+	@extend .btn !optional;
 }
