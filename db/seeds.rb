@@ -28,7 +28,7 @@ user.admin!
 end
 users = User.all
 
-Car.create!((1..5).map { { name: Faker::Cat.name } })
+Car.create!((1..5).map { { name: Faker::Creature::Cat.name } })
 car = Car.first
 
 start_meter = 0
