@@ -17,7 +17,7 @@ class UsersControllerTest < BaseControllerTest
     assert_response :success
 
     # confirm
-    password = Faker::Internet.password(10, 20)
+    password = Faker::Internet.password(min_length: 10, max_length: 20)
     put confirm_user_path(id: token), params: {
       user: {
         password: password,
@@ -82,7 +82,7 @@ class UsersControllerTest < BaseControllerTest
     assert_response :success
 
     # confirm
-    password = Faker::Internet.password(10, 20)
+    password = Faker::Internet.password(min_length: 10, max_length: 20)
     put confirm_user_path(id: token), params: {
       user: {
         password: password,
