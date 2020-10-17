@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :car do
-    name { Faker::Cat.name }
+    name { Faker::Creature::Cat.name }
   end
 end
