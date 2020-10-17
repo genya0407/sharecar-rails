@@ -1,5 +1,5 @@
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
 require 'factory_bot'
 require 'faker'
@@ -10,6 +10,7 @@ require 'rblineprof'
 require 'rblineprof-report'
 
 FactoryBot.find_definitions
+FactoryBot.use_parent_strategy = false
 User.sorcery_config.activation_mailer_disabled = true
 
 class ActiveSupport::TestCase
