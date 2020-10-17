@@ -1,7 +1,7 @@
 .FAB {
-	@extend .btn-floating;
-	@extend .waves-effect;
-	@extend .waves-light;
+	@extend .btn-floating !optional;
+	@extend .waves-effect !optional;
+	@extend .waves-light !optional;
 }
 
 @import 'widgets/card';
