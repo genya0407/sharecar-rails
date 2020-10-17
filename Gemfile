@@ -44,7 +44,7 @@ gem 'sorcery'
 gem 'virtus'
 
 # Materialize css framework
-gem 'materialize-sass'
+gem 'materialize-sass', '~> 0.100'
 gem 'material_icons'
 
 # experimental
