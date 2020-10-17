@@ -1,10 +1,4 @@
 module RangeHelper
-  class Faker::Time
-    def self.between(from, to)
-      rand(from..to)
-    end
-  end
-
   def end_in_range(has_range)
     start_at = (has_range.start_at - rand(5..10).hour).change(minute: 0)
     end_at = Faker::Time.between(from: has_range.start_at, to: has_range.end_at).change(minute: 0)
