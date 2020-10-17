@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     transient do
-      password_trans { Faker::Internet.password(10, 20) }
+      password_trans { Faker::Internet.password(min_length: 10, max_length: 20) }
     end
 
     name { Faker::Name.name }

@@ -8,7 +8,7 @@ class UserSessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '退会させられたユーザーがログインできなくなること' do
-    password = Faker::Internet.password(10, 20)
+    password = Faker::Internet.password(min_length: 10, max_length: 20)
     user = create(:user, password_trans: password)
 
     post user_sessions_path, params: { email: user.email, password: password }
