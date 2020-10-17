@@ -63,6 +63,8 @@ group :development, :test do
   gem 'rblineprof'
   gem 'rblineprof-report'
   gem 'rack-lineprof'
+  gem 'rubocop'
+  gem 'rubocop-faker'
 end
 
 group :development do
