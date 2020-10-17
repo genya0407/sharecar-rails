@@ -1,26 +1,26 @@
 .Card {
-	@extend .card;
+	@extend .card !optional;
 }
 
 .Card--Content {
-	@extend .card-content;
+	@extend .card-content !optional;
 }
 
 .Card--Content--Title {
-	@extend .card-title;
+	@extend .card-title !optional;
 }
 
 .Card--Action {
-	@extend .card-action;
-	@extend .right-align;
+	@extend .card-action !optional;
+	@extend .right-align !optional;
 }
 
 .Card--Action--FAB {
-	@extend .btn-large;
-	@extend .FAB;
+	@extend .btn-large !optional;
+	@extend .FAB !optional;
 }
 
 .Card--Action--FAB--Icon {
 	padding-top: 7px;
-	@extend .material-icons;
+	@extend .material-icons !optional;
 }
