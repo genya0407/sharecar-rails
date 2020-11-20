@@ -1,0 +1,49 @@
+# DBの料金プラン変更時の移行手順
+# see https://devcenter.heroku.com/articles/upgrading-heroku-postgres-databases#upgrading-with-pg-copy
+
+APPNAME=dummyapp # ここを編集せよ！
+
+heroku addons:create heroku-postgresql:hobby-basic --version 9.6 --app $APPNAME
+heroku pg:info --app $APPNAME
+# 9.6のDBが作られてることを確認
+
+# Product Ownerにメンテの連絡
+
+heroku ps:scale web=0 --app $APPNAME
+heroku maintenance:on --app $APPNAME
+
+# メンテナンスになってることを確認
+
+heroku pg:backups:capture --app $APPNAME
+heroku pg:backups:info --app $APPNAME
+# バックアップが終わったことを確認
+
+heroku pg:info --app $APPNAME # あたらしいDBの名前を確認
+TARGET=HEROKU_POSTGRESQL_RED # ここを編集せよ！
+
+heroku pg:copy DATABASE_URL $TARGET --app $APPNAME
+heroku pg:info --app $APPNAME
+# TARGETの行数がDATABASE_URLの行数と一致することを確認する
+
+heroku pg:promote $TARGET --app $APPNAME
+
+heroku pg:info --app $APPNAME
+# DBが切り替わってることを確認する
+
+heroku pg:backups:capture --app $APPNAME
+heroku pg:backups:info --app $APPNAME
+# バックアップが終わったことを確認
+
+heroku pg:info --app $APPNAME # 古いDBの名前を確認
+DESTROY_TARGET=HEROKU_POSTGRESQL_COPPER # ここを編集せよ！
+heroku addons:destroy $DESTROY_TARGET --app $APPNAME
+
+heroku pg:info --app $APPNAME
+# Hobby-basicが残ってることを確認
+# Rowsが7601ぐらいあることを確認
+
+heroku ps:scale web=1 --app $APPNAME
+heroku maintenance:off --app $APPNAME
+
+# アプリが開けることを確認する
+# Product Ownerに連絡する
