@@ -95,7 +95,7 @@ GEM
     execjs (2.7.0)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
-    faker (2.14.0)
+    faker (2.15.0)
       i18n (>= 1.6, < 2)
     faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
