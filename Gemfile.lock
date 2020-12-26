@@ -157,7 +157,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (3.0.2)
-    puma (5.0.4)
+    puma (5.1.1)
       nio4r (~> 2.0)
     rack (2.2.3)
     rack-lineprof (0.0.4)
@@ -304,7 +304,7 @@ DEPENDENCIES
   minitest-test_profile
   pg
   pry
-  puma (~> 5.0)
+  puma (~> 5.1)
   rack-lineprof
   rack-mini-profiler
   rails (~> 6.0)

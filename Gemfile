@@ -13,7 +13,7 @@ gem 'rails', '~> 6.0'
 # Use pg as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 5.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0'
 # Use Uglifier as compressor for JavaScript assets
