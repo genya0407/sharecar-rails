@@ -3,34 +3,26 @@ require 'helpers/booking'
 require 'helpers/drive'
 
 class BookingControllerTest < BaseControllerTest
-  include BookingHelper
-  include DriveHelper
-
   setup do
     login
   end
 
-  test '#new 完遂されていない予約の一覧が表示されること' do
+  test '#new その車の完遂されていない予約の一覧が表示されること' do
     car = create(:car)
-    create_in_effect(car)
+    bookings_in_effect = Array.new(3) { |i| create(:booking, car: car, start_at: (i * 3).days.since, end_at: (i * 3 + 1).days.since) }
 
     get new_car_booking_path(car_id: car.id)
 
-    assert_select '.booking', car.bookings.in_effect.count
+    assert_select '.booking', bookings_in_effect.size
   end
 
   test '#new 自分の作成した予約の数だけ削除ボタンが表示されること' do
     car = create(:car)
-    effectives = create_in_effect(car)
-
-    my_bookings_count = rand(1..(effectives.count))
-    effectives.sample(my_bookings_count).each do |booking|
-      booking.user = @user
-      booking.save!
-    end
+    my_bookings = Array.new(2) { |i| create(:booking, car: car, user: @user, start_at: (i * 3).days.since, end_at: (i * 3 + 1).days.since) }
+    _others_bookings = Array.new(1) { create(:booking, car: car, start_at: 10.days.since, end_at: 11.days.since) }
 
     get new_car_booking_path(car_id: car.id)
-    assert_select '.delete-booking', my_bookings_count
+    assert_select '.delete-booking', my_bookings.size
   end
 
   test '#destroy 自分の予約が削除できること' do
@@ -73,38 +65,39 @@ class BookingControllerTest < BaseControllerTest
   test '#create 重複する予約がある時、予約は作成されず、エラーを表示すること' do
     car = create(:car)
     booking = build(:booking, car: car)
+    # validation自体のテストはモデルのテストでやってるので、１つの重複パターンだけを試す
+    _conflicted_booking = create(:booking, car: car, start_at: 1.day.ago(booking.start_at), end_at: 1.day.since(booking.end_at))
 
-    with_conflicted_bookings booking do
-      assert_difference "Booking.where(car_id: #{car.id}).count", 0 do
-        post car_bookings_path(car_id: booking.car.id), params: {
-          booking_form_create: {
-            start_at_date: booking.start_at.to_date,
-            start_at_hour: booking.start_at.hour,
-            end_at_date: booking.end_at.to_date,
-            end_at_hour: booking.end_at.hour
-          }
+    assert_difference "Booking.where(car_id: #{car.id}).count", 0 do
+      post car_bookings_path(car_id: booking.car.id), params: {
+        booking_form_create: {
+          start_at_date: booking.start_at.to_date,
+          start_at_hour: booking.start_at.hour,
+          end_at_date: booking.end_at.to_date,
+          end_at_hour: booking.end_at.hour
         }
-      end
-      assert_select '#errors'
+      }
     end
+    assert_select '#errors'
   end
 
   test '#create 重複するdriveがある時、予約は作成されず、エラーを表示すること' do
     car = create(:car)
     booking = build(:booking, car: car)
+    # validation自体のテストはモデルのテストでやってるので、１つの重複パターンだけを試す
+    # end_meterがnon-nilだと重複判定されない
+    _conflicted_drive = create(:drive, car: car, end_meter: nil, start_at: 1.day.ago(booking.start_at), end_at: 1.day.since(booking.end_at))
 
-    with_conflicted_drives booking do
-      assert_difference "Booking.where(car_id: #{car.id}).count", 0 do
-        post car_bookings_path(car_id: car.id), params: {
-          booking_form_create: {
-            start_at_date: booking.start_at.to_date,
-            start_at_hour: booking.start_at.hour,
-            end_at_date: booking.end_at.to_date,
-            end_at_hour: booking.end_at.hour
-          }
+    assert_difference "Booking.where(car_id: #{car.id}).count", 0 do
+      post car_bookings_path(car_id: car.id), params: {
+        booking_form_create: {
+          start_at_date: booking.start_at.to_date,
+          start_at_hour: booking.start_at.hour,
+          end_at_date: booking.end_at.to_date,
+          end_at_hour: booking.end_at.hour
         }
-      end
-      assert_select '#errors'
+      }
     end
+    assert_select '#errors'
   end
 end
