@@ -32,7 +32,6 @@ class UserTest < ActiveSupport::TestCase
     user = User.new(email: Faker::Internet.email)
     user.save!
 
-    password = Faker::Internet.password
     assert_not user.update(
       name: Faker::Name.name,
       phone_number: Faker::PhoneNumber.phone_number,
