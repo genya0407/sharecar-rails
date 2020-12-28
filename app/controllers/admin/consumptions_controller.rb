@@ -24,9 +24,7 @@ class Admin::ConsumptionsController < ApplicationController
     end_at = Time.zone.parse(params[:end_date]).change(hour: 23, min: 59, sec: 59)
 
     Consumption.transaction do
-      Car.all.select do |car|
-        car.fuels.in(start_at, end_at).exists?
-      end.each do |car|
+      Car.all.select { |car| car.fuels.in(start_at, end_at).exists? }.each do |car|
         Consumption.create(
           car: car,
           start_at: start_at,
