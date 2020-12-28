@@ -6,10 +6,6 @@ class BookingTest < ActiveSupport::TestCase
   include BookingHelper
   include DriveHelper
 
-  setup do
-    Booking.delete_all
-  end
-
   test 'car.bookings.in_effect 完遂されていないかもしれない予約を取得する' do
     car = create(:car)
 
