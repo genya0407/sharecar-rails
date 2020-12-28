@@ -2,7 +2,7 @@
 # The default is nothing which will include only core features (password encryption, login/logout).
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging, :external
-Rails.application.config.sorcery.submodules = [:reset_password, :user_activation, :remember_me]
+Rails.application.config.sorcery.submodules = %i[reset_password user_activation remember_me]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -252,7 +252,7 @@ Rails.application.config.sorcery.configure do |config|
     # How long in seconds the session length will be
     # Default: `604800`
     #
-    user.remember_me_for = 1209600
+    user.remember_me_for = 1_209_600
 
     # when true sorcery will persist a single remember me token for all
     # logins/logouts (supporting remembering on multiple browsers simultaneously).

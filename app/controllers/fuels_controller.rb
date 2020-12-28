@@ -15,13 +15,12 @@ class FuelsController < ApplicationController
 
   def destroy
     fuel = current_user.fuels.find_by(id: params[:id])
-    if fuel.present?
-      fuel.destroy!
-    end
+    fuel.destroy! if fuel.present?
     redirect_to action: :new
   end
 
   private
+
   def fuel_params
     params.require(:fuel).permit(:amount).to_h
           .merge(car_id: params[:car_id], user: current_user)

@@ -15,5 +15,5 @@
 #   inflect.acronym 'RESTful'
 # end
 ActiveSupport::Inflector.inflections do |inflect|
-  inflect.irregular 'drive','drives'
+  inflect.irregular 'drive', 'drives'
 end

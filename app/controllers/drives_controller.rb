@@ -1,5 +1,5 @@
 class DrivesController < ApplicationController
-  before_action :set_bookings_in_effect, only: [:new, :create]
+  before_action :set_bookings_in_effect, only: %i[new create]
 
   def index
     @car = Car.find(params[:car_id])
@@ -51,17 +51,18 @@ class DrivesController < ApplicationController
   end
 
   private
-    def drive_start_params
-      params.require(:drive_form_create)
-            .permit(:start_meter, :end_at_date, :end_at_hour).to_h
-    end
 
-    def drive_end_params
-      params.require(:drive_form_update)
-            .permit(:end_meter).to_h
-    end
+  def drive_start_params
+    params.require(:drive_form_create)
+          .permit(:start_meter, :end_at_date, :end_at_hour).to_h
+  end
 
-    def set_bookings_in_effect
-      @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
-    end
+  def drive_end_params
+    params.require(:drive_form_update)
+          .permit(:end_meter).to_h
+  end
+
+  def set_bookings_in_effect
+    @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
+  end
 end

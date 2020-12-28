@@ -1,12 +1,11 @@
 source 'https://rubygems.org'
 
-ruby "2.7.2"
+ruby '2.7.2'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
-
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
@@ -44,8 +43,8 @@ gem 'sorcery'
 gem 'virtus'
 
 # Materialize css framework
-gem 'materialize-sass', '~> 0.100'
 gem 'material_icons'
+gem 'materialize-sass', '~> 0.100'
 
 # experimental
 # gem 'cztop'
@@ -57,31 +56,32 @@ gem 'rbplotly'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem 'faker'
   gem 'factory_bot'
+  gem 'faker'
+  gem 'rack-lineprof'
   gem 'rack-mini-profiler'
   gem 'rblineprof'
   gem 'rblineprof-report'
-  gem 'rack-lineprof'
   gem 'rubocop'
   gem 'rubocop-faker'
+  gem 'rubocop-rails'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.3.3'
+  gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'pry'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'pry'
 end
 
 group :test do
+  gem 'database_cleaner-active_record'
   gem 'email_spec'
   gem 'minitest-test_profile'
-  gem 'database_cleaner-active_record'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

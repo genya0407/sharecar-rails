@@ -5,7 +5,7 @@ CHECK_START_AT = Time.zone.local(2017, 7, 1).freeze # ちゃんと使い始め�
 module OnlyChecked
   extend ActiveSupport::Concern
 
-  included do |base|
+  included do |_base|
     scope :only_checked, -> { where('drives.created_at >= ?', CHECK_START_AT) }
   end
 end

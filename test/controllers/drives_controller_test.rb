@@ -1,10 +1,6 @@
 require 'controllers/base'
-require 'helpers/booking'
-require 'helpers/drive'
 
 class DrivesControllerTest < BaseControllerTest
-  include BookingHelper
-
   setup do
     login
   end
@@ -12,41 +8,42 @@ class DrivesControllerTest < BaseControllerTest
   test '#index 直近10件のdriveが表示されること' do
     car = create(:car)
     user = create(:user)
-    drives = create_list(:drive, 11, user: user, car: car)
-    get car_drives_path(car_id: car.id)
+    _drives = create_list(:drive, 11, user: user, car: car)
 
+    get car_drives_path(car_id: car.id)
     assert_select '.drive', 10
   end
 
   test '#new 前の人の終了メーターが表示されること' do
     car = create(:car)
     drive = create(:drive, car: car)
-    get new_car_drive_path(car_id: car.id)
 
+    get new_car_drive_path(car_id: car.id)
     assert_select 'input#drive_form_create_start_meter', { value: drive.end_meter }
   end
 
   test '#new in_effectな予約が表示されること' do
     car = create(:car)
-    create_in_effect(car)
+    effective_bookings = [
+      create(:booking, car: car, start_at: 1.day.since, end_at: 2.day.since),
+      create(:booking, car: car, start_at: 3.day.since, end_at: 4.day.since),
+    ]
+    _ineffective_booking = create(:booking, car: car, start_at: 2.days.ago, end_at: 1.day.ago)
 
     get new_car_drive_path(car_id: car.id)
-
-    assert_select '.booking', car.bookings.in_effect.count
+    assert_select '.booking', effective_bookings.size
   end
 
   test '#new 自分の作成した予約の数だけ削除ボタンが表示されること' do
     car = create(:car)
-    effectives = create_in_effect(car)
-
-    my_bookings_count = rand(1..(effectives.count))
-    effectives.sample(my_bookings_count).each do |booking|
-      booking.user = @user
-      booking.save!
-    end
+    my_effective_bookings = [
+      create(:booking, car: car, user: @user, start_at: 1.day.since, end_at: 2.day.since),
+      create(:booking, car: car, user: @user, start_at: 3.day.since, end_at: 4.day.since),
+    ]
+    _others_effective_booking = create(:booking, car: car, start_at: 10.day.since, end_at: 10.day.since)
 
     get new_car_drive_path(car_id: car.id)
-    assert_select '.booking-delete', my_bookings_count
+    assert_select '.booking-delete', my_effective_bookings.size
   end
 
   test '#create driveが作成できること' do
@@ -67,38 +64,32 @@ class DrivesControllerTest < BaseControllerTest
 
   test '#create 他人の重複するbookingがあるとき作成できず、エラーが表示される' do
     car = create(:car)
-    user = create(:user)
-    drive = build(:drive, car: car, user: user)
+    _conflicted_booking = create(:booking, car: car, start_at: 1.day.ago, end_at: 10.days.since)
 
-    with_conflicted_bookings drive do
-      assert_difference "Drive.where(car_id: #{car.id}).count", 0 do
-        post car_drives_path(car_id: car.id), params: {
-          drive_form_create: {
-            start_meter: drive.start_meter,
-            end_at_date: drive.end_at.to_date,
-            end_at_hour: drive.end_at.hour
-          }
+    assert_difference "Drive.where(car_id: #{car.id}).count", 0 do
+      post car_drives_path(car_id: car.id), params: {
+        drive_form_create: {
+          start_meter: 100,
+          end_at_date: Date.tomorrow,
+          end_at_hour: 23,
         }
-      end
-      assert_select '#errors'
+      }
     end
+    assert_select '#errors'
   end
 
   test '#create 自分の重複するbookingがあるとき作成できる' do
     car = create(:car)
-    drive = build(:drive, car: car, user: @user)
+    _my_conflicted_booking = create(:drive, car: car, start_at: 1.day.ago, end_at: 10.days.since)
 
-    with_conflicted_bookings drive, is_mine: true do
-      assert_difference "Drive.where(car_id: #{car.id}).count", 1 do
-        post car_drives_path(car_id: car.id), params: {
-          drive_form_create: {
-            start_meter: drive.start_meter,
-            end_at_date: drive.end_at.to_date,
-            end_at_hour: drive.end_at.hour
-          }
+    assert_difference "Drive.where(car_id: #{car.id}).count", 1 do
+      post car_drives_path(car_id: car.id), params: {
+        drive_form_create: {
+          start_meter: 100,
+          end_at_date: Date.tomorrow,
+          end_at_hour: 22,
         }
-      end
-      Drive.delete_all
+      }
     end
   end
 
