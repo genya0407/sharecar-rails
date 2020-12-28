@@ -2,4 +2,41 @@ AllCops:
   Exclude:
     - "vendor/**/*" # rubocop config/default.yml
     - "db/schema.rb"
+    - "analysis/*"
+    - "bin/*"
   NewCops: enable
+
+Style/AsciiComments:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 200
+
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+Style/SymbolProc:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - "test/factories/*"
+    - "config/routes.rb"
+
+Metrics/AbcSize:
+  Max: 40
+
+Metrics/MethodLength:
+  Max: 20
