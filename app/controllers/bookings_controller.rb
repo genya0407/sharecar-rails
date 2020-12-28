@@ -19,7 +19,7 @@ class BookingsController < ApplicationController
       if booking.save
         redirect_to action: :new
       else
-        booking.errors.each { |k, v| @form.errors.add(k, v) }
+        booking.errors.each { |error| @form.errors.add(error.attribute, error.message) }
 
         render :new
       end
