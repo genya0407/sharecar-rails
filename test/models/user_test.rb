@@ -20,7 +20,7 @@ class UserTest < ActiveSupport::TestCase
     user.save!
 
     password = Faker::Internet.password
-    assert user.update_attributes(
+    assert user.update(
       name: Faker::Name.name,
       phone_number: Faker::PhoneNumber.phone_number,
       password: password,
@@ -33,7 +33,7 @@ class UserTest < ActiveSupport::TestCase
     user.save!
 
     password = Faker::Internet.password
-    assert_not user.update_attributes(
+    assert_not user.update(
       name: Faker::Name.name,
       phone_number: Faker::PhoneNumber.phone_number,
       password: Faker::Internet.password,
@@ -44,7 +44,7 @@ class UserTest < ActiveSupport::TestCase
   test 'パスワードを変更できること' do
     user = create(:user)
     new_password = Faker::Internet.password
-    assert user.update_attributes(
+    assert user.update(
       name: Faker::Name.name,
       phone_number: Faker::PhoneNumber.phone_number,
       password: new_password,
@@ -54,7 +54,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'パスワードを変更する時、confirmationがあっているかどうかチェックすること' do
     user = create(:user)
-    assert_not user.update_attributes(
+    assert_not user.update(
       name: Faker::Name.name,
       phone_number: Faker::PhoneNumber.phone_number,
       password: Faker::Internet.password,
