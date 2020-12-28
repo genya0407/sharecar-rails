@@ -1,25 +1,20 @@
 require 'test_helper'
-require 'helpers/booking'
 
 class DriveFormCreateTest < ActiveSupport::TestCase
-  include BookingHelper
-
   test '期間が重複する他人の予約がある時、作成できない' do
     drive = build(:drive)
     form = DriveForm::Create.from_drive(drive)
+    _conflicting_booking = create(:booking, car: drive.car, start_at: 1.day.ago(drive.start_at), end_at: 1.day.since(drive.end_at))
 
-    with_conflicted_bookings drive do
-      assert_not form.valid?
-    end
+    assert_not form.valid?
   end
 
   test '期間が重複する自分の予約がある時、作成できる' do
     drive = build(:drive)
     form = DriveForm::Create.from_drive(drive)
+    _conflicting_my_booking = create(:booking, car: drive.car, user: drive.user, start_at: 1.day.ago(drive.start_at), end_at: 1.day.since(drive.end_at))
 
-    with_conflicted_bookings drive, is_mine: true do
-      assert form.valid?
-    end
+    assert form.valid?
   end
 
   test '車が使用可能でないとき、作成できない' do
