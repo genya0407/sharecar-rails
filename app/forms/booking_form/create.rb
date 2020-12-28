@@ -1,4 +1,4 @@
-class BookingForm
+module BookingForm
   class Create < ApplicationForm
     attribute :start_at_date, Date
     attribute :start_at_hour, Integer
