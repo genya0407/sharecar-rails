@@ -63,12 +63,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '#should_pay' do
-    CONSUMPTIONS_COUNT = 3
-    FEE = 1000
-    PAYMENT_AMOUNT = 1000
-    NEW_FUEL_AMOUNT = 1000
+    consumption_count = 3
+    stubbed_fee = 1000
+    payment_amount = 1000
+    new_fuel_amount = 1000
     user = create(:user)
-    cars = create_list(:car, CONSUMPTIONS_COUNT)
+    cars = create_list(:car, consumption_count)
     consumptions = cars.map do |car|
       build(
         :consumption,
@@ -79,24 +79,24 @@ class UserTest < ActiveSupport::TestCase
       )
     end
 
-    stub_all_consumptions_for_calc_fee_of(consumptions, FEE) do
+    stub_all_consumptions_for_calc_fee_of(consumptions, stubbed_fee) do
       # no payment
-      expected_fee = CONSUMPTIONS_COUNT * FEE
+      expected_fee = consumption_count * stubbed_fee
       assert_equal expected_fee, user.reload.should_pay(all_consumptions: consumptions)
 
       # after pay
-      create(:payment, user: user, amount: PAYMENT_AMOUNT)
-      expected_fee -= PAYMENT_AMOUNT
+      create(:payment, user: user, amount: payment_amount)
+      expected_fee -= payment_amount
       assert_equal User.find(user.id).reload.should_pay(all_consumptions: consumptions), expected_fee
 
       # one more pay
-      create(:payment, user: user, amount: PAYMENT_AMOUNT)
-      expected_fee -= PAYMENT_AMOUNT
+      create(:payment, user: user, amount: payment_amount)
+      expected_fee -= payment_amount
       assert_equal User.find(user.id).reload.should_pay(all_consumptions: consumptions), expected_fee
 
       # 新しく給油したらその分feeが減ること
-      create(:fuel, user: user, amount: NEW_FUEL_AMOUNT, car: cars.first)
-      expected_fee -= NEW_FUEL_AMOUNT
+      create(:fuel, user: user, amount: new_fuel_amount, car: cars.first)
+      expected_fee -= new_fuel_amount
       assert_equal User.find(user.id).reload.should_pay(all_consumptions: consumptions), expected_fee
     end
   end
