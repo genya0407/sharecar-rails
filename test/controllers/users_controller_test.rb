@@ -48,9 +48,10 @@ class UsersControllerTest < BaseControllerTest
     @user.admin!
     target_user = create(:user_not_activated)
 
-    assert_difference '$sent_cnt', +1 do
-      post resend_invitation_user_path(target_user)
-    end
+    post resend_invitation_user_path(target_user)
+
+    invite_email = UserMailer.deliveries.last
+    assert_equal invite_email.to[0], target_user.email
   end
 
   test '退会させること' do
