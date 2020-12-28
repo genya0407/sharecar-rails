@@ -69,37 +69,46 @@ class UserTest < ActiveSupport::TestCase
     NEW_FUEL_AMOUNT = 1000
     user = create(:user)
     cars = create_list(:car, CONSUMPTIONS_COUNT)
-    cars.each do |car|
-      create(:consumption,
-             car: car,
-             price: 0,
-             start_at: Time.zone.now - 10.days,
-             end_at: Time.zone.now + 10.days)
+    consumptions = cars.map do |car|
+      build(
+        :consumption,
+        car: car,
+        price: 0,
+        start_at: Time.zone.now - 10.days,
+        end_at: Time.zone.now + 10.days
+      )
     end
 
-    class ConsumptionMock < Consumption
-      def calc_fee_of(_user)
-        FEE
+    stub_all_consumptions_for_calc_fee_of(consumptions, FEE) do
+      # no payment
+      expected_fee = CONSUMPTIONS_COUNT * FEE
+      assert_equal expected_fee, user.reload.should_pay(all_consumptions: consumptions)
+
+      # after pay
+      create(:payment, user: user, amount: PAYMENT_AMOUNT)
+      expected_fee -= PAYMENT_AMOUNT
+      assert_equal User.find(user.id).reload.should_pay(all_consumptions: consumptions), expected_fee
+
+      # one more pay
+      create(:payment, user: user, amount: PAYMENT_AMOUNT)
+      expected_fee -= PAYMENT_AMOUNT
+      assert_equal User.find(user.id).reload.should_pay(all_consumptions: consumptions), expected_fee
+
+      # 新しく給油したらその分feeが減ること
+      create(:fuel, user: user, amount: NEW_FUEL_AMOUNT, car: cars.first)
+      expected_fee -= NEW_FUEL_AMOUNT
+      assert_equal User.find(user.id).reload.should_pay(all_consumptions: consumptions), expected_fee
+    end
+  end
+
+  def stub_all_consumptions_for_calc_fee_of(consumptions, fee, &blk)
+    consumption = consumptions.first
+    if consumption
+      consumption.stub(:calc_fee_of, fee) do
+        stub_all_consumptions_for_calc_fee_of(consumptions.drop(1), fee, &blk)
       end
+    else
+      blk.call
     end
-
-    # no payment
-    expected_fee = CONSUMPTIONS_COUNT * FEE
-    assert user.reload.should_pay(all_consumptions: ConsumptionMock.all) == expected_fee
-
-    # after pay
-    create(:payment, user: user, amount: PAYMENT_AMOUNT)
-    expected_fee -= PAYMENT_AMOUNT
-    assert User.find(user.id).reload.should_pay(all_consumptions: ConsumptionMock.all) == expected_fee
-
-    # one more pay
-    create(:payment, user: user, amount: PAYMENT_AMOUNT)
-    expected_fee -= PAYMENT_AMOUNT
-    assert User.find(user.id).reload.should_pay(all_consumptions: ConsumptionMock.all) == expected_fee
-
-    # 新しく給油したらその分feeが減ること
-    create(:fuel, user: user, amount: NEW_FUEL_AMOUNT, car: cars.first)
-    expected_fee -= NEW_FUEL_AMOUNT
-    assert User.find(user.id).reload.should_pay(all_consumptions: ConsumptionMock.all) == expected_fee
   end
 end
