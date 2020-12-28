@@ -10,7 +10,7 @@ task analyze: :environment do
       total_kms = complete_drives.map { |drive| drive.end_meter - drive.start_meter }.sum
       ratio = total_kms / total_hours
       [user_id, total_hours, total_kms, ratio]
-    end.sort_by { |_, _, _, ratio| ratio }.each do |user_id, total_hours, total_kms, ratio|
+    end.sort_by { |_, _, _, ratio| ratio }.each do |user_id, total_hours, total_kms, ratio| # rubocop:disable Style/MultilineBlockChain
       csv << [User.find(user_id).name, total_hours.round, total_kms.round, ratio.round(3)]
     end
   end

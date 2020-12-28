@@ -18,7 +18,7 @@ class HomeControllerTest < BaseControllerTest
   end
 
   test '使用不可能なcarの数だけunavailableな要素があること' do
-    cars = create_list(:car, 2)
+    _cars = create_list(:car, 2)
     unavailable_car_count = rand(1..3)
     create_list(:car, unavailable_car_count, status: :repairing)
 
