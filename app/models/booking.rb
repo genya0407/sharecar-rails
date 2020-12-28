@@ -21,14 +21,6 @@ class Booking < ApplicationRecord
     where.not('end_at <= ? OR ? <= start_at', start_at, end_at)
   end
 
-  def conflicted_bookings
-    car.bookings.where.not(id: id).between(start_at, end_at)
-  end
-
-  def conflicted_drives
-    car.drives.not_end.between(start_at, end_at)
-  end
-
   private
 
   def end_should_be_greater_than_start
@@ -41,5 +33,13 @@ class Booking < ApplicationRecord
 
   def conflicted_drives_should_not_exist
     errors.add(:start_at, "その期間は#{conflicted_drives.first.user.name}が車を使用しています") if conflicted_drives.exists?
+  end
+
+  def conflicted_drives
+    car.drives.not_end.between(start_at, end_at)
+  end
+
+  def conflicted_bookings
+    car.bookings.where.not(id: id).between(start_at, end_at)
   end
 end
