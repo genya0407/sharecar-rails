@@ -31,6 +31,7 @@ class Admin::CarsController < ApplicationController
   end
 
   private
+
   def update_params
     params
       .require(:car)

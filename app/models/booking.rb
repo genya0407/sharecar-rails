@@ -7,10 +7,10 @@ class Booking < ApplicationRecord
   validates :car_id, presence: true
   validates :user_id, presence: true
 
-  with_options if: lambda { car.present? && start_at.present? && end_at.present? } do |basically_valid|
+  with_options if: -> { car.present? && start_at.present? && end_at.present? } do |basically_valid|
     basically_valid.validate :end_should_be_greater_than_start
     basically_valid.validate :conflicted_bookings_should_not_exist
-    basically_valid.validate :conflicted_drives_should_not_exist 
+    basically_valid.validate :conflicted_drives_should_not_exist
   end
 
   def self.in_effect
@@ -22,29 +22,24 @@ class Booking < ApplicationRecord
   end
 
   def conflicted_bookings
-    self.car.bookings.where.not(id: id).between(start_at, end_at)
+    car.bookings.where.not(id: id).between(start_at, end_at)
   end
 
   def conflicted_drives
-    self.car.drives.not_end.between(start_at, end_at)
+    car.drives.not_end.between(start_at, end_at)
   end
 
   private
+
   def end_should_be_greater_than_start
-    unless start_at < end_at
-      errors.add(:end_at, '終了時刻は開始時刻より後に設定してください')
-    end
+    errors.add(:end_at, '終了時刻は開始時刻より後に設定してください') unless start_at < end_at
   end
 
   def conflicted_bookings_should_not_exist
-    if conflicted_bookings.exists?
-      errors.add(:start_at, "その期間は#{conflicted_bookings.first.user.name}が車を予約しています")
-    end
+    errors.add(:start_at, "その期間は#{conflicted_bookings.first.user.name}が車を予約しています") if conflicted_bookings.exists?
   end
 
   def conflicted_drives_should_not_exist
-    if conflicted_drives.exists?
-      errors.add(:start_at, "その期間は#{conflicted_drives.first.user.name}が車を使用しています")
-    end
+    errors.add(:start_at, "その期間は#{conflicted_drives.first.user.name}が車を使用しています") if conflicted_drives.exists?
   end
 end

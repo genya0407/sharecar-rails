@@ -23,6 +23,7 @@ class Admin::PaymentsController < ApplicationController
   end
 
   private
+
   def create_params
     params.require(:payment)
           .permit(:amount, :user_id)

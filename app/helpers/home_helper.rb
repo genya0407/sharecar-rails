@@ -7,5 +7,5 @@ module HomeHelper
     else
       datetime.in_time_zone.to_s :ja
     end
-  end 
+  end
 end

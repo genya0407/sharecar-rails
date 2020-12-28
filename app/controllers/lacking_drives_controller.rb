@@ -18,6 +18,7 @@ class LackingDrivesController < ApplicationController
   end
 
   private
+
   def new_params
     {
       start_meter: params[:start_meter],

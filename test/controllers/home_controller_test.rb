@@ -31,7 +31,7 @@ class HomeControllerTest < BaseControllerTest
     create_list(:drive, rand(3), user: create(:user))
 
     get root_path
-    assert_select '.Card--Action--FAB--Icon', { 
+    assert_select '.Card--Action--FAB--Icon', {
       count: Drive.where(end_meter: nil, user: @user).count,
       text: 'done'
     }

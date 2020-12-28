@@ -31,10 +31,9 @@ class BookingForm
     end
 
     private
+
     def end_should_be_greater_than_begin
-      unless end_at > start_at
-        errors.add(:end_at, '終了時刻は開始時刻より後にしてください')
-      end
+      errors.add(:end_at, '終了時刻は開始時刻より後にしてください') unless end_at > start_at
     end
 
     def start_at

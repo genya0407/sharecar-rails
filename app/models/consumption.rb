@@ -16,10 +16,11 @@ class Consumption < ApplicationRecord
     target_drives = car.drives.in(start_at, end_at)
 
     new_price = target_fuels.sum(&:amount) / target_drives.sum(&:distance).to_f
-    self.update(price: new_price)
+    update(price: new_price)
   end
 
   private
+
   def target_drives_of(user)
     user.drives.where(car_id: car_id).in(start_at, end_at)
   end

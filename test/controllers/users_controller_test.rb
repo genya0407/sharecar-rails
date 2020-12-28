@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UsersControllerTest < BaseControllerTest
-  test "ユーザー登録の一連の処理が正常に動作すること" do
+  test 'ユーザー登録の一連の処理が正常に動作すること' do
     # invite
     login
     email = Faker::Internet.email
@@ -115,7 +115,7 @@ class UsersControllerTest < BaseControllerTest
       }
     }
     assert_response :unprocessable_entity
-    assert User.find_by(email: email).activation_state == 'pending'    
+    assert User.find_by(email: email).activation_state == 'pending'
   end
 
   def invite_user(invite_email)

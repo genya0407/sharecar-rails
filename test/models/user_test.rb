@@ -69,12 +69,13 @@ class UserTest < ActiveSupport::TestCase
     NEW_FUEL_AMOUNT = 1000
     user = create(:user)
     cars = create_list(:car, CONSUMPTIONS_COUNT)
-    cars.each { |car| create(:consumption,
-      car: car,
-      price: 0,
-      start_at: Time.zone.now - 10.days,
-      end_at: Time.zone.now + 10.days
-    ) }
+    cars.each do |car|
+      create(:consumption,
+             car: car,
+             price: 0,
+             start_at: Time.zone.now - 10.days,
+             end_at: Time.zone.now + 10.days)
+    end
 
     class ConsumptionMock < Consumption
       def calc_fee_of(_user)

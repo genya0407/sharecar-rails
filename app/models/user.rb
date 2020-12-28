@@ -43,6 +43,7 @@ class User < ApplicationRecord
   end
 
   private
+
   def should_check_password_on_update?
     password_changed? || crypted_password.nil?
   end

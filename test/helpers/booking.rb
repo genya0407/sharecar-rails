@@ -35,18 +35,19 @@ module BookingHelper
     # another car
     create(:booking, user: user)
 
-    return (futures + [current])
+    (futures + [current])
   end
 
   # has_range: start_atとend_atと*car*を持つオブジェクト
   # my: trueの時、作成するbookingのuserはhas_rangeのuserになる
   def with_conflicted_bookings(has_range, is_mine: false)
-    strategy = [:end_in_range, :start_in_range, :cover_range, :in_range].sample
+    strategy = %i[end_in_range start_in_range cover_range in_range].sample
     conflict = create(:booking, booking_params(strategy, has_range, is_mine))
     yield conflict
   end
 
   private
+
   def booking_params(strategy_method_name, has_range, is_mine)
     start_at, end_at = send(strategy_method_name, has_range)
     {
