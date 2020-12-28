@@ -40,3 +40,7 @@ Metrics/AbcSize:
 
 Metrics/MethodLength:
   Max: 20
+
+Lint/EmptyBlock:
+  Exclude:
+   - "test/factories/*"
