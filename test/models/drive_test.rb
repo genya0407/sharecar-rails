@@ -1,9 +1,4 @@
-require 'test_helper'
-
 class DriveTest < ActiveSupport::TestCase
-  include BookingHelper
-  include DriveHelper
-
   test '.in start_atかcreated_atで絞りこめること' do
     create(:drive, start_at_transient: Time.zone.now)
     create(:drive, start_at_transient: Time.zone.now + 10.days)
@@ -29,15 +24,18 @@ class DriveTest < ActiveSupport::TestCase
     assert drive.valid?
   end
 
-  test '.lack_exist? meterに欠けがあることを検出すること' do
+  test '.lack_exist? meterに欠けがないときfalseを返すこと' do
     car = create(:car)
-    create_continuous_drives(car, n: 10)
+    create(:drive, car: car, start_meter: 100, end_meter: 200)
+    create(:drive, car: car, start_meter: 200, end_meter: 300)
 
     assert_not car.drives.reload.lack_exist?
+  end
 
-    target_drive = car.drives.order(:start_meter).drop(1).sample
-    target_drive.start_meter = rand((target_drive.start_meter + 1)..(target_drive.end_meter))
-    target_drive.save!
+  test '.lack_exist? meterに欠けがあるときtrueを返すこと' do
+    car = create(:car)
+    create(:drive, car: car, start_meter: 100, end_meter: 200)
+    create(:drive, car: car, start_meter: 201, end_meter: 300)
 
     assert car.drives.reload.lack_exist?
   end

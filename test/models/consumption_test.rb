@@ -1,36 +1,22 @@
 require 'test_helper'
-require 'helpers/drive'
 
 class ConsumptionTest < ActiveSupport::TestCase
-  include DriveHelper
-
-  CONSUMPTION_PRICE_0 = 10
-  CONSUMPTION_PRICE_1 = 20
-
   test '#calc_fee_of' do
-    users = create_list(:user, 2)
-    me = users[0]
-    other = users[2]
-    cars = create_list(:car, 2)
+    me, other_user = create_list(:user, 2)
+    car1, car2 = create_list(:car, 2)
 
-    my_total_fee = 0.0
-    my_total_fee += CONSUMPTION_PRICE_0 * create_continuous_drives(cars[0], users: [me], n: 5).sum(&:distance)
-    my_total_fee += CONSUMPTION_PRICE_1 * create_continuous_drives(cars[1], users: [me], n: 5).sum(&:distance)
-    create(:consumption,
-           car: cars[0],
-           price: CONSUMPTION_PRICE_0,
-           start_at: Time.zone.now - 10.hours,
-           end_at: Time.zone.now + 100.hours)
-    create(:consumption,
-           car: cars[1],
-           price: CONSUMPTION_PRICE_1,
-           start_at: Time.zone.now - 10.hours,
-           end_at: Time.zone.now + 100.hours)
+    # 合計で20km走る
+    _my_drives_for_car1 = [
+      create(:drive, car: car1, user: me, start_meter: 10, end_meter: 20, start_at: 1.day.ago, end_at: 1.day.since),
+      create(:drive, car: car1, user: me, start_meter: 20, end_meter: 30, start_at: 1.day.ago, end_at: 1.day.since)
+    ]
+    # 他の車の値が混ざらないことを確認するため
+    _my_drive_for_car2 = create(:drive, car: car2, user: me, start_meter: 100, end_meter: 200)
+    # 他のユーザーの値が混ざらないことを確認するため
+    _others_drive_for_car1 = create(:drive, car: car1, user: other_user, start_meter: 100, end_meter: 200)
 
-    # 他のユーザーの乗車記録が混ざらないことを確認するため
-    create_continuous_drives(cars[0], users: [other], n: 5)
-    create_continuous_drives(cars[1], users: [other], n: 5)
+    consumption = create(:consumption, car: car1, price: 13, start_at: 10.days.ago, end_at: 10.days.since)
 
-    assert my_total_fee == Consumption.all.sum { |cons| cons.calc_fee_of(me) }
+    assert_equal 13 * 20, consumption.calc_fee_of(me)
   end
 end
