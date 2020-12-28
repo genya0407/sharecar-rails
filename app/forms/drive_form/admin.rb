@@ -1,4 +1,4 @@
-class DriveForm
+module DriveForm
   class Admin < ApplicationForm
     attribute :start_meter, Integer
     attribute :end_meter, Integer

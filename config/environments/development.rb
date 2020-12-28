@@ -60,8 +60,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.autoload_paths += ["#{Rails.root}/app/form"]
-
   # email
   config.action_mailer.default_url_options = { host: 'localhost:3000', protocol: 'https' }
 
