@@ -1,6 +1,5 @@
 require 'controllers/base'
 require 'helpers/booking'
-require 'helpers/drive'
 
 class DrivesControllerTest < BaseControllerTest
   include BookingHelper

@@ -1,6 +1,5 @@
 require 'test_helper'
 require 'helpers/booking'
-require 'helpers/drive'
 
 class DriveFormCreateTest < ActiveSupport::TestCase
   include BookingHelper
