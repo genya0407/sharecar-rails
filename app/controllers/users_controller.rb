@@ -53,7 +53,7 @@ class UsersController < ApplicationController
   def confirm
     @token = params[:id]
     if @user = User.load_from_activation_token(@token)
-      if @user.update_attributes(user_confirm_params)
+      if @user.update(user_confirm_params)
         @user.activate!
         auto_login @user
         redirect_to :root
