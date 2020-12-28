@@ -36,7 +36,7 @@ class DriveTest < ActiveSupport::TestCase
     assert_not car.drives.reload.lack_exist?
 
     target_drive = car.drives.order(:start_meter).drop(1).sample
-    target_drive.start_meter = rand((target_drive.start_meter+1)..(target_drive.end_meter))
+    target_drive.start_meter = rand((target_drive.start_meter + 1)..(target_drive.end_meter))
     target_drive.save!
 
     assert car.drives.reload.lack_exist?

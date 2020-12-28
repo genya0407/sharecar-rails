@@ -17,17 +17,15 @@ class ConsumptionTest < ActiveSupport::TestCase
     my_total_fee += CONSUMPTION_PRICE_0 * create_continuous_drives(cars[0], users: [me], n: 5).sum(&:distance)
     my_total_fee += CONSUMPTION_PRICE_1 * create_continuous_drives(cars[1], users: [me], n: 5).sum(&:distance)
     create(:consumption,
-      car: cars[0],
-      price: CONSUMPTION_PRICE_0,
-      start_at: Time.zone.now - 10.hours,
-      end_at: Time.zone.now + 100.hours
-    )
+           car: cars[0],
+           price: CONSUMPTION_PRICE_0,
+           start_at: Time.zone.now - 10.hours,
+           end_at: Time.zone.now + 100.hours)
     create(:consumption,
-      car: cars[1],
-      price: CONSUMPTION_PRICE_1,
-      start_at: Time.zone.now - 10.hours,
-      end_at: Time.zone.now + 100.hours
-    )
+           car: cars[1],
+           price: CONSUMPTION_PRICE_1,
+           start_at: Time.zone.now - 10.hours,
+           end_at: Time.zone.now + 100.hours)
 
     # 他のユーザーの乗車記録が混ざらないことを確認するため
     create_continuous_drives(cars[0], users: [other], n: 5)

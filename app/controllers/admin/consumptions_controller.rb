@@ -6,21 +6,18 @@ class Admin::ConsumptionsController < ApplicationController
   end
 
   def recalculate
-    begin
-      Consumption.transaction do
-        Consumption.where(id: params[:ids]).each(&:recalculate)
-      end
-
-      redirect_to action: :index
-    rescue
-      flash[:recalculate_error] = true
-
-      redirect_to action: :index
+    Consumption.transaction do
+      Consumption.where(id: params[:ids]).each(&:recalculate)
     end
+
+    redirect_to action: :index
+  rescue StandardError
+    flash[:recalculate_error] = true
+
+    redirect_to action: :index
   end
 
-  def new
-  end
+  def new; end
 
   def create
     start_at = Time.zone.parse(params[:start_date])
@@ -28,7 +25,7 @@ class Admin::ConsumptionsController < ApplicationController
 
     Consumption.transaction do
       Car.all.select do |car|
-          car.fuels.in(start_at, end_at).exists?
+        car.fuels.in(start_at, end_at).exists?
       end.each do |car|
         Consumption.create(
           car: car,

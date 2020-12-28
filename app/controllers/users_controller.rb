@@ -1,10 +1,9 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: [:activate, :confirm, :resend_invitation]
-  before_action :should_be_admin, except: [:show, :index, :activate, :confirm]
-  before_action :set_users, only: [:index, :new, :create, :resend_invitation]
+  skip_before_action :require_login, only: %i[activate confirm resend_invitation]
+  before_action :should_be_admin, except: %i[show index activate confirm]
+  before_action :set_users, only: %i[index new create resend_invitation]
 
-  def index
-  end
+  def index; end
 
   def new
     @user = User.new
@@ -35,8 +34,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def activate
     if (@user = User.load_from_activation_token(params[:id]))
@@ -68,15 +66,16 @@ class UsersController < ApplicationController
   end
 
   private
-    def user_invite_params
-      params.require(:user).permit(:email)
-    end
 
-    def user_confirm_params
-      params.require(:user).permit(:name, :phone_number, :password, :password_confirmation)
-    end
+  def user_invite_params
+    params.require(:user).permit(:email)
+  end
 
-    def set_users
-      @users = User.all.order(:activation_state)
-    end
+  def user_confirm_params
+    params.require(:user).permit(:name, :phone_number, :password, :password_confirmation)
+  end
+
+  def set_users
+    @users = User.all.order(:activation_state)
+  end
 end

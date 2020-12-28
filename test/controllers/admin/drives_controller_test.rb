@@ -20,10 +20,10 @@ class Admin::DrivesControllerTest < BaseControllerTest
     # メーターの値が一番うしろのdriveをいじってしまうと、「空白の部分」の数が変わってしまうので、
     # 一番最後のdrive以外のdriveを編集するように
     car.drives.order(:start_meter)
-      .reverse.drop(1).reverse
-      .sample(lacking_drive_count).each do |drive|
-        drive.end_meter = rand((drive.start_meter)...(drive.end_meter))
-        drive.save!
+       .reverse.drop(1).reverse
+       .sample(lacking_drive_count).each do |drive|
+      drive.end_meter = rand((drive.start_meter)...(drive.end_meter))
+      drive.save!
     end
 
     get admin_car_drives_path(car.id)
@@ -43,9 +43,9 @@ class Admin::DrivesControllerTest < BaseControllerTest
   test 'update 乗車記録を編集できること' do
     drive = create(:drive)
     new_start_meter = rand((drive.start_meter)...(drive.end_meter))
-    new_end_meter = rand((new_start_meter)...(drive.end_meter))
+    new_end_meter = rand(new_start_meter...(drive.end_meter))
     new_user_id = create(:user).id
- 
+
     put admin_car_drive_path(car_id: drive.car.id, id: drive.id),
         params: {
           drive_form_admin: {

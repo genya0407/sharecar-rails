@@ -6,7 +6,7 @@ class DriveFormCreateTest < ActiveSupport::TestCase
   include BookingHelper
 
   test 'start_atとend_atが無くても作成できること' do
-    start_meter = rand(100..10000)
+    start_meter = rand(100..10_000)
     form = DriveForm::Admin.new(
       start_meter: start_meter,
       end_meter: start_meter + rand(10..100),

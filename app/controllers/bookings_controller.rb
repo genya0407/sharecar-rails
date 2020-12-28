@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :set_bookings_in_effect, only: [:new, :create]
+  before_action :set_bookings_in_effect, only: %i[new create]
 
   def new
     @form = BookingForm::Create.initial
@@ -40,12 +40,13 @@ class BookingsController < ApplicationController
   end
 
   private
-    def booking_form_params
-      params.require(:booking_form_create)
-            .permit(:start_at_date, :start_at_hour, :end_at_date, :end_at_hour).to_h
-    end
 
-    def set_bookings_in_effect
-      @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
-    end
+  def booking_form_params
+    params.require(:booking_form_create)
+          .permit(:start_at_date, :start_at_hour, :end_at_date, :end_at_hour).to_h
+  end
+
+  def set_bookings_in_effect
+    @bookings_in_effect = Car.find(params[:car_id]).bookings.in_effect
+  end
 end

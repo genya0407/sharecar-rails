@@ -73,11 +73,11 @@ class Drive < ApplicationRecord
     if start_meter.present? && end_meter.present?
       end_meter - start_meter
     else
-      raise "Can't calculate distance of the drive #{self.id}"
+      raise "Can't calculate distance of the drive #{id}"
     end
   end
 
   def conflicted_drives
-    self.car.drives.where.not(id: id).not_end.between(start_at, end_at)
+    car.drives.where.not(id: id).not_end.between(start_at, end_at)
   end
 end

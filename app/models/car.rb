@@ -20,15 +20,11 @@ class Car < ApplicationRecord
   end
 
   def current_drive
-    if occupied?
-      @current_drive ||= drives.order(created_at: :desc).find_by(end_meter: nil)
-    end
+    @current_drive ||= drives.order(created_at: :desc).find_by(end_meter: nil) if occupied?
   end
 
   def current_driver
-    if occupied?
-      current_drive.user
-    end
+    current_drive.user if occupied?
   end
 
   def using_drive(user_id)

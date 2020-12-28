@@ -2,7 +2,7 @@ require 'csv'
 
 task analyze: :environment do
   csv_string = CSV.generate do |csv|
-    csv << ['username', 'hours', 'km', 'ratio']
+    csv << %w[username hours km ratio]
     Drive.only_checked.group_by { |drive| drive.user_id }.map do |user_id, drives|
       complete_drives = drives.select { |drive| !drive.end_at.nil? && !drive.end_meter.nil? }
       total_seconds = complete_drives.map { |drive| drive.end_at - drive.start_at }.sum

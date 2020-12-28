@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :drive do
     transient do
-      start_meter_transient { rand(100...100000) }
+      start_meter_transient { rand(100...100_000) }
       start_at_transient { Time.zone.now }
     end
 
