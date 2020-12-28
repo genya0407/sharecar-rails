@@ -58,14 +58,14 @@ class CarTest < ActiveSupport::TestCase
   # using?
   test '自分が使用するdriveがある時、using?がtrueになること' do
     user = create(:user)
-    drive = create(:drive_not_end, car: @car, user: user)
+    create(:drive_not_end, car: @car, user: user)
 
     assert @car.using?(user)
   end
 
   test '自分が使用するdriveが無い時、using?がfalseになること' do
     user = create(:user)
-    drive = create(:drive_not_end, car: @car)
+    create(:drive_not_end, car: @car)
 
     assert_not @car.using?(user)
   end
