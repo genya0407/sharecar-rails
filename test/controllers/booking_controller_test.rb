@@ -1,6 +1,4 @@
 require 'controllers/base'
-require 'helpers/booking'
-require 'helpers/drive'
 
 class BookingControllerTest < BaseControllerTest
   setup do
