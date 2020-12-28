@@ -21,17 +21,14 @@ class UsersController < ApplicationController
 
   def resend_invitation
     @user = User.find_by(id: params[:id])
+    return render action: :new, status: :unprocessable_entity unless @user.present?
 
-    if @user.present?
-      if @user.activation_token.nil?
-        @user.activation_token = Sorcery::Model::TemporaryToken.generate_random_token
-        @user.save!
-      end
-      @user.send(:send_activation_needed_email!)
-      render action: :new
-    else
-      render action: :new, status: :unprocessable_entity
+    if @user.activation_token.nil?
+      @user.activation_token = Sorcery::Model::TemporaryToken.generate_random_token
+      @user.save!
     end
+    @user.send(:send_activation_needed_email!)
+    render action: :new
   end
 
   def show; end
@@ -52,16 +49,15 @@ class UsersController < ApplicationController
 
   def confirm
     @token = params[:id]
-    if @user = User.load_from_activation_token(@token)
-      if @user.update(user_confirm_params)
-        @user.activate!
-        auto_login @user
-        redirect_to :root
-      else
-        render :activate, status: :unprocessable_entity
-      end
+    @user = User.load_from_activation_token(@token)
+    return not_authenticated unless @user
+
+    if @user.update(user_confirm_params)
+      @user.activate!
+      auto_login @user
+      redirect_to :root
     else
-      not_authenticated
+      render :activate, status: :unprocessable_entity
     end
   end
 
