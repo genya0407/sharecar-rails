@@ -1,4 +1,4 @@
-desc "This task is called by the Heroku scheduler add-on"
+desc 'This task is called by the Heroku scheduler add-on'
 task wake_up: :environment do
   require 'net/http'
   require 'uri'

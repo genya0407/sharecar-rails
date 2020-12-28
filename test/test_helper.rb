@@ -20,10 +20,3 @@ end
 Minitest::TestProfile.use!(count: 3)
 
 DatabaseCleaner.strategy = :transaction
-
-# テストを早くするためにメールの送信をスキップする
-class User
-  def send_activation_needed_email!
-    $sent_cnt = $sent_cnt.to_i + 1
-  end
-end

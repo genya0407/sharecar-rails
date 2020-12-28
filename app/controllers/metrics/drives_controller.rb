@@ -5,7 +5,7 @@ class Metrics::DrivesController < ApplicationController
 
   def index
     traces = Car.all.map do |car|
-      data = car.drives.only_checked.group(:user).sum('end_meter - start_meter').map { |user, km| [user.name, km] }.to_h
+      data = car.drives.only_checked.group(:user).sum('end_meter - start_meter').transform_keys(&:name)
       {
         x: data.keys,
         y: data.values,

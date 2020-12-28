@@ -37,6 +37,7 @@ class Admin::FuelsController < ApplicationController
   end
 
   private
+
   def create_params
     params.require(:fuel)
           .permit(:user_id, :car_id, :amount, :created_at)

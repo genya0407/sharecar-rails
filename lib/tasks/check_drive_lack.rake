@@ -3,7 +3,5 @@ task check_drive_lack: :environment do
     car.drives.only_checked.lack_exist?
   end
 
-  unless cars_with_lack.empty?
-    NotifyLackMailer.lack_exist_email(cars_with_lack).deliver_now
-  end
+  NotifyLackMailer.lack_exist_email(cars_with_lack).deliver_now unless cars_with_lack.empty?
 end

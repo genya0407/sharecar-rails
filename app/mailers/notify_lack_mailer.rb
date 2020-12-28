@@ -6,7 +6,7 @@ class NotifyLackMailer < ApplicationMailer
               else
                 '乗車記録に欠落があります'
               end
-    mail(:to => Rails.application.secrets.mailing_list_address,
-         :subject => subject)
+    mail(to: Rails.application.secrets.mailing_list_address,
+         subject: subject)
   end
 end

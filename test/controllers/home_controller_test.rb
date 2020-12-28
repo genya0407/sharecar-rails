@@ -18,7 +18,7 @@ class HomeControllerTest < BaseControllerTest
   end
 
   test '使用不可能なcarの数だけunavailableな要素があること' do
-    cars = create_list(:car, 2)
+    _cars = create_list(:car, 2)
     unavailable_car_count = rand(1..3)
     create_list(:car, unavailable_car_count, status: :repairing)
 
@@ -31,7 +31,7 @@ class HomeControllerTest < BaseControllerTest
     create_list(:drive, rand(3), user: create(:user))
 
     get root_path
-    assert_select '.Card--Action--FAB--Icon', { 
+    assert_select '.Card--Action--FAB--Icon', {
       count: Drive.where(end_meter: nil, user: @user).count,
       text: 'done'
     }

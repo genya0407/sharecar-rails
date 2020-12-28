@@ -18,7 +18,7 @@ class DriveForm
         :user_id
       )
 
-      self.new(params)
+      new(params)
     end
 
     def save!

@@ -13,11 +13,9 @@ class BetweenDTO
   end
 
   def distance
-    if !end_meter.nil? && !start_meter.nil?
-      end_meter - start_meter
-    else
-      raise "Can't calculate distance"
-    end
+    raise "Can't calculate distance" unless end_meter.present? && start_meter.present?
+
+    end_meter - start_meter
   end
 
   def attributes
@@ -70,14 +68,12 @@ class Drive < ApplicationRecord
   end
 
   def distance
-    if start_meter.present? && end_meter.present?
-      end_meter - start_meter
-    else
-      raise "Can't calculate distance of the drive #{self.id}"
-    end
+    raise "Can't calculate distance of the drive #{id}" unless start_meter.present? && end_meter.present?
+
+    end_meter - start_meter
   end
 
   def conflicted_drives
-    self.car.drives.where.not(id: id).not_end.between(start_at, end_at)
+    car.drives.where.not(id: id).not_end.between(start_at, end_at)
   end
 end
