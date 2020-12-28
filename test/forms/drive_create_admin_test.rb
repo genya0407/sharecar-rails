@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'helpers/booking'
 
 class DriveFormCreateTest < ActiveSupport::TestCase
   test 'start_atとend_atが無くても作成できること' do
