@@ -4,11 +4,9 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     env:
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
     services:
       db:
         image: postgres:9
@@ -22,15 +20,12 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
     steps:
     - name: Install libpg
       run: |
         sudo apt-get -yqq install libpq-dev
     - uses: masa-iwasaki/setup-rbenv@v1
-
     - uses: actions/checkout@master
-
     - name: Cache RBENV_ROOT
       uses: actions/cache@v2
       id: cache_rbenv
@@ -43,7 +38,6 @@ jobs:
       run: |
         eval "$(rbenv init -)"
         rbenv install -s `cat .ruby-version`
-
     - name: Cache vendor/bundle
       uses: actions/cache@v2
       id: cache_vendor_bundle
@@ -57,9 +51,10 @@ jobs:
         eval "$(rbenv init -)"
         gem install bundler
         bundle install --jobs 4 --retry 3
-
     - name: Run test
       run: |
         eval "$(rbenv init -)"
         bundle exec rake db:setup
         bundle exec rake test
+    - name: Run rubocop
+      run: bundle exec rubocop
