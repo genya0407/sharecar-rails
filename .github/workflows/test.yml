@@ -51,10 +51,12 @@ jobs:
         eval "$(rbenv init -)"
         gem install bundler
         bundle install --jobs 4 --retry 3
+    - name: Run rubocop
+      run: |
+        eval "$(rbenv init -)"
+        bundle exec rubocop
     - name: Run test
       run: |
         eval "$(rbenv init -)"
         bundle exec rake db:setup
         bundle exec rake test
-    - name: Run rubocop
-      run: bundle exec rubocop
