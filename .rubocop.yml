@@ -44,3 +44,6 @@ Metrics/MethodLength:
 Lint/EmptyBlock:
   Exclude:
    - "test/factories/*"
+
+Style/RedundantFetchBlock:
+  Enabled: false
