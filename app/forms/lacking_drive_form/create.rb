@@ -1,4 +1,4 @@
-class LackingDriveForm
+module LackingDriveForm
   class Create < ApplicationForm
     attribute :start_meter, Integer
     attribute :end_meter, Integer

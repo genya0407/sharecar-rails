@@ -1,4 +1,4 @@
-class DriveForm
+module DriveForm
   class Update < ApplicationForm
     attribute :end_meter, Integer
 

@@ -1,4 +1,4 @@
-class DriveForm
+module DriveForm
   class Create < ApplicationForm
     attribute :start_meter, Integer
     attribute :end_at_date, Date
