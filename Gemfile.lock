@@ -99,7 +99,7 @@ GEM
       i18n (>= 1.6, < 2)
     faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
-    ffi (1.13.1)
+    ffi (1.14.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     htmlentities (4.3.4)
@@ -115,7 +115,7 @@ GEM
     jwt (2.2.2)
     launchy (2.4.3)
       addressable (~> 2.3)
-    listen (3.3.3)
+    listen (3.4.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.7.0)
@@ -302,7 +302,7 @@ DEPENDENCIES
   faker
   jbuilder (~> 2.10)
   jquery-rails
-  listen (~> 3.3.3)
+  listen (~> 3.4.0)
   material_icons
   materialize-sass (~> 0.100)
   minitest-test_profile
