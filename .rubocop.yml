@@ -33,7 +33,7 @@ Style/SymbolProc:
 Metrics/BlockLength:
   Exclude:
     - "test/factories/*"
-    - "config/routes.rb"
+    - "config/**/*"
 
 Metrics/AbcSize:
   Max: 40
