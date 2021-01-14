@@ -119,7 +119,7 @@ GEM
     jwt (2.2.2)
     launchy (2.4.3)
       addressable (~> 2.3)
-    listen (3.4.0)
+    listen (3.4.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.8.0)
@@ -308,7 +308,7 @@ DEPENDENCIES
   faker
   jbuilder (~> 2.10)
   jquery-rails
-  listen (~> 3.4.0)
+  listen (~> 3.4.1)
   material_icons
   materialize-sass (~> 0.100)
   minitest-test_profile
