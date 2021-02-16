@@ -101,7 +101,7 @@ GEM
       activesupport (>= 5.0.0)
     faker (2.15.1)
       i18n (>= 1.6, < 2)
-    faraday (0.17.3)
+    faraday (0.17.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.14.2)
     globalid (0.4.2)
@@ -147,7 +147,7 @@ GEM
     nokogiri (1.11.0)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
-    oauth (0.5.4)
+    oauth (0.5.5)
     oauth2 (1.4.4)
       faraday (>= 0.8, < 2.0)
       jwt (>= 1.0, < 3.0)
@@ -249,7 +249,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sorcery (0.15.0)
+    sorcery (0.16.0)
       bcrypt (~> 3.1)
       oauth (~> 0.4, >= 0.4.4)
       oauth2 (~> 1.0, >= 0.8.0)
