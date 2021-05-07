@@ -134,7 +134,9 @@ GEM
     materialize-sass (0.100.2.1)
       sass (~> 3.3)
     method_source (1.0.0)
-    mimemagic (0.3.5)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
     minitest (5.14.2)
@@ -143,7 +145,7 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    nio4r (2.5.4)
+    nio4r (2.5.7)
     nokogiri (1.11.0)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
@@ -162,7 +164,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (3.0.2)
-    puma (5.1.1)
+    puma (5.3.0)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -314,7 +316,7 @@ DEPENDENCIES
   minitest-test_profile
   pg
   pry
-  puma (~> 5.1)
+  puma (~> 5.3)
   rack-lineprof
   rack-mini-profiler
   rails (~> 6.1)
