@@ -44,7 +44,7 @@ gem 'virtus'
 
 # Materialize css framework
 gem 'material_icons'
-gem 'materialize-sass', '~> 0.100'
+gem 'materialize-sass', '~> 1.0'
 
 # experimental
 # gem 'cztop'
