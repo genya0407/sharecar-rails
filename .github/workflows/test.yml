@@ -24,43 +24,16 @@ jobs:
     - name: Install libpg
       run: |
         sudo apt-get -yqq install libpq-dev
-    - uses: masa-iwasaki/setup-rbenv@v1
     - uses: actions/checkout@master
-    - name: Cache RBENV_ROOT
-      uses: actions/cache@v2
-      id: cache_rbenv
+    - uses: ruby/setup-ruby@v1
       with:
-        path: /home/runner/.rbenv
-        key: ${{ runner.os }}-rbenv-${{ hashFiles('**/.ruby-version') }}
-        restore-keys: |
-          {{ runner.os }}-rbenv-
-    - name: Install Ruby
-      run: |
-        eval "$(rbenv init -)"
-        rbenv install -s `cat .ruby-version`
-    - name: Cache vendor/bundle
-      uses: actions/cache@v2
-      id: cache_vendor_bundle
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          {{ runner.os }}-gems-
-    - name: Build
-      run: |
-        eval "$(rbenv init -)"
-        gem install bundler
-        bundle install --jobs 4 --retry 3
+        bundler-cache: true
     - name: Run rubocop
-      run: |
-        eval "$(rbenv init -)"
-        bundle exec rubocop
+      run: bundle exec rubocop
     - name: Run test
       run: |
-        eval "$(rbenv init -)"
         bundle exec rake db:setup
         bundle exec rake test
     - name: Run assets:precompile
       run: |
-        eval "$(rbenv init -)"
         bundle exec rake assets:precompile
