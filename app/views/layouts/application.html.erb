@@ -50,22 +50,24 @@
     </div>
   </nav>
 
-  <div class="row">
-    <% if flash[:notice] %>
-    <div class="col s12">
-      <div class="card-panel notice">
-        <span class="white-text"><%= flash[:notice] %></span>
+  <% if flash[:notice] && flash[:alert] %>
+    <div class="row">
+      <% if flash[:notice] %>
+      <div class="col s12">
+        <div class="card-panel notice">
+          <span class="white-text"><%= flash[:notice] %></span>
+        </div>
       </div>
-    </div>
-    <% end %>
-    <% if flash[:alert] %>
-    <div class="col s12">
-      <div class="card-panel red">
-        <span class="white-text"><%= flash[:alert] %></span>
+      <% end %>
+      <% if flash[:alert] %>
+      <div class="col s12">
+        <div class="card-panel red">
+          <span class="white-text"><%= flash[:alert] %></span>
+        </div>
       </div>
+      <% end %>
     </div>
-    <% end %>
-  </div>
+  <% end %>
 
   <div class="content">
     <%= yield %>
