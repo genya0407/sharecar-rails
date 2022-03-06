@@ -7,7 +7,7 @@ class BookingControllerTest < BaseControllerTest
 
   test '#new その車の完遂されていない予約の一覧が表示されること' do
     car = create(:car)
-    bookings_in_effect = Array.new(3) { |i| create(:booking, car: car, start_at: (i * 3).days.since, end_at: (i * 3 + 1).days.since) }
+    bookings_in_effect = Array.new(3) { |i| create(:booking, car: car, start_at: (i * 3).days.since, end_at: ((i * 3) + 1).days.since) }
 
     get new_car_booking_path(car_id: car.id)
 
@@ -16,7 +16,7 @@ class BookingControllerTest < BaseControllerTest
 
   test '#new 自分の作成した予約の数だけ削除ボタンが表示されること' do
     car = create(:car)
-    my_bookings = Array.new(2) { |i| create(:booking, car: car, user: @user, start_at: (i * 3).days.since, end_at: (i * 3 + 1).days.since) }
+    my_bookings = Array.new(2) { |i| create(:booking, car: car, user: @user, start_at: (i * 3).days.since, end_at: ((i * 3) + 1).days.since) }
     _others_bookings = Array.new(1) { create(:booking, car: car, start_at: 10.days.since, end_at: 11.days.since) }
 
     get new_car_booking_path(car_id: car.id)
