@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# for visual regression test
+Random.srand(42)
+Faker::Config.random = Random.new(42)
+
 user = User.new(
   name: 'Super User',
   email: 'example@example.com',
@@ -33,7 +37,7 @@ car = Car.first
 
 start_meter = 0
 end_meter = rand(10..100)
-start_at = Time.zone.now
+start_at = Time.parse('2022-03-06 22:22:22')
 end_at = start_at + rand(2..10).hours
 drive_params = 30.times.map do
   params = {

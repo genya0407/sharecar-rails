@@ -58,8 +58,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'factory_bot'
   gem 'faker'
+  gem 'ferrum'
   gem 'rack-lineprof'
-  gem 'rack-mini-profiler'
   gem 'rblineprof'
   gem 'rblineprof-report'
   gem 'rubocop'
