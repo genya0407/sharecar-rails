@@ -32,10 +32,10 @@
             </ul>
           </p>
           <div class="Card--Action">
-            <%= link_to recalculate_admin_consumptions_path(ids: consumptions.map(&:id)), method: :POST, class: 'Card--Action--FAB green' do %>
+            <%= link_to recalculate_admin_consumptions_path(ids: consumptions.map(&:id)), method: :POST, class: 'Card--Action--FAB btn-floating green' do %>
               <i class='Card--Action--FAB--Icon'>autorenew</i>
             <% end %>
-            <%= link_to destroy_multiple_admin_consumptions_path(ids: consumptions.map(&:id)), method: :DELETE, class: 'Card--Action--FAB red' do %>
+            <%= link_to destroy_multiple_admin_consumptions_path(ids: consumptions.map(&:id)), method: :DELETE, class: 'Card--Action--FAB btn-floating red' do %>
               <i class='Card--Action--FAB--Icon'>delete</i>
             <% end %>
           </div>
