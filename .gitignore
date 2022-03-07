@@ -29,3 +29,4 @@
 /analysis/*.csv
 
 *.ipynb
+.DS_Store
