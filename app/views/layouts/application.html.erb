@@ -51,24 +51,22 @@
     <% end %>
   </ul>
 
-  <% if flash[:notice] || flash[:alert] %>
-    <div class="row">
-      <% if flash[:notice] %>
-      <div class="col s12">
-        <div class="card-panel notice">
-          <span class="white-text"><%= flash[:notice] %></span>
-        </div>
+  <div class="row">
+    <% if flash[:notice] %>
+    <div class="col s12">
+      <div class="card-panel notice">
+        <span class="white-text"><%= flash[:notice] %></span>
       </div>
-      <% end %>
-      <% if flash[:alert] %>
-      <div class="col s12">
-        <div class="card-panel red">
-          <span class="white-text"><%= flash[:alert] %></span>
-        </div>
-      </div>
-      <% end %>
     </div>
-  <% end %>
+    <% end %>
+    <% if flash[:alert] %>
+    <div class="col s12">
+      <div class="card-panel red">
+        <span class="white-text"><%= flash[:alert] %></span>
+      </div>
+    </div>
+    <% end %>
+  </div>
 
   <div class="content">
     <%= yield %>
