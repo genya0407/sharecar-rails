@@ -26,11 +26,11 @@ module VisualRegressionTest
         @browser.at_xpath("//i[text() = 'add']").click
         @browser.screenshot('admin_fuel_add')
 
-        @browser.at_css('.select-dropdown').focus
+        @browser.at_css('.select-dropdown').focus.click
         @browser.screenshot('admin_fuel_add_select_user')
         @browser.click_rotated(x: 1, y: -1)
 
-        @browser.at_css('.datepicker').focus
+        @browser.at_css('.datepicker').focus.click
         @browser.screenshot('admin_fuel_date_picker')
         @browser.click_rotated(x: 1, y: -1)
       end

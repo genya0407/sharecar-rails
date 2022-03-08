@@ -9,13 +9,13 @@ module VisualRegressionTest
         @browser.go_to('/')
         @browser.at_xpath("//i[text() = 'bookmark']").click
 
-        @browser.at_css("input[name='booking_form_create[start_at_date]']").focus
+        @browser.at_css("input[name='booking_form_create[start_at_date]']").focus.click
         @browser.screenshot('booking_start_click')
 
         @browser.click_rotated(x: 1, y: -1)
         @browser.screenshot('booking_start_focus_off')
 
-        @browser.at_css("input[name='booking_form_create[end_at_date]']").focus
+        @browser.at_css("input[name='booking_form_create[end_at_date]']").focus.click
         @browser.screenshot('booking_end_click')
 
         @browser.click_rotated(x: 1, y: -1)

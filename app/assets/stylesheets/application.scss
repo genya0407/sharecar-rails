@@ -30,3 +30,9 @@ ul.side-nav {
 .character-counter {
 	display: none;
 }
+
+// なんかよくわからんけどコレ入れないと、select dropdown の表示が崩れる
+// 誰か直してくれ...
+select {
+	display: none;
+}

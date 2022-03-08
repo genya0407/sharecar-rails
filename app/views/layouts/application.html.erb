@@ -51,33 +51,30 @@
     <% end %>
   </ul>
 
-  <div class='container'>
-    <% if flash[:notice] && flash[:alert] %>
-      <div class="row">
-        <% if flash[:notice] %>
-        <div class="col s12">
-          <div class="card-panel notice">
-            <span class="white-text"><%= flash[:notice] %></span>
-          </div>
+  <% if flash[:notice] || flash[:alert] %>
+    <div class="row">
+      <% if flash[:notice] %>
+      <div class="col s12">
+        <div class="card-panel notice">
+          <span class="white-text"><%= flash[:notice] %></span>
         </div>
-        <% end %>
-        <% if flash[:alert] %>
-        <div class="col s12">
-          <div class="card-panel red">
-            <span class="white-text"><%= flash[:alert] %></span>
-          </div>
-        </div>
-        <% end %>
       </div>
-    <% end %>
-
-    <div class="content">
-      <%= yield %>
+      <% end %>
+      <% if flash[:alert] %>
+      <div class="col s12">
+        <div class="card-panel red">
+          <span class="white-text"><%= flash[:alert] %></span>
+        </div>
+      </div>
+      <% end %>
     </div>
+  <% end %>
+
+  <div class="content">
+    <%= yield %>
   </div>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </body>
 </html>
