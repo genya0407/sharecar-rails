@@ -12,7 +12,7 @@
           <%= link_to car_booking_path(id: booking),
                       { method: :delete,
                         data: { confirm: "#{booking.start_at.to_date}の予約を取り消しますか？" },
-                        class: 'Card--Action--FAB red delete-booking' } do %>
+                        class: 'Card--Action--FAB btn-floating red delete-booking' } do %>
             <i class="Card--Action--FAB--Icon booking-delete">delete</i>
           <% end %>
         <% end %>

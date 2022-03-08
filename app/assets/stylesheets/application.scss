@@ -1,4 +1,4 @@
-@import "materialize/components/color";
+@import "materialize/components/color-variables";
 $primary-color-dark:   #303F9F;
 $primary-color:        #3F51B5;
 $primary-color-light:  #C5CAE9;
@@ -25,4 +25,14 @@ div.notice {
 
 ul.side-nav {
 	padding-top: 20px;
+}
+
+.character-counter {
+	display: none;
+}
+
+// なんかよくわからんけどコレ入れないと、select dropdown の表示が崩れる
+// 誰か直してくれ...
+select {
+	display: none;
 }

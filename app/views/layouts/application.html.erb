@@ -8,47 +8,48 @@
 </head>
 
 <body>
-	<nav>
+  <nav>
     <div class="nav-wrapper">
-      <a href="#" data-activates="side-nav" class="button-collapse"><i class="material-icons">menu</i></a>
-      <ul class="side-nav" id="side-nav">
-        <li>
-          <%= link_to :root do %>
-            <i class='material-icons'>home</i> Top
-          <% end %>
-        </li>
-        <% if current_user %>
-          <% if current_user.admin? %>
-            <li>
-              <%= link_to new_user_path do %>
-                <i class="material-icons">supervisor_account</i> ユーザー一覧
-              <% end %>
-            </li>
-            <li>
-              <%= link_to admin_cars_path do %>
-                <i class="material-icons">supervisor_account</i> 管理者画面
-              <% end %>
-            </li>
-            <li>
-              <%= link_to admin_consumptions_path do %>
-                <i class="material-icons">attach_money</i> 燃費計算
-              <% end %>
-            </li>
-            <li>
-              <%= link_to new_admin_payment_path do %>
-                <i class="material-icons">payment</i> 支払い記録
-              <% end %>
-            </li>
-          <% end %>
-          <li>
-            <%= link_to :logout, method: :post do %>
-              <i class="material-icons">exit_to_app</i> Logout
-            <% end %>  
-          </li>
-        <% end %>
-      </ul>
+      <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
   </nav>
+
+  <ul class="sidenav" id="mobile">
+    <li>
+      <%= link_to :root do %>
+        <i class='material-icons'>home</i> Top
+      <% end %>
+    </li>
+    <% if current_user %>
+      <% if current_user.admin? %>
+        <li>
+          <%= link_to new_user_path do %>
+            <i class="material-icons">supervisor_account</i> ユーザー一覧
+          <% end %>
+        </li>
+        <li>
+          <%= link_to admin_cars_path do %>
+            <i class="material-icons">supervisor_account</i> 管理者画面
+          <% end %>
+        </li>
+        <li>
+          <%= link_to admin_consumptions_path do %>
+            <i class="material-icons">attach_money</i> 燃費計算
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_admin_payment_path do %>
+            <i class="material-icons">payment</i> 支払い記録
+          <% end %>
+        </li>
+      <% end %>
+      <li>
+        <%= link_to :logout, method: :post do %>
+          <i class="material-icons">exit_to_app</i> Logout
+        <% end %>  
+      </li>
+    <% end %>
+  </ul>
 
   <div class="row">
     <% if flash[:notice] %>
@@ -72,7 +73,6 @@
   </div>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </body>
 </html>

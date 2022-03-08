@@ -50,7 +50,7 @@ module VisualRegressionTest
     def menu
       @browser.go_to('/')
 
-      @browser.at_css('a[data-activates=side-nav]').click
+      @browser.at_css('a[data-target=mobile]').click
       @browser.screenshot('menu_open')
 
       @browser.click_rotated(x: -1, y: 1)

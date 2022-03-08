@@ -33,7 +33,7 @@
       <%= link_to car_fuel_path(id: fuel),
                   { method: :delete,
                     data: { confirm: "#{fuel.amount}円の給油履歴を取り消しますか？" },
-                    class: 'Card--Action--FAB red delete-fuel' } do %>
+                    class: 'Card--Action--FAB btn-floating red delete-fuel' } do %>
         <i class="Card--Action--FAB--Icon">delete</i>
       <% end %>
     </div>

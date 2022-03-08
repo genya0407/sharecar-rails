@@ -11,10 +11,10 @@
       <div class='Card--Action'>
         <%= render 'widgets/tel', object: elem.user %>
         <%= render 'widgets/email', object: elem.user %>
-        <%= link_to admin_car_drive_path(elem.car.id, elem.id), class: 'Card--Action--FAB red', method: :delete do %>
+        <%= link_to admin_car_drive_path(elem.car.id, elem.id), class: 'Card--Action--FAB btn-floating red', method: :delete do %>
           <i class='Card--Action--FAB--Icon'>delete</i>
         <% end %>
-        <%= link_to edit_admin_car_drive_path(elem.car.id, elem.id), class: 'Card--Action--FAB red' do %>
+        <%= link_to edit_admin_car_drive_path(elem.car.id, elem.id), class: 'Card--Action--FAB btn-floating red' do %>
           <i class='Card--Action--FAB--Icon'>create</i>
         <% end %>
       </div>
@@ -27,7 +27,7 @@
         </p>
       </div>
       <div class='Card--Action'>
-        <%= link_to new_admin_car_drive_path(elem.attributes['car_id'], elem.attributes), class: 'Card--Action--FAB green' do %>
+        <%= link_to new_admin_car_drive_path(elem.attributes['car_id'], elem.attributes), class: 'Card--Action--FAB btn-floating green' do %>
           <i class="Card--Action--FAB--Icon">create</i>
         <% end %>
       </div>

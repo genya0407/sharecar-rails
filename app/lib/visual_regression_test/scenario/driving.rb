@@ -9,7 +9,7 @@ module VisualRegressionTest
         @browser.go_to('/')
         @browser.at_xpath("//i[text() = 'send']").click
 
-        @browser.at_css("input[name='drive_form_create[end_at_date]']").focus
+        @browser.at_css("input[name='drive_form_create[end_at_date]']").focus.click
         @browser.screenshot('driving_start_click')
 
         @browser.click_rotated(x: 1, y: -1)

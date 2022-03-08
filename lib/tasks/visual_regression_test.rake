@@ -1,6 +1,6 @@
 namespace :visual_regression_test do
   task take_screenshot: :environment do
-    output_dir = ENV['OUTPUT_DIR'] || 'tmp'
+    output_dir = ENV['OUTPUT_DIR'] || 'tmp/visual_regression_test'
     FileUtils.mkdir_p(output_dir)
     scenario = VisualRegressionTest::Scenario.new(output_dir: output_dir)
     scenario.execute
