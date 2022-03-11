@@ -1,0 +1,11 @@
+.Card
+  .Card--Content
+    p.Card--Content--Title
+      | 今期の走行距離
+    ul
+      - Car.all.each do |car|
+        li
+          = car.name
+          | ： 
+          = Drive.total_unpaid_distance(car.id, current_user.id)
+          |  km

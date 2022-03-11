@@ -1,0 +1,31 @@
+- unless @cars.empty?
+  p
+    |  以下の車両について、乗車記録の欠落があります。 Webアプリより確認してください。 
+  ul
+    - @cars.each do |car|
+      li
+        = car.name
+        ul
+          - car.drives.only_checked.lackings.each do |dto|
+            li
+              | 期間： 
+              = dto.start_at&.in_time_zone&.to_s :ja
+              |  〜 
+              = dto.end_at&.in_time_zone&.to_s :ja
+              ul
+                li
+                  | メーター： 
+                  = dto.start_meter
+                  | km 〜 
+                  = dto.end_meter
+                  | km
+                  - if !dto.distance.nil?
+                    | (
+                    = dto.distance
+                    | km)
+                li
+                  a[href="<ruby code=\"= new_car_lacking_drive_url(car.id, dto.attributes)\"></ruby>"]
+                    | 記録を付ける
+- else
+  = Time.zone.now
+  | の時点では、乗車記録の欠落はありません。 

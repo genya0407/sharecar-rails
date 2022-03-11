@@ -1,0 +1,35 @@
+.row
+  - if flash[:recalculate_error]
+    .col.s12
+      .card-panel.red.lighten-2[style="text-align: center;"]
+        span.white-text
+          |  燃費の算出に失敗しました。期間中の乗車記録に不備があります。 
+  = link_to new_admin_consumption_path, method: :GET do
+    .col.s12
+      .card-panel.blue.lighten-2[style="text-align: center; font-size: large;"]
+        span.white-text
+          |  集計期間を登録する 
+  - @consumptions.group_by do |c| [c.start_at.to_date, c.end_at.to_date] }.sort.reverse.each do |dates, consumptions|
+    .col.s12
+      .Card
+        .Card--Content
+          p.Card--Content--Title
+            = dates[0]
+            |  〜 
+            = dates[1]
+          p[style="text-align: right;"]
+
+          ul
+            - consumptions.each do |consumption|
+              li
+                = consumption.car.name
+                | ：
+                = consumption.price.round(1)
+                |  円/km
+          .Card--Action
+            = link_to recalculate_admin_consumptions_path(ids: consumptions.map(&:id)), method: :POST, class: 'Card--Action--FAB btn-floating green' do
+              i.Card--Action--FAB--Icon
+                | autorenew
+            = link_to destroy_multiple_admin_consumptions_path(ids: consumptions.map(&:id)), method: :DELETE, class: 'Card--Action--FAB btn-floating red' do
+              i.Card--Action--FAB--Icon
+                | delete

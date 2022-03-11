@@ -1,0 +1,15 @@
+- if @user.errors.any?
+  = render 'widgets/errors', object: @user
+#invite-user
+  .card
+    .card-content
+      span.card-title
+        | Invite
+      = form_for @user, url: users_path do |f|
+        .row
+          .input-field.col.s12
+            = f.label :email, 'Email'
+            = f.email_field :email
+        = f.submit "Invite", class: "actions btn"
+#users
+  = render 'widgets/users', object: @users

@@ -1,0 +1,26 @@
+#drive_history
+  .Card
+    .Card--Content
+      span.Card--Content--Title
+        = @car.name
+        | の乗車履歴
+  - @latest_drives.each do |drive|
+    .Card.drive
+      .Card--Content
+        p
+          span.Card--Content--Title
+            = drive.user.name
+        p
+          = simple_datetime drive.start_at
+          |  〜 
+          = simple_datetime drive.end_at
+        p
+          = drive.start_meter
+          | km 〜 
+          = drive.end_meter
+          | km
+      .Card--Action
+        = link_to normalize_tel(drive.user.phone_number) do
+          = render partial: 'widgets/card_action', locals: { color: 'green', icon: 'phone' }
+        = mail_to drive.user.email do
+          = render partial: 'widgets/card_action', locals: { color: 'green', icon: 'email' }

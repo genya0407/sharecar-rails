@@ -1,0 +1,39 @@
+- @card_elements.each do |elem|
+  - if elem.is_a? Drive
+    .Card.drive
+      .Card--Content
+        p
+          span.Card--Content--Title
+            = elem.user.name
+        p
+          = simple_datetime elem.start_at
+          |  〜 
+          = simple_datetime elem.end_at
+        p
+          = elem.start_meter
+          | km 〜 
+          = elem.end_meter
+          | km
+      .Card--Action
+        = link_to normalize_tel(elem.user.phone_number) do
+          = render partial: 'widgets/card_action', locals: { color: 'green', icon: 'phone' }
+        = mail_to elem.user.email do
+          = render partial: 'widgets/card_action', locals: { color: 'green', icon: 'email' }
+        = link_to admin_car_drive_path(elem.car.id, elem.id), class: 'Card--Action--FAB btn-floating red', method: :delete do
+          i.Card--Action--FAB--Icon
+            | delete
+        = link_to edit_admin_car_drive_path(elem.car.id, elem.id), class: 'Card--Action--FAB btn-floating red' do
+          i.Card--Action--FAB--Icon
+            | create
+  - elsif elem.is_a? DriveForm::Admin
+    .Card.yellow.drive-form-create-admin
+      .Card--Content
+        p
+          span.Card--Content--Title
+            | ????
+      .Card--Action
+        = link_to new_admin_car_drive_path(elem.attributes['car_id'], elem.attributes), class: 'Card--Action--FAB btn-floating green' do
+          i.Card--Action--FAB--Icon
+            | create
+  - else
+    - raise RuntimeError

@@ -1,0 +1,62 @@
+doctype html
+html
+  head
+    title
+      | Kumacar
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+  body
+    nav
+      .nav-wrapper
+        a.sidenav-trigger[href="#" data-target="mobile"]
+          i.material-icons
+            | menu
+    ul#mobile.sidenav
+      li
+        = link_to :root do
+          i.material-icons
+            | home
+          |  Top 
+      - if current_user
+        - if current_user.admin?
+          li
+            = link_to new_user_path do
+              i.material-icons
+                | supervisor_account
+              |  ユーザー一覧 
+          li
+            = link_to admin_cars_path do
+              i.material-icons
+                | supervisor_account
+              |  管理者画面 
+          li
+            = link_to admin_consumptions_path do
+              i.material-icons
+                | attach_money
+              |  燃費計算 
+          li
+            = link_to new_admin_payment_path do
+              i.material-icons
+                | payment
+              |  支払い記録 
+        li
+          = link_to :logout, method: :post do
+            i.material-icons
+              | exit_to_app
+            |  Logout 
+    .row
+      - if flash[:notice]
+        .col.s12
+          .card-panel.notice
+            span.white-text
+              = flash[:notice]
+      - if flash[:alert]
+        .col.s12
+          .card-panel.red
+            span.white-text
+              = flash[:alert]
+    .content
+      = yield
+    script[type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"]
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'

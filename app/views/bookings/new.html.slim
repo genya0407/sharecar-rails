@@ -1,0 +1,25 @@
+- if @form.errors.any?
+  = render 'widgets/errors', object: @form
+#create-booking
+  .Card
+    .Card--Content
+      span.Card--Content--Title
+        | 予約登録
+      = form_for @form, url: car_bookings_path, :method => :post, class: 'Form' do |f|
+        .Form--InputSet
+          .Form--InputSet--Field.s6
+            = f.label '開始日'
+            = f.date_field :start_at_date, class: 'datepicker'
+          .Form--InputSet--Field.s6
+            = f.label '開始時刻'
+            = f.number_field :start_at_hour, in: 0..23
+        .Form--InputSet
+          .Form--InputSet--Field.s6
+            = f.label '終了日'
+            = f.date_field :end_at_date, class: 'datepicker'
+          .Form--InputSet--Field.s6
+            = f.label '終了時刻'
+            = f.number_field :end_at_hour, in: 0..23
+        = f.submit "予約", class: "Form--SubmitBtn"
+#bookings
+  = render 'widgets/bookings', object: @bookings_in_effect

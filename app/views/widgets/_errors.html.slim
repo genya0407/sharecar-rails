@@ -1,0 +1,7 @@
+#errors.row
+  - object.errors.messages.each do |key, msgs|
+    - msgs.each do |msg|
+      .col.s12
+        .card-panel.red
+          span.white-text
+            = msg
