@@ -1,8 +1,9 @@
 module VisualRegressionTest
   class Scenario
-    def initialize(output_dir:, port: 3001)
+    def initialize(output_dir:, freeze_time_at:, port: 3001)
       @browser = VisualRegressionTest::Browser.new(output_dir: output_dir, port: port)
       @port = port
+      @freeze_time_at = freeze_time_at
     end
 
     def execute
@@ -76,7 +77,7 @@ module VisualRegressionTest
     def with_server
       system('RAILS_ENV=test bundle exec rake db:drop', exception: true)
       system('RAILS_ENV=test bundle exec rake db:setup', exception: true)
-      @server_pid = spawn("RAILS_ENV=test bundle exec rails s -p #{@port} --pid=tmp/visual_regression_server.pid")
+      @server_pid = spawn("RAILS_ENV=test FREEZE_TIME_AT=#{@freeze_time_at} bundle exec rails s -p #{@port} --pid=tmp/visual_regression_server.pid")
       @browser.wait_server_up('/')
       yield
     ensure
