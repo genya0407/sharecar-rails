@@ -6,8 +6,9 @@ end
 namespace :visual_regression_test do
   task take_screenshot: :environment do
     output_dir = ENV['OUTPUT_DIR'] || 'tmp/visual_regression_test'
+    freeze_time_at = ENV['FREEZE_TIME_AT'].to_i || Time.zone.now.to_i
     FileUtils.mkdir_p(output_dir)
-    scenario = VisualRegressionTest::Scenario.new(output_dir: output_dir)
+    scenario = VisualRegressionTest::Scenario.new(output_dir: output_dir, freeze_time_at: freeze_time_at)
     scenario.execute
   end
 
@@ -33,6 +34,7 @@ namespace :visual_regression_test do
     current_ref = `git rev-parse HEAD`.strip
     base_branch = ENV.fetch('BASE_BRANCH', 'master').strip
     base_ref = `git rev-parse #{base_branch}`.strip
+    freeze_time_at = Time.zone.now.to_i
 
     before_dir = File.join('tmp', "visual_regression_test_auto_#{base_ref}")
     after_dir = File.join('tmp', "visual_regression_test_auto_#{current_ref}")
@@ -40,6 +42,7 @@ namespace :visual_regression_test do
 
     pid = fork do
       ENV['OUTPUT_DIR'] = after_dir
+      ENV['FREEZE_TIME_AT'] = freeze_time_at
       Rake::Task['visual_regression_test:take_screenshot'].invoke
     end
     Process.wait pid
@@ -49,6 +52,7 @@ namespace :visual_regression_test do
       _system('bundle install')
 
       ENV['OUTPUT_DIR'] = before_dir
+      ENV['FREEZE_TIME_AT'] = freeze_time_at
       Rake::Task['visual_regression_test:take_screenshot'].invoke
     ensure
       _system("git checkout #{current_branch}")
