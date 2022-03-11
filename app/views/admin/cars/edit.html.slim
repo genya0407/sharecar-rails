@@ -1,0 +1,15 @@
+.Card
+  .Card--Content
+    span.Card--Content--Title
+      | 車両の情報を編集
+    = form_for @car, url: admin_car_path(id: @car.id), method: :put, html: { class: 'Form' } do |f|
+      .Form--InputSet
+        .Form--InputSet--Field.s12
+          = f.select :status, [['使用可能', :available], ['使用禁止', :repairing], ['廃車', :scrapped]], id: 'status'
+          label for="note"
+            | 車両の状態
+        .Form--InputSet--Field.s12
+          = f.text_area :note, class: "materialize-textarea", id: 'note'
+          label for="note"
+            | 注意書き
+      = f.submit "変更", class: "Form--SubmitBtn"

@@ -1,0 +1,30 @@
+.row
+  = link_to new_admin_car_path, method: :GET do
+    .col.s12
+      .card-panel.blue.lighten-2[style="text-align: center; font-size: large;"]
+        span.white-text
+          |  新規車両を登録する 
+  - @cars.each do |car|
+    .col.s12
+      .Card
+        .Card--Content
+          p.Card--Content--Title
+            = car.name
+            - if !car.available?
+              small
+                | (
+                = car.status_jp
+                | )
+        .Card--Action
+          = link_to edit_admin_car_path(id: car.id), class: 'Card--Action--FAB btn-floating red' do
+            i.Card--Action--FAB--Icon
+              | settings
+          = link_to admin_car_drives_path(car_id: car.id, format: :csv), class: 'Card--Action--FAB btn-floating red' do
+            i.Card--Action--FAB--Icon
+              | file_download
+          = link_to admin_car_fuels_path(car.id), class: 'Card--Action--FAB btn-floating red' do
+            i.Card--Action--FAB--Icon
+              | local_gas_station
+          = link_to admin_car_drives_path(car.id), class: 'Card--Action--FAB btn-floating red' do
+            i.Card--Action--FAB--Icon
+              | create

@@ -1,0 +1,11 @@
+- if object.present?
+  - object.each do |booking|
+    .booking
+      = render 'widgets/card', title: booking.user.name, subtitle: "#{simple_datetime booking.start_at} 〜 #{simple_datetime booking.end_at}" do
+        - if booking.user.id == current_user.id
+          = link_to car_booking_path(id: booking), method: :delete, data: { confirm: "#{booking.start_at.to_date}の予約を取り消しますか？" }, class: 'booking-delete' do
+            = render 'widgets/card_action', color: 'red', icon: 'delete'
+        = link_to normalize_tel(booking.user.phone_number) do
+          = render 'widgets/card_action', color: 'green', icon: 'phone'
+        = mail_to booking.user.email do
+          = render 'widgets/card_action', color: 'green', icon: 'email'
