@@ -1,0 +1,47 @@
+.Card
+  .Card--Content
+    .Card--Content--Title
+      = @car.name
+      | の給油履歴 
+      = link_to new_admin_car_fuel_path(car_id: @car.id), class: 'Card--Action--FAB btn-floating green right' do
+        i.Card--Action--FAB--Icon
+          | add
+.TwoColumns
+  .TwoColumns--Column
+    - @not_checked_fuels.each do |fuel|
+      .Card.not-checked-fuel
+        .Card--Content
+          p
+            span.Card--Content--Title
+              = fuel.user.name
+          p
+            = simple_datetime fuel.created_at
+          p
+            = fuel.amount
+            | 円
+        .Card--Action
+          = link_to admin_car_fuel_path(car_id: @car.id, id: fuel.id), class: 'Card--Action--FAB btn-floating red', method: :delete do
+            i.Card--Action--FAB--Icon
+              | delete
+          = link_to admin_car_fuel_path(car_id: @car.id, id: fuel.id), class: 'Card--Action--FAB btn-floating green', method: :put do
+            i.Card--Action--FAB--Icon
+              | check
+  .TwoColumns--Column
+    - @checked_fuels.each do |fuel|
+      .Card.not-checked-fuel
+        .Card--Content
+          p
+            span.Card--Content--Title
+              = fuel.user.name
+          p
+            = simple_datetime fuel.created_at
+          p
+            = fuel.amount
+            | 円
+        .Card--Action
+          = link_to admin_car_fuel_path(car_id: @car.id, id: fuel.id), class: 'Card--Action--FAB btn-floating red', method: :delete do
+            i.Card--Action--FAB--Icon
+              | delete
+          = link_to admin_car_fuel_path(car_id: @car.id, id: fuel.id), class: 'Card--Action--FAB btn-floating red', method: :put do
+            i.Card--Action--FAB--Icon
+              | keyboard_arrow_left
