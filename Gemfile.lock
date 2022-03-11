@@ -271,6 +271,13 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    slim (4.1.0)
+      temple (>= 0.7.6, < 0.9)
+      tilt (>= 2.0.6, < 2.1)
+    slim-rails (3.3.0)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+      slim (>= 3.0, < 5.0)
     sorcery (0.16.3)
       bcrypt (~> 3.1)
       oauth (~> 0.5, >= 0.5.5)
@@ -288,6 +295,7 @@ GEM
       sprockets (>= 3.0.0)
     strscan (3.0.1)
     sync (0.5.0)
+    temple (0.8.2)
     term-ansicolor (1.7.1)
       tins (~> 1.0)
     thor (1.2.1)
@@ -349,6 +357,7 @@ DEPENDENCIES
   rubocop-faker
   rubocop-rails
   sass-rails (~> 6.0)
+  slim-rails
   sorcery
   spring
   spring-watcher-listen (~> 2.0.0)
