@@ -27,5 +27,6 @@ module SharecarRails
     config.time_zone = 'Tokyo'
     config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
     config.autoload_paths += ["#{Rails.root}/app/forms"]
+    config.active_record.legacy_connection_handling = false
   end
 end
