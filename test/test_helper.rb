@@ -20,3 +20,11 @@ end
 Minitest::TestProfile.use!(count: 3)
 
 DatabaseCleaner.strategy = :transaction
+
+module TestOrderExt
+  def test_order
+    :sorted
+  end
+end
+
+Minitest::Unit::TestCase.extend TestOrderExt
