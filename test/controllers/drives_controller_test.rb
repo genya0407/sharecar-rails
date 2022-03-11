@@ -43,7 +43,7 @@ class DrivesControllerTest < BaseControllerTest
     _others_effective_booking = create(:booking, car: car, start_at: 10.day.since, end_at: 10.day.since)
 
     get new_car_drive_path(car_id: car.id)
-    assert_select '.booking-delete', my_effective_bookings.size
+    assert_select 'a.booking-delete', my_effective_bookings.size
   end
 
   test '#create driveが作成できること' do

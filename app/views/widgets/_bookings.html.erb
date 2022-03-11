@@ -11,7 +11,8 @@
         <% if booking.user.id == current_user.id %>
           <%= link_to car_booking_path(id: booking),
                       { method: :delete,
-                        data: { confirm: "#{booking.start_at.to_date}の予約を取り消しますか？" }} do %>
+                        data: { confirm: "#{booking.start_at.to_date}の予約を取り消しますか？" },
+                        class: 'booking-delete'} do %>
             <%= render partial: 'widgets/card_action', locals: { color: 'red', icon: 'delete' } %>
           <% end %>
         <% end %>
