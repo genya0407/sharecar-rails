@@ -75,7 +75,7 @@ module VisualRegressionTest
     end
 
     def with_server
-      system("RAILS_ENV=test bundle exec rake db:drop", exception: true)
+      system('RAILS_ENV=test bundle exec rake db:drop', exception: true)
       system('RAILS_ENV=test bundle exec rake db:setup', exception: true)
       @server_pid = spawn("RAILS_ENV=test FREEZE_TIME_AT=#{@freeze_time_at} bundle exec rails s -p #{@port} --pid=tmp/visual_regression_server.pid")
       @browser.wait_server_up('/')
