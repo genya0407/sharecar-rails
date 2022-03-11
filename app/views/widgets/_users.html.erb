@@ -15,8 +15,12 @@
           <i class="Card--Action--FAB--Icon">do_not_disturb_alt</i>
       <% end %>
     <% end %>
-    <%= render 'widgets/tel', object: user %>
-    <%= render 'widgets/email', object: user %>
+    <%= link_to normalize_tel(user.phone_number) do %>
+      <%= render partial: 'widgets/card_action', locals: { color: 'green', icon: 'phone' } %>
+    <% end %>
+    <%= mail_to user.email do %>
+      <%= render partial: 'widgets/card_action', locals: { color: 'green', icon: 'email' } %>
+    <% end %>
   </div>
 </div>
 <% end %>

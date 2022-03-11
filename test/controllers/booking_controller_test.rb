@@ -20,7 +20,7 @@ class BookingControllerTest < BaseControllerTest
     _others_bookings = Array.new(1) { create(:booking, car: car, start_at: 10.days.since, end_at: 11.days.since) }
 
     get new_car_booking_path(car_id: car.id)
-    assert_select '.delete-booking', my_bookings.size
+    assert_select 'a.booking-delete', my_bookings.size
   end
 
   test '#destroy 自分の予約が削除できること' do

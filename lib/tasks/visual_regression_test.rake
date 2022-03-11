@@ -37,6 +37,8 @@ namespace :visual_regression_test do
   end
 
   task run: :environment do
+    raise 'git diff exists' unless `git status --porcelain`.strip.lines.empty?
+
     current_branch = `git rev-parse --abbrev-ref HEAD`.strip
     current_ref = `git rev-parse HEAD`.strip
     base_branch = ENV.fetch('BASE_BRANCH', 'master').strip

@@ -19,8 +19,12 @@
       </div>
       <% if car.occupied? %>
       <div class="Card--Action">
-          <%= render 'widgets/tel', object: car.current_driver %>
-          <%= render 'widgets/email', object: car.current_driver %>
+        <%= link_to normalize_tel(car.current_driver.phone_number) do %>
+          <%= render partial: 'widgets/card_action', locals: { color: 'green', icon: 'phone' } %>
+        <% end %>
+        <%= mail_to car.current_driver.email do %>
+          <%= render partial: 'widgets/card_action', locals: { color: 'green', icon: 'email' } %>
+        <% end %>
       </div>
       <% end %>
       <div class="Card--Action">
