@@ -1,28 +1,21 @@
 <% if object.present? %>
   <% object.each do |booking| %>
-    <div class='card booking'>
-      <div class='card-content'>
-        <p>
-          <span class='card-title'><%= booking.user.name %></span>
-          <%= simple_datetime booking.start_at %> 〜 <%= simple_datetime booking.end_at %>
-        </p>
-      </div>
-      <div class='card-action right-align'>
+    <div class='booking'>
+      <%= render 'widgets/card', title: booking.user.name, subtitle: "#{simple_datetime booking.start_at} 〜 #{simple_datetime booking.end_at}" do %>
         <% if booking.user.id == current_user.id %>
           <%= link_to car_booking_path(id: booking),
                       { method: :delete,
                         data: { confirm: "#{booking.start_at.to_date}の予約を取り消しますか？" },
                         class: 'booking-delete'} do %>
-            <%= render partial: 'widgets/card_action', locals: { color: 'red', icon: 'delete' } %>
+            <%= render 'widgets/card_action', color: 'red', icon: 'delete' %>
           <% end %>
         <% end %>
         <%= link_to normalize_tel(booking.user.phone_number) do %>
-          <%= render partial: 'widgets/card_action', locals: { color: 'green', icon: 'phone' } %>
+          <%= render 'widgets/card_action', color: 'green', icon: 'phone' %>
         <% end %>
         <%= mail_to booking.user.email do %>
-          <%= render partial: 'widgets/card_action', locals: { color: 'green', icon: 'email' } %>
+          <%= render 'widgets/card_action', color: 'green', icon: 'email' %>
         <% end %>
-      </div>
-    </div>
+      <% end %>
   <% end %>
 <% end %>
