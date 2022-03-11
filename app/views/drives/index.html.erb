@@ -14,8 +14,12 @@
         </p>
       </div>
       <div class='Card--Action'>
-        <%= render 'widgets/tel', object: drive.user %>
-        <%= render 'widgets/email', object: drive.user %>
+        <%= link_to normalize_tel(drive.user.phone_number) do %>
+          <%= render partial: 'widgets/card_action', locals: { color: 'green', icon: 'phone' } %>
+        <% end %>
+        <%= mail_to drive.user.email do %>
+          <%= render partial: 'widgets/card_action', locals: { color: 'green', icon: 'email' } %>
+        <% end %>
       </div>
     </div>
   <% end %>

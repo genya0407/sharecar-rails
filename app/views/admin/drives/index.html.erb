@@ -9,8 +9,12 @@
         </p>
       </div>
       <div class='Card--Action'>
-        <%= render 'widgets/tel', object: elem.user %>
-        <%= render 'widgets/email', object: elem.user %>
+        <%= link_to normalize_tel(elem.user.phone_number) do %>
+          <%= render partial: 'widgets/card_action', locals: { color: 'green', icon: 'phone' } %>
+        <% end %>
+        <%= mail_to elem.user.email do %>
+          <%= render partial: 'widgets/card_action', locals: { color: 'green', icon: 'email' } %>
+        <% end %>
         <%= link_to admin_car_drive_path(elem.car.id, elem.id), class: 'Card--Action--FAB btn-floating red', method: :delete do %>
           <i class='Card--Action--FAB--Icon'>delete</i>
         <% end %>

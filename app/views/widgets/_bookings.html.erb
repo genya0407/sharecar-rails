@@ -11,13 +11,16 @@
         <% if booking.user.id == current_user.id %>
           <%= link_to car_booking_path(id: booking),
                       { method: :delete,
-                        data: { confirm: "#{booking.start_at.to_date}の予約を取り消しますか？" },
-                        class: 'Card--Action--FAB btn-floating red delete-booking' } do %>
-            <i class="Card--Action--FAB--Icon booking-delete">delete</i>
+                        data: { confirm: "#{booking.start_at.to_date}の予約を取り消しますか？" }} do %>
+            <%= render partial: 'widgets/card_action', locals: { color: 'red', icon: 'delete' } %>
           <% end %>
         <% end %>
-        <%= render 'widgets/tel', object: booking.user %>
-        <%= render 'widgets/email', object: booking.user %>
+        <%= link_to normalize_tel(booking.user.phone_number) do %>
+          <%= render partial: 'widgets/card_action', locals: { color: 'green', icon: 'phone' } %>
+        <% end %>
+        <%= mail_to booking.user.email do %>
+          <%= render partial: 'widgets/card_action', locals: { color: 'green', icon: 'email' } %>
+        <% end %>
       </div>
     </div>
   <% end %>
