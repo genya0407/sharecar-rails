@@ -9,7 +9,7 @@ AllCops:
 Style/AsciiComments:
   Enabled: false
 
-Documentation:
+Style/Documentation:
   Enabled: false
 
 Style/ClassAndModuleChildren:
@@ -34,6 +34,7 @@ Metrics/BlockLength:
   Exclude:
     - "test/factories/*"
     - "config/**/*"
+    - "lib/tasks/*.rake"
 
 Metrics/AbcSize:
   Max: 40
