@@ -33,17 +33,18 @@ namespace :visual_regression_test do
     current_ref = `git rev-parse HEAD`.strip
     base_branch = ENV.fetch('BASE_BRANCH', 'master').strip
     base_ref = `git rev-parse #{base_branch}`.strip
-    
+
     before_dir = File.join('tmp', "visual_regression_test_auto_#{base_ref}")
     after_dir = File.join('tmp', "visual_regression_test_auto_#{current_ref}")
-    compare_dir = File.join('tmp', "visual_regression_test_auto_compare")
+    compare_dir = File.join('tmp', 'visual_regression_test_auto_compare')
 
-    fork do
+    pid = fork do
       ENV['OUTPUT_DIR'] = after_dir
       Rake::Task['visual_regression_test:take_screenshot'].invoke
-    end.tap { |pid| Process.wait pid }
+    end
+    Process.wait pid
 
-    fork do
+    pid = fork do
       _system("git checkout #{base_branch}")
       _system('bundle install')
 
@@ -51,14 +52,16 @@ namespace :visual_regression_test do
       Rake::Task['visual_regression_test:take_screenshot'].invoke
     ensure
       _system("git checkout #{current_branch}")
-    end.tap { |pid| Process.wait pid }
+    end
+    Process.wait pid
 
-    fork do
+    pid = fork do
       ENV['BEFORE_DIR'] = before_dir
       ENV['AFTER_DIR'] = after_dir
       ENV['OUTPUT_DIR'] = compare_dir
 
       Rake::Task['visual_regression_test:compare'].invoke
-    end.tap { |pid| Process.wait pid }
+    end
+    Process.wait pid
   end
 end
