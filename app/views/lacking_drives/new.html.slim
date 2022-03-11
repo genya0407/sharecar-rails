@@ -1,0 +1,20 @@
+.Card
+  .Card--Content
+    span.Card--Content--Title
+      = @car&.name
+- if @form.errors.any?
+  = render 'widgets/errors', object: @form
+#create-drive
+  .Card
+    .Card--Content
+      span.Card--Content--Title
+        | 乗車記録
+      = form_for @form, url: car_lacking_drives_path(car_id: @form.car_id), html: { class: 'Form' } do |f|
+        .Form--InputSet
+          .Form--InputSet--Field.s6
+            = f.label :start_meter, '乗車時のメーター'
+            = f.number_field :start_meter
+          .Form--InputSet--Field.s6
+            = f.label :end_meter, '降車時のメーター'
+            = f.number_field :end_meter
+        = f.submit "作成", class: "Form--SubmitBtn"
