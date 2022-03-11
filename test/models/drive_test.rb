@@ -4,7 +4,7 @@ class DriveTest < ActiveSupport::TestCase
     create(:drive, start_at_transient: Time.zone.now + 10.days)
     create(:drive, start_at: nil, end_at: nil, created_at: Time.zone.now + 3.hours)
 
-    assert Drive.in(Time.zone.now - 10.hours, Time.zone.now + 10.hours).count == 2
+    assert_equal Drive.in(Time.zone.now - 10.hours, Time.zone.now + 10.hours).count, 2
   end
 
   test '.last_meter 最後に終了したメーターの値が取得できること' do
