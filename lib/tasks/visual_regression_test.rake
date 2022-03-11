@@ -3,6 +3,15 @@ def _system(cmd, exception: true)
   system(cmd, exception: exception)
 end
 
+def fork_run_block
+  pid = fork do
+    yield
+  end
+
+  _, status = Process.wait2(pid)
+  raise "Process exited with status code: #{status.exitstatus}. at #{caller.first}" unless status.success?
+end
+
 namespace :visual_regression_test do
   task take_screenshot: :environment do
     output_dir = ENV['OUTPUT_DIR'] || 'tmp/visual_regression_test'
@@ -40,32 +49,29 @@ namespace :visual_regression_test do
     after_dir = File.join('tmp', "visual_regression_test_auto_#{current_ref}")
     compare_dir = File.join('tmp', 'visual_regression_test_auto_compare')
 
-    pid = fork do
+    fork_run_block do
       ENV['OUTPUT_DIR'] = after_dir
-      ENV['FREEZE_TIME_AT'] = freeze_time_at
+      ENV['FREEZE_TIME_AT'] = freeze_time_at.to_s
       Rake::Task['visual_regression_test:take_screenshot'].invoke
     end
-    Process.wait pid
 
-    pid = fork do
+    fork_run_block do
       _system("git checkout #{base_branch}")
       _system('bundle install')
 
       ENV['OUTPUT_DIR'] = before_dir
-      ENV['FREEZE_TIME_AT'] = freeze_time_at
+      ENV['FREEZE_TIME_AT'] = freeze_time_at.to_s
       Rake::Task['visual_regression_test:take_screenshot'].invoke
     ensure
       _system("git checkout #{current_branch}")
     end
-    Process.wait pid
 
-    pid = fork do
+    fork_run_block do
       ENV['BEFORE_DIR'] = before_dir
       ENV['AFTER_DIR'] = after_dir
       ENV['OUTPUT_DIR'] = compare_dir
 
       Rake::Task['visual_regression_test:compare'].invoke
     end
-    Process.wait pid
   end
 end
