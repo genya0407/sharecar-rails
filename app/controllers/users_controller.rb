@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       @user.save!
     end
     @user.send(:send_activation_needed_email!)
-    render action: :new
+    redirect_to action: :new
   end
 
   def show; end

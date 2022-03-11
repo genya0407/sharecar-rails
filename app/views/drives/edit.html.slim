@@ -1,0 +1,31 @@
+- if @form.errors.any?
+  #error_explanation
+    h3
+      = @form.errors.count
+      | 件のエラーがあります。
+    ul
+      - @form.errors.full_messages.each do |msg|
+        li
+          = msg
+.Card
+  .Card--Content
+    span.Card--Content--Title
+      | 乗車記録
+    = form_for @form, url: car_drive_path(id: @form.drive.id, car_id: @form.drive.car_id), :method => :put, html: { class: 'Form' } do |f|
+      .row
+        .col.s12
+          |  乗車時のメーター： 
+          = @form.drive.start_meter
+          br
+      .Form--InputSet
+        .Form--InputSet--Field.s12
+          = f.label :end_meter, '降車時のメーター'
+          = f.number_field :end_meter, { value: @form.drive.start_meter, id: 'drive-end-meter' }
+      p
+        | 走行距離：
+        span#drive-distance
+          | 0
+        |  km
+      = f.submit "終了", class: "Form--SubmitBtn"
+script[type="text/javascript"]
+  |  window.onload = function(){ window.init_distance_syncer(<ruby code="= @form.drive.start_meter"></ruby>); }; 
