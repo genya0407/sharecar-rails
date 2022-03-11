@@ -3,10 +3,8 @@ def _system(cmd, exception: true)
   system(cmd, exception: exception)
 end
 
-def fork_run_block
-  pid = fork do
-    yield
-  end
+def fork_run_block(&block)
+  pid = fork(&block)
 
   _, status = Process.wait2(pid)
   raise "Process exited with status code: #{status.exitstatus}. at #{caller.first}" unless status.success?
@@ -45,9 +43,11 @@ namespace :visual_regression_test do
     base_ref = `git rev-parse #{base_branch}`.strip
     freeze_time_at = Time.zone.now.to_i
 
-    before_dir = File.join('tmp', "visual_regression_test_auto_#{base_ref}")
-    after_dir = File.join('tmp', "visual_regression_test_auto_#{current_ref}")
-    compare_dir = File.join('tmp', 'visual_regression_test_auto_compare')
+    before_dir = File.join('tmp', 'visual_regression_test_auto', base_ref.to_s)
+    after_dir = File.join('tmp', 'visual_regression_test_auto', current_ref.to_s)
+    compare_dir = File.join('tmp', 'visual_regression_test_auto', 'compare')
+
+    _system('rm -rf tmp/visual_regression_test_auto')
 
     fork_run_block do
       ENV['OUTPUT_DIR'] = after_dir
