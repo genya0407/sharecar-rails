@@ -28,13 +28,23 @@
       </div>
       <% end %>
       <div class="Card--Action">
-        <a href="<%= car_drives_path car_id: car.id %>" class="Card--Action--FAB btn-floating green"><i class="Card--Action--FAB--Icon">history</i></a>
-        <a href="<%= new_car_fuel_path car_id: car.id %>" class="Card--Action--FAB btn-floating green"><i class="Card--Action--FAB--Icon">local_gas_station</i></a>
-        <a href="<%= new_car_booking_path car_id: car.id %>" class="Card--Action--FAB btn-floating green"><i class="Card--Action--FAB--Icon">bookmark</i></a>
+        <%= link_to car_drives_path(car_id: car.id), class: "Card--Action--FAB btn-floating green" do %>
+          <i class="Card--Action--FAB--Icon">history</i></a>
+        <% end %>
+        <%= link_to new_car_fuel_path(car_id: car.id), class: "Card--Action--FAB btn-floating green" do %>
+          <i class="Card--Action--FAB--Icon">local_gas_station</i></a>
+        <% end %>
+        <%= link_to new_car_booking_path(car_id: car.id), class: "Card--Action--FAB btn-floating green" do %>
+          <i class="Card--Action--FAB--Icon">bookmark</i></a>
+        <% end %>
         <% if car.using?(current_user.id) %>
-          <a href="<%= edit_car_drive_path car_id: car.id, id: car.using_drive(current_user.id).id %>" class="Card--Action--FAB btn-floating red"><i class="Card--Action--FAB--Icon">done</i></a>
+          <%= link_to edit_car_drive_path(car_id: car.id, id: car.using_drive(current_user.id).id), class: "Card--Action--FAB btn-floating red" do %>
+            <i class="Card--Action--FAB--Icon">done</i>
+          <% end %>
         <% else %>
-          <a href="<%= new_car_drive_path car.id %>" class="Card--Action--FAB btn-floating green"><i class="Card--Action--FAB--Icon">send</i></a>
+          <%= link_to new_car_drive_path(car.id), class: "Card--Action--FAB btn-floating green" do %>
+            <i class="Card--Action--FAB--Icon">send</i>
+          <% end %>
         <% end %>
       </div>
     </div>
