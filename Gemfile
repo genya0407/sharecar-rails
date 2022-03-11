@@ -81,6 +81,7 @@ group :test do
   gem 'database_cleaner-active_record'
   gem 'email_spec'
   gem 'minitest-test_profile'
+  gem 'timecop'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

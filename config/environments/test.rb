@@ -58,4 +58,6 @@ Rails.application.configure do
   # custom configs
   config.action_mailer.default_url_options = { host: 'localhost:3000', protocol: 'http' }
   Faker::Config.locale = :ja
+
+  Timecop.freeze(Time.at(ENV['FREEZE_TIME_AT'].to_i)) if ENV['FREEZE_TIME_AT']
 end
