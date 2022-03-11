@@ -1,0 +1,25 @@
+- if @user.errors.any?
+  = render 'widgets/errors', object: @user
+#activate-user
+  .card
+    .card-content
+      span.card-title
+        | Registration
+      = form_for @user, url: confirm_user_path(id: @token), method: :put do |f|
+        .row
+          .input-field.col.s12
+            = f.label :name, 'Name'
+            = f.text_field :name
+          .input-field.col.s12
+            = f.label :phone_number, 'Phone Number'
+            = f.telephone_field :phone_number
+          .input-field.col.s12
+            = f.label :email, 'Email'
+            = f.email_field :email, disabled: :disabled
+          .input-field.col.s12
+            = f.label :password, 'Password'
+            = f.password_field :password
+          .input-field.col.s12
+            = f.label :password_confirmation, 'Password Confirmation'
+            = f.password_field :password_confirmation
+        = f.submit "Register", class: "actions btn"
