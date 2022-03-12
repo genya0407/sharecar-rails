@@ -1,7 +1,7 @@
 .card
   .card-content
     .card-title
-      |  支払履歴 
+      |  支払履歴
 .row
   .col.s6
     - @new_payments.each do |payment|
@@ -12,11 +12,11 @@
               = payment.user.name
               br
               = payment.amount
-              | 円 
+              | 円
             = f.hidden_field :user_id
             = f.hidden_field :amount
             div
-              = f.submit "記録", class: "btn"
+              = f.submit '記録', class: 'btn'
   .col.s6
     - @saved_payments.each do |payment|
       .card

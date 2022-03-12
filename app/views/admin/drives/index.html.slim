@@ -1,5 +1,6 @@
 - @card_elements.each do |elem|
-  - if elem.is_a? Drive
+  - case elem
+  - when Drive
     .card.drive
       .card-content
         p
@@ -7,11 +8,11 @@
             = elem.user.name
         p
           = simple_datetime elem.start_at
-          |  〜 
+          |  〜
           = simple_datetime elem.end_at
         p
           = elem.start_meter
-          | km 〜 
+          | km 〜
           = elem.end_meter
           | km
       .card-action.right-align
@@ -23,7 +24,7 @@
           = render partial: 'widgets/card_action', locals: { color: 'red', icon: 'delete' }
         = link_to edit_admin_car_drive_path(elem.car.id, elem.id) do
           = render partial: 'widgets/card_action', locals: { color: 'red', icon: 'create' }
-  - elsif elem.is_a? DriveForm::Admin
+  - when DriveForm::Admin
     .card.yellow.drive-form-create-admin
       .card-content
         p

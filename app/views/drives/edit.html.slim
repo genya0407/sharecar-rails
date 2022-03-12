@@ -11,10 +11,10 @@
   .card-content
     span.card-title
       | 乗車記録
-    = form_for @form, url: car_drive_path(id: @form.drive.id, car_id: @form.drive.car_id), :method => :put do |f|
+    = form_for @form, url: car_drive_path(id: @form.drive.id, car_id: @form.drive.car_id), method: :put do |f|
       .row
         .col.s12
-          |  乗車時のメーター： 
+          |  乗車時のメーター：
           = @form.drive.start_meter
           br
       .row
@@ -26,5 +26,5 @@
         span#drive-distance
           | 0
         |  km
-      = f.submit "終了", class: "btn"
+      = f.submit '終了', class: 'btn'
 script[type="text/javascript"] = "window.onload = function(){ window.init_distance_syncer(#{@form.drive.start_meter}); };"
