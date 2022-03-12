@@ -14,7 +14,7 @@ class HomeControllerTest < BaseControllerTest
     cars = create_list(:car, rand(3))
 
     get root_path
-    assert_select '.Card', cars.size
+    assert_select '.card', cars.size
   end
 
   test '使用不可能なcarの数だけunavailableな要素があること' do
