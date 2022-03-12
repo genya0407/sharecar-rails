@@ -1,7 +1,7 @@
 module VisualRegressionTest
   class Scenario
     def initialize(output_dir:, freeze_time_at:, port: 3001)
-      @browser = VisualRegressionTest::Browser.new(output_dir: output_dir, port: port)
+      @browser = VisualRegressionTest::Browser.new(output_dir:, port:)
       @port = port
       @freeze_time_at = freeze_time_at
     end

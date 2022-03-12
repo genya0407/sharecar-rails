@@ -19,7 +19,7 @@ class DriveFormCreateTest < ActiveSupport::TestCase
 
   test '車が使用可能でないとき、作成できない' do
     car = create(:car, status: :repairing)
-    drive = build(:drive, car: car)
+    drive = build(:drive, car:)
     form = DriveForm::Create.from_drive(drive)
 
     assert_not form.valid?

@@ -8,7 +8,7 @@ class DrivesControllerTest < BaseControllerTest
   test '#index 直近10件のdriveが表示されること' do
     car = create(:car)
     user = create(:user)
-    _drives = create_list(:drive, 11, user: user, car: car)
+    _drives = create_list(:drive, 11, user:, car:)
 
     get car_drives_path(car_id: car.id)
     assert_select '.drive', 10
@@ -16,7 +16,7 @@ class DrivesControllerTest < BaseControllerTest
 
   test '#new 前の人の終了メーターが表示されること' do
     car = create(:car)
-    drive = create(:drive, car: car)
+    drive = create(:drive, car:)
 
     get new_car_drive_path(car_id: car.id)
     assert_select 'input#drive_form_create_start_meter', { value: drive.end_meter }
@@ -25,10 +25,10 @@ class DrivesControllerTest < BaseControllerTest
   test '#new in_effectな予約が表示されること' do
     car = create(:car)
     effective_bookings = [
-      create(:booking, car: car, start_at: 1.day.since, end_at: 2.day.since),
-      create(:booking, car: car, start_at: 3.day.since, end_at: 4.day.since),
+      create(:booking, car:, start_at: 1.day.since, end_at: 2.day.since),
+      create(:booking, car:, start_at: 3.day.since, end_at: 4.day.since),
     ]
-    _ineffective_booking = create(:booking, car: car, start_at: 2.days.ago, end_at: 1.day.ago)
+    _ineffective_booking = create(:booking, car:, start_at: 2.days.ago, end_at: 1.day.ago)
 
     get new_car_drive_path(car_id: car.id)
     assert_select '.booking', effective_bookings.size
@@ -37,10 +37,10 @@ class DrivesControllerTest < BaseControllerTest
   test '#new 自分の作成した予約の数だけ削除ボタンが表示されること' do
     car = create(:car)
     my_effective_bookings = [
-      create(:booking, car: car, user: @user, start_at: 1.day.since, end_at: 2.day.since),
-      create(:booking, car: car, user: @user, start_at: 3.day.since, end_at: 4.day.since),
+      create(:booking, car:, user: @user, start_at: 1.day.since, end_at: 2.day.since),
+      create(:booking, car:, user: @user, start_at: 3.day.since, end_at: 4.day.since),
     ]
-    _others_effective_booking = create(:booking, car: car, start_at: 10.day.since, end_at: 10.day.since)
+    _others_effective_booking = create(:booking, car:, start_at: 10.day.since, end_at: 10.day.since)
 
     get new_car_drive_path(car_id: car.id)
     assert_select 'a.booking-delete', my_effective_bookings.size
@@ -48,7 +48,7 @@ class DrivesControllerTest < BaseControllerTest
 
   test '#create driveが作成できること' do
     car = create(:car)
-    drive = create(:drive, car: car)
+    drive = create(:drive, car:)
     end_at = Time.zone.now + rand(2..5).hour
 
     assert_difference "Drive.where(car_id: #{car.id}).count", 1 do
@@ -64,7 +64,7 @@ class DrivesControllerTest < BaseControllerTest
 
   test '#create 他人の重複するbookingがあるとき作成できず、エラーが表示される' do
     car = create(:car)
-    _conflicted_booking = create(:booking, car: car, start_at: 1.day.ago, end_at: 10.days.since)
+    _conflicted_booking = create(:booking, car:, start_at: 1.day.ago, end_at: 10.days.since)
 
     assert_difference "Drive.where(car_id: #{car.id}).count", 0 do
       post car_drives_path(car_id: car.id), params: {
@@ -80,7 +80,7 @@ class DrivesControllerTest < BaseControllerTest
 
   test '#create 自分の重複するbookingがあるとき作成できる' do
     car = create(:car)
-    _my_conflicted_booking = create(:drive, car: car, start_at: 1.day.ago, end_at: 10.days.since)
+    _my_conflicted_booking = create(:drive, car:, start_at: 1.day.ago, end_at: 10.days.since)
 
     assert_difference "Drive.where(car_id: #{car.id}).count", 1 do
       post car_drives_path(car_id: car.id), params: {
@@ -95,14 +95,14 @@ class DrivesControllerTest < BaseControllerTest
 
   test '#edit driveが終了できること' do
     car = create(:car)
-    drive = create(:drive_not_end, car: car, user: @user)
+    drive = create(:drive_not_end, car:, user: @user)
     end_meter = drive.start_meter + rand(5..100)
 
     assert Drive.find(drive.id).end_meter.nil?
 
     put car_drive_path(car_id: drive.car_id, id: drive.id), params: {
       drive_form_update: {
-        end_meter: end_meter
+        end_meter:
       }
     }
 

@@ -7,6 +7,6 @@ class NotifyLackMailer < ApplicationMailer
                 '乗車記録に欠落があります'
               end
     mail(to: Rails.application.secrets.mailing_list_address,
-         subject: subject)
+         subject:)
   end
 end

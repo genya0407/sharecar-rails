@@ -43,6 +43,6 @@ class Booking < ApplicationRecord
   end
 
   def conflicted_bookings
-    car.bookings.where.not(id: id).between(start_at, end_at)
+    car.bookings.where.not(id:).between(start_at, end_at)
   end
 end

@@ -28,11 +28,11 @@ module DriveForm
 
     def save!
       params = {
-        start_at: start_at,
-        end_at: end_at,
-        start_meter: start_meter,
-        car_id: car_id,
-        user_id: user_id
+        start_at:,
+        end_at:,
+        start_meter:,
+        car_id:,
+        user_id:
       }
       Drive.new(params).save!
     end
@@ -54,7 +54,7 @@ module DriveForm
 
     def conflicted_bookings_should_not_exist
       @car ||= Car.find(car_id)
-      errors.add(:end_at, "その期間、#{@car.name}は予約されています") if @car.bookings.where.not(user_id: user_id).between(start_at, end_at).exists?
+      errors.add(:end_at, "その期間、#{@car.name}は予約されています") if @car.bookings.where.not(user_id:).between(start_at, end_at).exists?
     end
 
     def car_should_be_available

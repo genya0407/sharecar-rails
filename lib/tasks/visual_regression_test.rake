@@ -1,10 +1,10 @@
 def _system(cmd, exception: true)
   puts "[CMD]: #{cmd}"
-  system(cmd, exception: exception)
+  system(cmd, exception:)
 end
 
-def fork_run_block(&block)
-  pid = fork(&block)
+def fork_run_block(&)
+  pid = fork(&)
 
   _, status = Process.wait2(pid)
   raise "Process exited with status code: #{status.exitstatus}. at #{caller.first}" unless status.success?
@@ -15,7 +15,7 @@ namespace :visual_regression_test do
     output_dir = ENV['OUTPUT_DIR'] || 'tmp/visual_regression_test'
     freeze_time_at = ENV['FREEZE_TIME_AT'].to_i || Time.zone.now.to_i
     FileUtils.mkdir_p(output_dir)
-    scenario = VisualRegressionTest::Scenario.new(output_dir: output_dir, freeze_time_at: freeze_time_at)
+    scenario = VisualRegressionTest::Scenario.new(output_dir:, freeze_time_at:)
     scenario.execute
   end
 

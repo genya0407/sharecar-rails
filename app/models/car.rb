@@ -28,7 +28,7 @@ class Car < ApplicationRecord
   end
 
   def using_drive(user_id)
-    @using_drive ||= drives.find_by(end_meter: nil, user_id: user_id)
+    @using_drive ||= drives.find_by(end_meter: nil, user_id:)
   end
 
   def using?(user_id)

@@ -25,8 +25,8 @@ module BookingForm
 
     def attrs
       {
-        start_at: start_at,
-        end_at: end_at
+        start_at:,
+        end_at:
       }
     end
 

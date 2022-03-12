@@ -15,7 +15,7 @@ class BaseControllerTest < ActionDispatch::IntegrationTest
   def login
     password = Faker::Internet.password
     user = create(:user, password_trans: password)
-    post user_sessions_path, params: { email: user.email, password: password }
+    post user_sessions_path, params: { email: user.email, password: }
 
     @user = user
   end

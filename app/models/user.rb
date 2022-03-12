@@ -22,7 +22,7 @@ class User < ApplicationRecord
   enum permission: { admin: 0, member: 5 }
 
   def should_pay?(all_consumptions: Consumption.unfinished)
-    should_pay(all_consumptions: all_consumptions).abs > 1
+    should_pay(all_consumptions:).abs > 1
   end
 
   def should_pay(all_consumptions: Consumption.unfinished)
