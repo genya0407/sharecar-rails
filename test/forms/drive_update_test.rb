@@ -11,7 +11,7 @@ class DriveFormUpdateTest < ActiveSupport::TestCase
 
   test '車が使用可能でないとき、end_meterを設定できない' do
     car = create(:car, status: :repairing)
-    drive = create(:drive_not_end, car: car)
+    drive = create(:drive_not_end, car:)
 
     assert_not DriveForm::Update.new(drive, end_meter: drive.start_meter + rand(1..100)).valid?
   end

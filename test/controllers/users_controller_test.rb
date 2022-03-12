@@ -9,10 +9,10 @@ class UsersControllerTest < BaseControllerTest
       invite_user(email)
     end
     logout
-    assert User.find_by(email: email).activation_state == 'pending'
+    assert User.find_by(email:).activation_state == 'pending'
 
     # activate
-    token = User.find_by(email: email).activation_token
+    token = User.find_by(email:).activation_token
     get activate_user_path(id: token)
     assert_response :success
 
@@ -20,17 +20,17 @@ class UsersControllerTest < BaseControllerTest
     password = Faker::Internet.password(min_length: 10, max_length: 20)
     put confirm_user_path(id: token), params: {
       user: {
-        password: password,
+        password:,
         password_confirmation: password,
         name: Faker::Name.name,
         phone_number: Faker::PhoneNumber.phone_number
       }
     }
-    assert User.find_by(email: email).activation_state == 'active'
+    assert User.find_by(email:).activation_state == 'active'
     logout # confirmしたとき勝手にログインするようになっているため
 
     # login
-    post user_sessions_path, params: { email: email, password: password }
+    post user_sessions_path, params: { email:, password: }
     assert_response :redirect
   end
 
@@ -86,7 +86,7 @@ class UsersControllerTest < BaseControllerTest
     password = Faker::Internet.password(min_length: 10, max_length: 20)
     put confirm_user_path(id: token), params: {
       user: {
-        password: password,
+        password:,
         password_confirmation: password,
         name: target.name,
         phone_number: target.phone_number
@@ -96,7 +96,7 @@ class UsersControllerTest < BaseControllerTest
     logout # confirmしたとき勝手にログインするようになっているため
 
     # login
-    post user_sessions_path, params: { email: target.reload.email, password: password }
+    post user_sessions_path, params: { email: target.reload.email, password: }
     assert_response :redirect
   end
 
@@ -106,7 +106,7 @@ class UsersControllerTest < BaseControllerTest
     invite_user(email)
     logout
 
-    token = User.find_by(email: email).activation_token
+    token = User.find_by(email:).activation_token
     put confirm_user_path(id: token), params: {
       user: {
         password: Faker::Internet.password,
@@ -116,7 +116,7 @@ class UsersControllerTest < BaseControllerTest
       }
     }
     assert_response :unprocessable_entity
-    assert User.find_by(email: email).activation_state == 'pending'
+    assert User.find_by(email:).activation_state == 'pending'
   end
 
   def invite_user(invite_email)

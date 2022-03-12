@@ -10,9 +10,9 @@ class Admin::DrivesControllerTest < BaseControllerTest
   test '乗車記録の一覧の中に空白の部分があれば、作成画面へのリンクが現れること' do
     car = create(:car)
     # drive1とdrive2の間に空白がある
-    _drive1 = create(:drive, car: car, start_meter: 100, end_meter: 200)
-    _drive2 = create(:drive, car: car, start_meter: 300, end_meter: 400)
-    _drive3 = create(:drive, car: car, start_meter: 400, end_meter: 500)
+    _drive1 = create(:drive, car:, start_meter: 100, end_meter: 200)
+    _drive2 = create(:drive, car:, start_meter: 300, end_meter: 400)
+    _drive3 = create(:drive, car:, start_meter: 400, end_meter: 500)
 
     get admin_car_drives_path(car.id)
     assert_select '.drive', 3
@@ -21,7 +21,7 @@ class Admin::DrivesControllerTest < BaseControllerTest
 
   test 'create 乗車記録を作成できること' do
     car = create(:car)
-    drive_params = build(:drive, car: car).attributes.slice('user_id', 'start_meter', 'end_meter')
+    drive_params = build(:drive, car:).attributes.slice('user_id', 'start_meter', 'end_meter')
 
     assert_difference 'Drive.count', +1 do
       post admin_car_drives_path(car_id: car.id), params: { drive_form_admin: drive_params }

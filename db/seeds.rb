@@ -42,11 +42,11 @@ end_at = start_at + rand(2..10).hours
 drive_params = 30.times.map do
   params = {
     user: users.sample,
-    car: car,
-    start_meter: start_meter,
-    end_meter: end_meter,
-    start_at: start_at,
-    end_at: end_at
+    car:,
+    start_meter:,
+    end_meter:,
+    start_at:,
+    end_at:
   }
   start_meter = end_meter
   end_meter = start_meter + rand(10..100)

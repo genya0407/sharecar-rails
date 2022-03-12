@@ -26,9 +26,9 @@ class Admin::ConsumptionsController < ApplicationController
     Consumption.transaction do
       Car.all.select { |car| car.fuels.in(start_at, end_at).exists? }.each do |car|
         Consumption.create(
-          car: car,
-          start_at: start_at,
-          end_at: end_at,
+          car:,
+          start_at:,
+          end_at:,
           price: 0
         )
       end

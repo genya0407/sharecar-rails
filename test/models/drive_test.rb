@@ -9,7 +9,7 @@ class DriveTest < ActiveSupport::TestCase
 
   test '.last_meter 最後に終了したメーターの値が取得できること' do
     car = create(:car)
-    drive = create(:drive, car: car)
+    drive = create(:drive, car:)
 
     assert_equal Drive.last_meter(car), drive.end_meter
   end
@@ -26,16 +26,16 @@ class DriveTest < ActiveSupport::TestCase
 
   test '.lack_exist? meterに欠けがないときfalseを返すこと' do
     car = create(:car)
-    create(:drive, car: car, start_meter: 100, end_meter: 200)
-    create(:drive, car: car, start_meter: 200, end_meter: 300)
+    create(:drive, car:, start_meter: 100, end_meter: 200)
+    create(:drive, car:, start_meter: 200, end_meter: 300)
 
     assert_not car.drives.reload.lack_exist?
   end
 
   test '.lack_exist? meterに欠けがあるときtrueを返すこと' do
     car = create(:car)
-    create(:drive, car: car, start_meter: 100, end_meter: 200)
-    create(:drive, car: car, start_meter: 201, end_meter: 300)
+    create(:drive, car:, start_meter: 100, end_meter: 200)
+    create(:drive, car:, start_meter: 201, end_meter: 300)
 
     assert car.drives.reload.lack_exist?
   end

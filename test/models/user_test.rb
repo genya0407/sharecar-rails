@@ -23,7 +23,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.update(
       name: Faker::Name.name,
       phone_number: Faker::PhoneNumber.phone_number,
-      password: password,
+      password:,
       password_confirmation: password
     )
   end

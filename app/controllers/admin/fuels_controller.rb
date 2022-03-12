@@ -9,7 +9,7 @@ class Admin::FuelsController < ApplicationController
 
   def new
     car = Car.find(params[:car_id])
-    @fuel = Fuel.new(car: car)
+    @fuel = Fuel.new(car:)
   end
 
   def create

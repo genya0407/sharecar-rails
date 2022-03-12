@@ -42,7 +42,7 @@ class CarTest < ActiveSupport::TestCase
   # current_driver
   test '使用中のdriveがある時、current_driverによって使用中のuserが取得できること' do
     user = create(:user)
-    drive = create(:drive_not_end, car: @car, user: user)
+    drive = create(:drive_not_end, car: @car, user:)
 
     assert_equal @car.current_driver.id, drive.user.id
   end
@@ -50,7 +50,7 @@ class CarTest < ActiveSupport::TestCase
   # using_drive
   test '自分が使用するdriveがある時、using_driveによってそのdriveが取得できること' do
     user = create(:user)
-    drive = create(:drive_not_end, car: @car, user: user)
+    drive = create(:drive_not_end, car: @car, user:)
 
     assert_equal @car.using_drive(user).id, drive.id
   end
@@ -58,7 +58,7 @@ class CarTest < ActiveSupport::TestCase
   # using?
   test '自分が使用するdriveがある時、using?がtrueになること' do
     user = create(:user)
-    create(:drive_not_end, car: @car, user: user)
+    create(:drive_not_end, car: @car, user:)
 
     assert @car.using?(user)
   end

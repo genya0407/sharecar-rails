@@ -17,7 +17,7 @@ class UserShouldPayTest < ActiveSupport::TestCase
     @consumptions ||= cars.map do |car|
       build(
         :consumption,
-        car: car,
+        car:,
         price: 0,
         start_at: Time.zone.now - 10.days,
         end_at: Time.zone.now + 10.days
@@ -34,8 +34,8 @@ class UserShouldPayTest < ActiveSupport::TestCase
   end
 
   test '#should_pay paymentが2つあるとき、calc_fee_ofの合計値 - payment.amountの合計値を返す' do
-    payment1 = create(:payment, user: user, amount: 700)
-    payment2 = create(:payment, user: user, amount: 800)
+    payment1 = create(:payment, user:, amount: 700)
+    payment2 = create(:payment, user:, amount: 800)
     expected_fee = (consumptions.size * stubbed_fee) - (payment1.amount + payment2.amount)
 
     stub_all_consumptions_for_calc_fee_of(consumptions, stubbed_fee) do
@@ -44,8 +44,8 @@ class UserShouldPayTest < ActiveSupport::TestCase
   end
 
   test '#should_pay fuelが2つあるとき、calc_fee_ofの合計値 - fuel.amountの合計値を返す' do
-    fuel1 = create(:fuel, user: user, amount: 300, car: cars.first)
-    fuel2 = create(:fuel, user: user, amount: 400, car: cars.second)
+    fuel1 = create(:fuel, user:, amount: 300, car: cars.first)
+    fuel2 = create(:fuel, user:, amount: 400, car: cars.second)
     expected_fee = (consumptions.size * stubbed_fee) - (fuel1.amount + fuel2.amount)
 
     stub_all_consumptions_for_calc_fee_of(consumptions, stubbed_fee) do

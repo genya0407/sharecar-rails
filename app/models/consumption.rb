@@ -22,6 +22,6 @@ class Consumption < ApplicationRecord
   private
 
   def target_drives_of(user)
-    user.drives.where(car_id: car_id).in(start_at, end_at)
+    user.drives.where(car_id:).in(start_at, end_at)
   end
 end

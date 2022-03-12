@@ -2,7 +2,7 @@ class Admin::PaymentsController < ApplicationController
   def new
     @new_payments = User.all.select(&:should_pay?).map do |user|
       Payment.new(
-        user: user,
+        user:,
         amount: user.should_pay
       )
     end

@@ -19,7 +19,7 @@ class BetweenDTO
   end
 
   def attributes
-    { start_meter: start_meter, end_meter: end_meter }
+    { start_meter:, end_meter: }
   end
 end
 
@@ -36,7 +36,7 @@ class Drive < ApplicationRecord
   LATEST_COUNT = 10
 
   def self.last_meter(car_id)
-    (where(car_id: car_id).maximum(:end_meter) || 0)
+    (where(car_id:).maximum(:end_meter) || 0)
   end
 
   def self.in(start_at, end_at)
@@ -74,6 +74,6 @@ class Drive < ApplicationRecord
   end
 
   def conflicted_drives
-    car.drives.where.not(id: id).not_end.between(start_at, end_at)
+    car.drives.where.not(id:).not_end.between(start_at, end_at)
   end
 end
