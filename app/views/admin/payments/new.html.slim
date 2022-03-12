@@ -1,13 +1,13 @@
-.Card
-  .Card--Content
-    .Card--Content--Title
+.card
+  .card-content
+    .card-title
       |  支払履歴 
-.TwoColumns
-  .TwoColumns--Columns
+.row
+  .col.s6
     - @new_payments.each do |payment|
-      .Card
-        .Card--Content
-          = form_for payment, url: admin_payments_path, html: { class: 'Form' } do |f|
+      .card
+        .card-content
+          = form_for payment, url: admin_payments_path do |f|
             div
               = payment.user.name
               br
@@ -16,11 +16,11 @@
             = f.hidden_field :user_id
             = f.hidden_field :amount
             div
-              = f.submit "記録", class: "Form--SubmitBtn"
-  .TwoColumns--Columns
+              = f.submit "記録", class: "btn"
+  .col.s6
     - @saved_payments.each do |payment|
-      .Card
-        .Card--Content
+      .card
+        .card-content
           div
             = payment.user.name
             br
@@ -28,7 +28,6 @@
             | 円
             br
             = simple_datetime payment.created_at
-        .Card--Action
-          = link_to admin_payment_path(payment.id), class: 'Card--Action--FAB btn-floating red', method: :delete do
-            i.Card--Action--FAB--Icon
-              | delete
+        .card-action.right-align
+          = link_to admin_payment_path(payment.id), method: :delete do
+            = render 'widgets/card_action', icon: 'delete', color: 'red'
