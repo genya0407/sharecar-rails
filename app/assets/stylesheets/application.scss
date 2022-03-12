@@ -10,7 +10,6 @@ $secondary-text-color: #757575;
 $divider-color:        #BDBDBD;
 @import "materialize";
 @import "material_icons";
-@import 'widgets';
 
 div.content {
 	width: 95%;
@@ -31,4 +30,9 @@ div.notice {
 // 誰か直してくれ...
 select {
 	display: none;
+}
+
+// materialize css の作用か何かで margin-right: 24px が入ってしまい、カードアクションのボタンのレイアウトが崩れることへの対策
+.card-action a {
+	margin-right: 2px !important;
 }

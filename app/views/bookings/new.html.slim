@@ -5,7 +5,7 @@
     .card-content
       span.card-title
         | 予約登録
-      = form_for @form, url: car_bookings_path, :method => :post, class: 'Form' do |f|
+      = form_for @form, url: car_bookings_path, :method => :post do |f|
         .row
           .col.input-field.s6
             = f.label '開始日'
