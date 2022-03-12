@@ -1,0 +1,21 @@
+- object.each do |user|
+  .card.user
+    .card-content
+      span.card-title
+        = user.name || 'Not registered'
+      = user.email
+      br
+      = user.phone_number
+    .card-action.right-align
+      - if user.activation_state == 'pending'
+        = link_to resend_invitation_user_path(user), method: :post, class: 'Card--Action--FAB btn-floating orange' do
+          i.Card--Action--FAB--Icon
+            | cached
+      - else
+        = link_to deactivate_user_path(user), method: :post, class: 'Card--Action--FAB btn-floating red' do
+          i.Card--Action--FAB--Icon
+            | do_not_disturb_alt
+      = link_to normalize_tel(user.phone_number) do
+        = render partial: 'widgets/card_action', locals: { color: 'green', icon: 'phone' }
+      = mail_to user.email do
+        = render partial: 'widgets/card_action', locals: { color: 'green', icon: 'email' }
