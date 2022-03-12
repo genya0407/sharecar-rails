@@ -3,14 +3,14 @@
     .col.s12
       .card-panel.blue.lighten-2[style="text-align: center; font-size: large;"]
         span.white-text
-          |  新規車両を登録する 
+          |  新規車両を登録する
   - @cars.each do |car|
     .col.s12
       .card
         .card-content
           p.card-title
             = car.name
-            - if !car.available?
+            - unless car.available?
               small
                 | (
                 = car.status_jp

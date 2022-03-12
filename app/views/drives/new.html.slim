@@ -17,6 +17,6 @@
           .col.input-field.s6
             = f.label '終了予定時刻'
             = f.number_field :end_at_hour, in: 0..23
-        = f.submit "開始", class: "btn"
+        = f.submit '開始', class: 'btn'
 #bookings
   = render 'widgets/bookings', object: @bookings_in_effect

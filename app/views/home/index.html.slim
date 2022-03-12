@@ -10,9 +10,9 @@
         - if car.occupied?
           p.right-align.current-drive
             = car.current_driver.name
-            | が 
+            | が
             = simple_datetime car.current_drive.end_at
-            | まで使用 
+            | まで使用
       - if car.occupied?
         .card-action.right-align
           = link_to normalize_tel(car.current_driver.phone_number) do
@@ -38,4 +38,4 @@
         p.card-title
           = car.name
         p.right-align
-          |  使用禁止 
+          |  使用禁止

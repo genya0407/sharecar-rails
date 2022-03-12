@@ -5,7 +5,7 @@
     .card-content
       span.card-title
         | 予約登録
-      = form_for @form, url: car_bookings_path, :method => :post do |f|
+      = form_for @form, url: car_bookings_path, method: :post do |f|
         .row
           .col.input-field.s6
             = f.label '開始日'
@@ -20,6 +20,6 @@
           .col.input-field.s6
             = f.label '終了時刻'
             = f.number_field :end_at_hour, in: 0..23
-        = f.submit "予約", class: "btn"
+        = f.submit '予約', class: 'btn'
 #bookings
   = render 'widgets/bookings', object: @bookings_in_effect

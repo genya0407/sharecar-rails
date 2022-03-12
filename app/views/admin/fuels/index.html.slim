@@ -2,7 +2,7 @@
   .card-content
     .card-title
       = @car.name
-      | の給油履歴 
+      | の給油履歴
       = link_to new_admin_car_fuel_path(car_id: @car.id) do
         .right
           = render partial: 'widgets/card_action', locals: { color: 'green', icon: 'add' }

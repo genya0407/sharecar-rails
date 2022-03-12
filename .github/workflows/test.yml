@@ -37,3 +37,5 @@ jobs:
     - name: Run assets:precompile
       run: |
         bundle exec rake assets:precompile
+    - name: Run slim-lint
+      run: bundle exec slim-lint app/views
