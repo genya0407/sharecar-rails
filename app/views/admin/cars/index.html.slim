@@ -6,25 +6,21 @@
           |  新規車両を登録する 
   - @cars.each do |car|
     .col.s12
-      .Card
-        .Card--Content
-          p.Card--Content--Title
+      .card
+        .card-content
+          p.card-title
             = car.name
             - if !car.available?
               small
                 | (
                 = car.status_jp
                 | )
-        .Card--Action
-          = link_to edit_admin_car_path(id: car.id), class: 'Card--Action--FAB btn-floating red' do
-            i.Card--Action--FAB--Icon
-              | settings
-          = link_to admin_car_drives_path(car_id: car.id, format: :csv), class: 'Card--Action--FAB btn-floating red' do
-            i.Card--Action--FAB--Icon
-              | file_download
-          = link_to admin_car_fuels_path(car.id), class: 'Card--Action--FAB btn-floating red' do
-            i.Card--Action--FAB--Icon
-              | local_gas_station
-          = link_to admin_car_drives_path(car.id), class: 'Card--Action--FAB btn-floating red' do
-            i.Card--Action--FAB--Icon
-              | create
+        .card-action.right-align
+          = link_to edit_admin_car_path(id: car.id) do
+            = render 'widgets/card_action', { color: 'red', icon: 'settings' }
+          = link_to admin_car_drives_path(car_id: car.id, format: :csv) do
+            = render 'widgets/card_action', { color: 'red', icon: 'file_download' }
+          = link_to admin_car_fuels_path(car.id) do
+            = render 'widgets/card_action', { color: 'red', icon: 'local_gas_station' }
+          = link_to admin_car_drives_path(car.id) do
+            = render 'widgets/card_action', { color: 'red', icon: 'create' }
