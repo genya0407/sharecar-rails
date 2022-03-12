@@ -1,8 +1,8 @@
 - @cars.each do |car|
   - if car.available?
-    .Card
-      .Card--Content
-        p.Card--Content--Title
+    .card
+      .card-content
+        p.card-title
           = car.name
         - if car.note.present?
           p.right-align[style="white-space: pre-wrap"]
@@ -19,28 +19,23 @@
             = render partial: 'widgets/card_action', locals: { color: 'green', icon: 'phone' }
           = mail_to car.current_driver.email do
             = render partial: 'widgets/card_action', locals: { color: 'green', icon: 'email' }
-      .Card--Action
-        = link_to car_drives_path(car_id: car.id), class: "Card--Action--FAB btn-floating green" do
-          i.Card--Action--FAB--Icon
-            | history
-        = link_to new_car_fuel_path(car_id: car.id), class: "Card--Action--FAB btn-floating green" do
-          i.Card--Action--FAB--Icon
-            | local_gas_station
-        = link_to new_car_booking_path(car_id: car.id), class: "Card--Action--FAB btn-floating green" do
-          i.Card--Action--FAB--Icon
-            | bookmark
+      .card-action.right-align
+        = link_to car_drives_path(car_id: car.id) do
+          = render partial: 'widgets/card_action', locals: { color: 'green', icon: 'history' }
+        = link_to new_car_fuel_path(car_id: car.id) do
+          = render partial: 'widgets/card_action', locals: { color: 'green', icon: 'local_gas_station' }
+        = link_to new_car_booking_path(car_id: car.id) do
+          = render partial: 'widgets/card_action', locals: { color: 'green', icon: 'bookmark' }
         - if car.using?(current_user.id)
-          = link_to edit_car_drive_path(car_id: car.id, id: car.using_drive(current_user.id).id), class: "Card--Action--FAB btn-floating red" do
-            i.Card--Action--FAB--Icon
-              | done
+          = link_to edit_car_drive_path(car_id: car.id, id: car.using_drive(current_user.id).id) do
+            = render partial: 'widgets/card_action', locals: { color: 'red', icon: 'done' }
         - else
-          = link_to new_car_drive_path(car.id), class: "Card--Action--FAB btn-floating green" do
-            i.Card--Action--FAB--Icon
-              | send
+          = link_to new_car_drive_path(car.id) do
+            = render partial: 'widgets/card_action', locals: { color: 'green', icon: 'send' }
   - elsif car.repairing?
-    .Card.unavailable
-      .Card--Content
-        p.Card--Content--Title
+    .card.unavailable
+      .card-content
+        p.card-title
           = car.name
         p.right-align
           |  使用禁止 
