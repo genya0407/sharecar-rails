@@ -1,10 +1,10 @@
-.Card
-  .Card--Content
-    span.Card--Content--Title
+.card
+  .card-content
+    span.card-title
       | 新規車両登録
-    = form_for @car, url: admin_cars_path, html: { class: 'Form' } do |f|
-      .Form--InputSet
-        .Form--InputSet--Field.s12
+    = form_for @car, url: admin_cars_path do |f|
+      .row
+        .col.input-field.s12
           = f.label :name, '車両名'
           = f.text_field :name
-      = f.submit "作成", class: "Form--SubmitBtn"
+      = f.submit "作成", class: 'btn'

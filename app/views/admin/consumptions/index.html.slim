@@ -11,9 +11,9 @@
           |  集計期間を登録する 
   - @consumptions.group_by { |c| [c.start_at.to_date, c.end_at.to_date] }.sort.reverse.each do |dates, consumptions|
     .col.s12
-      .Card
-        .Card--Content
-          p.Card--Content--Title
+      .card
+        .card-content
+          p.card-title
             = dates[0]
             |  〜 
             = dates[1]
@@ -26,10 +26,8 @@
                 | ：
                 = consumption.price.round(1)
                 |  円/km
-          .Card--Action
-            = link_to recalculate_admin_consumptions_path(ids: consumptions.map(&:id)), method: :POST, class: 'Card--Action--FAB btn-floating green' do
-              i.Card--Action--FAB--Icon
-                | autorenew
-            = link_to destroy_multiple_admin_consumptions_path(ids: consumptions.map(&:id)), method: :DELETE, class: 'Card--Action--FAB btn-floating red' do
-              i.Card--Action--FAB--Icon
-                | delete
+          .card-action.right-align
+            = link_to recalculate_admin_consumptions_path(ids: consumptions.map(&:id)), method: :POST do
+              = render 'widgets/card_action', color: 'green', icon: 'autorenew'
+            = link_to destroy_multiple_admin_consumptions_path(ids: consumptions.map(&:id)), method: :DELETE do
+              = render 'widgets/card_action', color: 'red', icon: 'delete'

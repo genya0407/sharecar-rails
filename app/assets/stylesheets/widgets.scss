@@ -1,9 +1,0 @@
-.FAB {
-	@extend .btn-floating !optional;
-	@extend .waves-effect !optional;
-	@extend .waves-light !optional;
-}
-
-@import 'widgets/card';
-@import 'widgets/form';
-@import 'widgets/two_columns';

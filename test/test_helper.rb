@@ -19,12 +19,12 @@ end
 
 Minitest::TestProfile.use!(count: 3)
 
-DatabaseCleaner.strategy = :transaction
-
 module TestOrderExt
   def test_order
     :sorted
   end
 end
+ActiveSupport::TestCase.extend TestOrderExt
 
-Minitest::Unit::TestCase.extend TestOrderExt
+DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.clean

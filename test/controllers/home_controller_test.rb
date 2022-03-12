@@ -14,7 +14,7 @@ class HomeControllerTest < BaseControllerTest
     cars = create_list(:car, rand(3))
 
     get root_path
-    assert_select '.Card', cars.size
+    assert_select '.card', cars.size
   end
 
   test '使用不可能なcarの数だけunavailableな要素があること' do
@@ -31,7 +31,7 @@ class HomeControllerTest < BaseControllerTest
     create_list(:drive, rand(3), user: create(:user))
 
     get root_path
-    assert_select '.Card--Action--FAB--Icon', {
+    assert_select '.material-icons', {
       count: Drive.where(end_meter: nil, user: @user).count,
       text: 'done'
     }

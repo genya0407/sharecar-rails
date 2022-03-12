@@ -1,17 +1,17 @@
-.Card
-  .Card--Content
-    span.Card--Content--Title
+.card
+  .card-content
+    span.card-title
       | 新規登録
-    = form_for @fuel, url: admin_car_fuels_path, html: { class: 'Form' } do |f|
+    = form_for @fuel, url: admin_car_fuels_path do |f|
       = f.hidden_field :car_id
-      .Form--InputSet
-        .Form--InputSet--Field.s12
+      .row
+        .col.input-field.s12
           = f.collection_select :user_id, User.all, :id, :name
-      .Form--InputSet
-        .Form--InputSet--Field.s6
+      .row
+        .col.input-field.s6
           = f.label :amount, 'ガソリン代'
           = f.number_field :amount
-        .Form--InputSet--Field.s6
+        .col.input-field.s6
           = f.label :created_at, '日付'
-          = f.date_field :created_at, class: 'datepicker'
-      = f.submit "記録", class: "Form--SubmitBtn"
+          = f.text_field :created_at, class: 'datepicker'
+      = f.submit "記録", class: "btn"

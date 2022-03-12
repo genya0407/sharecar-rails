@@ -1,12 +1,12 @@
-.Card
-  .Card--Content
-    span.Card--Content--Title
+.card
+  .card-content
+    span.card-title
       | 集計期間の登録
-    = form_tag admin_consumptions_path, html: { class: 'Form' } do |f|
-      .Form--InputSet--Field.s6
+    = form_tag admin_consumptions_path do |f|
+      .col.input-field.s6
         = label_tag '開始日'
         = date_field_tag :start_date, class: 'datepicker'
-      .Form--InputSet--Field.s6
+      .col.input-field.s6
         = label_tag '終了日'
         = date_field_tag :end_date, class: 'datepicker'
-      = submit_tag "登録", class: "Form--SubmitBtn"
+      = submit_tag "登録", class: "btn"

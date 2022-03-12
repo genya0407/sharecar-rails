@@ -1,21 +1,21 @@
 - if @fuel.errors.any?
   = render 'widgets/errors', object: @fuel
 #create-fuel
-  .Card
-    .Card--Content
-      span.Card--Content--Title
+  .card
+    .card-content
+      span.card-title
         | 給油
-      = form_for @fuel, url: car_fuels_path, html: { class: 'Form' } do |f|
-        .Form--InputSet
-          .Form--InputSet--Field.s12
+      = form_for @fuel, url: car_fuels_path do |f|
+        .row
+          .col.input-field.s12
             = f.label :amount, 'ガソリン代'
             = f.number_field :amount
-        = f.submit "記録", class: "Form--SubmitBtn"
+        = f.submit "記録", class: "btn"
 - @fuels.each do |fuel|
-  .Card.fuel
-    .Card--Content
+  .card.fuel
+    .card-content
       p
-        span.Card--Content--Title
+        span.card-title
           = fuel.user.name
       p
         = simple_datetime fuel.created_at
@@ -23,7 +23,7 @@
         = fuel.amount
         | 円
     - if fuel.user.id == current_user.id
-      .Card--Action
-        = link_to car_fuel_path(id: fuel), { method: :delete, data: { confirm: "#{fuel.amount}円の給油履歴を取り消しますか？" }, class: 'Card--Action--FAB btn-floating red delete-fuel' } do
-          i.Card--Action--FAB--Icon
-            | delete
+      .card-action.right-align
+        = link_to car_fuel_path(id: fuel), method: :delete, data: { confirm: "#{fuel.amount}円の給油履歴を取り消しますか？" } do
+          .delete-fuel
+            = render 'widgets/card_action', color: 'red', icon: 'delete'
