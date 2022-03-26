@@ -10,16 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2022_03_09_121909) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_03_26_150519) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bookings", id: :serial, force: :cascade do |t|
-    t.datetime "start_at", null: false
-    t.datetime "end_at", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "start_at", precision: nil, null: false
+    t.datetime "end_at", precision: nil, null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "car_id", null: false
     t.integer "user_id", null: false
     t.index ["car_id"], name: "index_bookings_on_car_id"
@@ -28,8 +27,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_03_09_121909) do
 
   create_table "cars", id: :serial, force: :cascade do |t|
     t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "status", default: 0, null: false
     t.string "note"
   end
@@ -37,23 +36,24 @@ ActiveRecord::Schema[6.1].define(version: 2022_03_09_121909) do
   create_table "consumptions", id: :serial, force: :cascade do |t|
     t.integer "car_id"
     t.float "price"
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "start_at", precision: nil
+    t.datetime "end_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "finished", default: false, null: false
     t.index ["car_id"], name: "index_consumptions_on_car_id"
   end
 
   create_table "drives", id: :serial, force: :cascade do |t|
-    t.datetime "start_at"
-    t.datetime "end_at"
+    t.datetime "start_at", precision: nil
+    t.datetime "end_at", precision: nil
     t.integer "start_meter", null: false
     t.integer "end_meter"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "car_id", null: false
     t.integer "user_id", null: false
+    t.index ["car_id", "start_meter"], name: "index_drives_on_car_id_and_start_meter"
     t.index ["car_id"], name: "index_drives_on_car_id"
     t.index ["user_id", "car_id"], name: "index_drives_on_user_id_and_car_id"
     t.index ["user_id"], name: "index_drives_on_user_id"
@@ -63,8 +63,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_03_09_121909) do
     t.integer "user_id", null: false
     t.integer "car_id", null: false
     t.integer "amount", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "checked", default: false, null: false
     t.index ["car_id"], name: "index_fuels_on_car_id"
     t.index ["user_id", "car_id", "created_at"], name: "index_fuels_on_user_id_and_car_id_and_created_at"
@@ -74,8 +74,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_03_09_121909) do
   create_table "payments", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "amount", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["created_at"], name: "index_payments_on_created_at"
     t.index ["user_id"], name: "index_payments_on_user_id"
   end
@@ -83,20 +83,20 @@ ActiveRecord::Schema[6.1].define(version: 2022_03_09_121909) do
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "email", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "crypted_password"
     t.string "salt"
     t.string "reset_password_token"
-    t.datetime "reset_password_token_expires_at"
-    t.datetime "reset_password_email_sent_at"
+    t.datetime "reset_password_token_expires_at", precision: nil
+    t.datetime "reset_password_email_sent_at", precision: nil
     t.integer "permission", default: 5, null: false
     t.string "activation_state"
     t.string "activation_token"
-    t.datetime "activation_token_expires_at"
+    t.datetime "activation_token_expires_at", precision: nil
     t.string "phone_number"
     t.string "remember_me_token"
-    t.datetime "remember_me_token_expires_at"
+    t.datetime "remember_me_token_expires_at", precision: nil
     t.index ["activation_token"], name: "index_users_on_activation_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"

@@ -4,7 +4,7 @@ class Admin::DrivesController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        drives = Drive.where(car_id: params[:car_id]).order(:start_meter)
+        drives = Drive.preload(:car, :user).where(car_id: params[:car_id]).order(:start_meter)
         @card_elements = drives.zip(drives.drop(1)).map do |current_drive, next_drive|
           if next_drive.nil? || current_drive.end_meter.nil? || current_drive.end_meter == next_drive.start_meter
             current_drive
