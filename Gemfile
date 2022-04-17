@@ -55,6 +55,8 @@ gem 'materialize-sass', '~> 1.0'
 # gem 'daru_plotly', github: 'genya0407/daru_plotly'
 gem 'rbplotly'
 
+gem 'newrelic_rpm'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

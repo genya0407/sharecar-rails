@@ -172,6 +172,7 @@ GEM
       digest
       net-protocol
       timeout
+    newrelic_rpm (8.6.0)
     nio4r (2.5.8)
     nokogiri (1.13.4)
       mini_portile2 (~> 2.8.0)
@@ -348,6 +349,7 @@ DEPENDENCIES
   material_icons
   materialize-sass (~> 1.0)
   minitest-test_profile
+  newrelic_rpm
   pg
   pry
   puma (~> 5.6)
