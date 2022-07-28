@@ -90,7 +90,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.9)
+    concurrent-ruby (1.1.10)
     crass (1.0.6)
     database_cleaner-active_record (2.0.1)
       activerecord (>= 5.a)
@@ -108,7 +108,7 @@ GEM
     execjs (2.8.1)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
-    faker (2.20.0)
+    faker (2.22.0)
       i18n (>= 1.8.11, < 2)
     faraday (0.17.5)
       multipart-post (>= 1.2, < 3)
@@ -121,7 +121,7 @@ GEM
     globalid (1.0.0)
       activesupport (>= 5.0)
     htmlentities (4.3.4)
-    i18n (1.10.0)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     io-wait (0.2.1)
