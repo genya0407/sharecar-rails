@@ -3,6 +3,6 @@ task wake_up: :environment do
   require 'net/http'
   require 'uri'
 
-  url = URI.parse("https://#{Rails.application.secrets.site_domain}")
+  url = URI.parse("https://#{Rails.application.credentials.site_domain}")
   Net::HTTP.start(url.host, url.port) { |http| http.get('/') }
 end
