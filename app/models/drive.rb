@@ -36,7 +36,7 @@ class Drive < ApplicationRecord
   LATEST_COUNT = 10
 
   def self.last_meter(car_id)
-    (where(car_id:).maximum(:end_meter) || 0)
+    where(car_id:).maximum(:end_meter) || 0
   end
 
   def self.in(start_at, end_at)
