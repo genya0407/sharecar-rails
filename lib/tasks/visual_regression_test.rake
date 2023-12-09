@@ -3,39 +3,36 @@ def _system(cmd, exception: true)
   system(cmd, exception:)
 end
 
-def fork_run_block(&)
-  pid = fork(&)
+def take_screenshot(output_dir:, freeze_time_at: Time.zone.now.to_i)
+  FileUtils.mkdir_p(output_dir)
+  scenario = VisualRegressionTest::Scenario.new(output_dir:, freeze_time_at:)
+  scenario.execute
+end
 
-  _, status = Process.wait2(pid)
-  raise "Process exited with status code: #{status.exitstatus}. at #{caller.first}" unless status.success?
+def compare_screenshot(before_dir:, after_dir:, compare_dir:)
+  FileUtils.mkdir_p(compare_dir)
+
+  Dir.glob(File.join(after_dir, '*')).each do |entry|
+    filename = File.basename(entry)
+    before_file = File.join(before_dir, filename)
+    after_file = File.join(after_dir, filename)
+    next if File.read(before_file) == File.read(after_file)
+
+    compare_file = File.join(compare_dir, filename)
+    _system("compare #{after_file} #{before_file} #{compare_file}", exception: false)
+  end
+end
+
+def combine(before_dir:, after_dir:, compare_dir:, combined_dir:)
+  FileUtils.mkdir_p(combined_dir)
+
+  Dir.glob(File.join(compare_dir, '*')).each do |path|
+    entry = File.basename path
+    _system("convert +append #{File.join(before_dir, entry)} #{File.join(after_dir, entry)} #{File.join(compare_dir, entry)} #{File.join(combined_dir, entry)}", exception: false)
+  end
 end
 
 namespace :visual_regression_test do
-  task take_screenshot: :environment do
-    output_dir = ENV['OUTPUT_DIR'] || 'tmp/visual_regression_test'
-    freeze_time_at = ENV['FREEZE_TIME_AT'].to_i || Time.zone.now.to_i
-    FileUtils.mkdir_p(output_dir)
-    scenario = VisualRegressionTest::Scenario.new(output_dir:, freeze_time_at:)
-    scenario.execute
-  end
-
-  task compare: :environment do
-    before_dir = ENV.fetch('BEFORE_DIR')
-    after_dir = ENV.fetch('AFTER_DIR')
-    compare_dir = ENV.fetch('OUTPUT_DIR')
-    FileUtils.mkdir_p(compare_dir)
-
-    Dir.glob(File.join(after_dir, '*')).each do |entry|
-      filename = File.basename(entry)
-      before_file = File.join(before_dir, filename)
-      after_file = File.join(after_dir, filename)
-      next if File.read(before_file) == File.read(after_file)
-
-      compare_file = File.join(compare_dir, filename)
-      _system("compare #{after_file} #{before_file} #{compare_file}", exception: false)
-    end
-  end
-
   task run: :environment do
     raise 'git diff exists' unless `git status --porcelain`.strip.lines.empty?
 
@@ -48,32 +45,22 @@ namespace :visual_regression_test do
     before_dir = File.join('tmp', 'visual_regression_test_auto', base_ref.to_s)
     after_dir = File.join('tmp', 'visual_regression_test_auto', current_ref.to_s)
     compare_dir = File.join('tmp', 'visual_regression_test_auto', 'compare')
+    combined_dir = File.join('tmp', 'visual_regression_test_auto', 'combined')
 
     _system('rm -rf tmp/visual_regression_test_auto')
 
-    fork_run_block do
-      ENV['OUTPUT_DIR'] = after_dir
-      ENV['FREEZE_TIME_AT'] = freeze_time_at.to_s
-      Rake::Task['visual_regression_test:take_screenshot'].invoke
-    end
+    take_screenshot(output_dir: after_dir, freeze_time_at:)
 
-    fork_run_block do
+    begin
       _system("git checkout #{base_branch}")
       _system('bundle install')
-
-      ENV['OUTPUT_DIR'] = before_dir
-      ENV['FREEZE_TIME_AT'] = freeze_time_at.to_s
-      Rake::Task['visual_regression_test:take_screenshot'].invoke
+      take_screenshot(output_dir: before_dir, freeze_time_at:)
     ensure
       _system("git checkout #{current_branch}")
     end
 
-    fork_run_block do
-      ENV['BEFORE_DIR'] = before_dir
-      ENV['AFTER_DIR'] = after_dir
-      ENV['OUTPUT_DIR'] = compare_dir
+    compare_screenshot(before_dir:, after_dir:, compare_dir:)
 
-      Rake::Task['visual_regression_test:compare'].invoke
-    end
+    combine(before_dir:, after_dir:, compare_dir:, combined_dir:)
   end
 end

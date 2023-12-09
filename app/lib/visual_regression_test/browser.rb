@@ -43,11 +43,11 @@ module VisualRegressionTest
     end
 
     def wait_server_up(path)
-      loop do
-        sleep 1
-        go_to(path)
-        break if @browser.network.status
-      end
+      go_to(path)
+      @browser.network.status
+    rescue Ferrum::StatusError
+      sleep 1
+      retry
     end
 
     def go_to(path)
