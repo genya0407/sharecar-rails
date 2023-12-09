@@ -31,3 +31,4 @@
 
 *.ipynb
 .DS_Store
+.idea/
