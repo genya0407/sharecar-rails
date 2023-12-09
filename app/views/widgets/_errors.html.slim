@@ -1,5 +1,5 @@
 #errors.row
-  - object.errors.messages.each do |_, msgs|
+  - object.errors.messages.each_value do |msgs|
     - msgs.each do |msg|
       .col.s12
         .card-panel.red
