@@ -84,5 +84,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # custom configs
-  config.action_mailer.default_url_options = { host: Rails.application.credentials.site_domain, protocol: 'https' }
+  config.action_mailer.default_url_options = { host: Rails.application.secrets.site_domain, protocol: 'https' }
 end
